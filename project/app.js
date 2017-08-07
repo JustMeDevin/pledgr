@@ -9,10 +9,10 @@ app.post('/users', function(req, res){
     let user_data = req.body;
     let result = user.addUser(user_data);
     if(result){
-        res.send({ "SUCCESS" : "Successfully created user" });
+        res.status(201).send("OK");
     }else{
         console.log({ "ERROR" : "Error inserting user" });
-        res.send ({"ERROR" : "Error connecting to database"});
+        res.send ({"ERROR" : "Error inserting user"});
     }
 });
 

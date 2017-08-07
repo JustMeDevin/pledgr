@@ -3,20 +3,12 @@ const databaseConnection = require('./DatabaseConnection');
 module.exports = {
     addUser : function(user_data){
         const con = databaseConnection.connect();
-        console.log(user_data);
-        con.connect(function(err) {
+        return con.connect(function(err) {
             if (!err) {
                 console.log("Connected to database");
-                let username = user_data['username'].toString();
-                let user_id = user_data['user_id']
-                let location = user_data['location'].toString();
-                let email = user_data['email'].toString();
-                let password = user_data['password'].toString();
-
-                let values = [user_id, username, location, email, password];
-
-                const sql = "INSERT INTO Users (user_id, username, location, email, password) VALUES ?";
-                con.query(sql, values, function (err, result) {
+                const sql = "INSERT INTO Users (user_id, username, location, email, password) VALUES ?)";
+                let values = [[parseInt(user_data.user.id), user_data.user.username, user_data.user.location, user_data.user.email, user_data.password]];
+                return con.query(sql, [values], function (err, result) {
                     con.end();
                     if (!err) {
                         return true;
