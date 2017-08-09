@@ -1,25 +1,27 @@
 const databaseConnection = require('./DatabaseConnection');
 
 module.exports = {
-    addUser : function(user_data){
+    addUser: function (user_data, callback) {
         const con = databaseConnection.connect();
-        return con.connect(function(err) {
+        con.connect(function (err) {
             if (!err) {
-                console.log("Connected to database");
-                const sql = "INSERT INTO Users (user_id, username, location, email, password) VALUES ?)";
-                let values = [[parseInt(user_data.user.id), user_data.user.username, user_data.user.location, user_data.user.email, user_data.password]];
-                return con.query(sql, [values], function (err, result) {
+                const sql = "INSERT INTO Users (username, location, email, password) VALUES ?";
+                let values = [[ 
+                    con.escape(user_data.user.username), 
+                    con.escape(user_data.user.location), 
+                    con.escape(user_data.user.email), 
+                    con.escape(user_data.password)
+                ]];
+                con.query(sql, [values], function (err, result) {
                     con.end();
                     if (!err) {
-                        return true;
+                        callback(201, result.insertId);
                     } else {
-                        console.log({"ERROR": "Error inserting user"});
-                        return false;
+                        callback(400, "Error inserting user");
                     }
                 });
             } else {
-                console.log("Error connecting to database");
-                return false;
+                callback(500, "Unexpected Server Error");
             }
         })
     }
