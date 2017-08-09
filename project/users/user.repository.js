@@ -1,4 +1,4 @@
-const databaseConnection = require('./DatabaseConnection');
+const databaseConnection = require('../conf/db-connection');
 
 module.exports = {
     addUser: function (user_data, callback) {
