@@ -24,5 +24,60 @@ module.exports = {
                 callback(500, "Unexpected Server Error");
             }
         })
+    },
+
+    loginUser: function (loginParams, callback){
+        const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "SELECT password FROM USERS WHERE username = ?";
+                let values = [[con.escape(loginParams.username)]]
+                con.query(sql, [values], function (err, result, fields) {
+                    con.end();
+                    if (!err) {
+                        if(checkPassword(result, loginParams.password)){
+                            generateUniqueID();
+                        }else{
+                            callback(400, "Invalid username/password supplied");
+                        }
+                    } else {
+                        callback(400, "Invalid username/password supplied");
+                    }
+                });
+            }else {
+                callback(500, "Unexpected Server Error");
+            }
+        });
+    },
+
+    getUser: function (id, callback){
+        const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "SELECT user_id, username, location, email FROM USERS WHERE user_id = ?";
+                let values = [[con.escape(parseInt(id))]]
+                con.query(sql, [values], function (err, result, fields) {
+                    con.end();
+                    if (!err) {
+                        console.log(result);
+                        if(result.length > 0){
+                            callback(200, result[0]);
+                        }else{
+                            callback(404, "User not found");
+                        }
+                    } else {
+                        callback(400, "Invalid id supplied");
+                    }
+                });
+            }else {
+                callback(500, "Unexpected Server Error");
+            }
+        });
+    }
+}
+
+function checkPassword(actualPass, passAttempt){
+    if(actualPass.length > 0){
+        return actualPass[0].password === passAttempt;
     }
 }
