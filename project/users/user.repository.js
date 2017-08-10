@@ -30,13 +30,13 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT password FROM USERS WHERE username = ?";
+                const sql = "SELECT user_id, password FROM USERS WHERE username = ?";
                 let values = [[con.escape(loginParams.username)]]
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
                     if (!err) {
                         if(checkPassword(result, loginParams.password)){
-                            generateUniqueID();
+                            callback(200, generateUniqueID(result[0].user_id));
                         }else{
                             callback(400, "Invalid username/password supplied");
                         }
@@ -80,4 +80,54 @@ function checkPassword(actualPass, passAttempt){
     if(actualPass.length > 0){
         return actualPass[0].password === passAttempt;
     }
+}
+
+function generateUniqueID(user_id){
+    let uuid = guid();
+    const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "UPDATE Users SET session_token = ? WHERE user_id = ?";
+                con.query(sql, [uuid, user_id], function (err, result, fields) {
+                    con.end();
+                    if (!err) {
+                        return getTokenJSON(user_id);
+                    } else {
+                        console.log("error");
+                    }
+                });
+            } else {
+                console.log("unexpected error")
+            }
+        })
+    return uuid;
+}
+
+function getTokenJSON(user_id){
+    const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "SELECT user_id, session_token FROM USERS WHERE user_id = ?";
+                con.query(sql, [user_id], function (err, result, fields) {
+                    con.end();
+                    if (!err) {
+                        return result[0];
+                    } else {
+                        console.log("error");
+                    }
+                });
+            } else {
+                console.log("unexpected error")
+            }
+        })
+}
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
 }
