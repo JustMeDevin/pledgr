@@ -1,5 +1,6 @@
 const databaseConnection = require('../conf/db-connection');
 
+
 module.exports = {
     addUser: function (user_data, callback) {
         const con = databaseConnection.connect();
@@ -73,6 +74,80 @@ module.exports = {
                 callback(500, "Unexpected Server Error");
             }
         });
+    },
+
+    updateUser: function (user_id, user_data, callback){
+    const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                let values = [
+                    user_data.user.username, 
+                    user_data.user.location, 
+                    con.escape(user_data.user.email), 
+                    con.escape(user_data.password),
+                    user_id
+                ];
+                const sql = "UPDATE Users SET username = ?, location = ?, email = ?, password = ? WHERE user_id = ?";
+                con.query(sql, values, function (err, result, fields) {
+                    con.end();
+                    if (!err) {
+                        if(result.affectedRows === 1){
+                            callback(201, "User updated");
+                        }
+                    } else {
+                        callback(404, "User not found");
+                    }
+                });
+            } else {
+                callback(500, "Unexpected server error");
+            }
+        })
+    },
+
+    logoutUser: function (token, callback){
+    const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "UPDATE Users SET session_token = ? WHERE session_token = ?";
+                con.query(sql, [null, token], function (err, result, fields) {
+                    con.end();
+                    if (!err) {
+                        if(result.affectedRows === 1){
+                            callback(201, "OK");
+                        }else{
+                            callback(401, "Unauthorized - already logged out");
+                        }
+                    } else {
+                        callback(404, "User not found");
+                    }
+                });
+            } else {
+                callback(500, "Unexpected server error");
+            }
+        })
+    },
+
+    deleteUser: function (user_id, callback){
+    const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "DELETE FROM Users WHERE user_id = ?";
+                con.query(sql, [user_id], function (err, result, fields) {
+                    con.end();
+                    if (!err) {
+                        if(result.affectedRows === 1){
+                            callback(200, "User deleted");
+                        }else{
+                            callback(401, "Unauthorized - already logged out");
+                        }
+                    } else {
+                        callback(404, "User not found");
+                    }
+                });
+            } else {
+                callback(500, "Unexpected server error");
+            }
+        })
     }
 }
 
