@@ -8,10 +8,10 @@ module.exports = {
             if (!err) {
                 const sql = "INSERT INTO Users (username, location, email, password) VALUES ?";
                 let values = [[ 
-                    con.escape(user_data.user.username), 
-                    con.escape(user_data.user.location), 
-                    con.escape(user_data.user.email), 
-                    con.escape(user_data.password)
+                    user_data.user.username, 
+                    user_data.user.location, 
+                    user_data.user.email, 
+                    user_data.password
                 ]];
                 con.query(sql, [values], function (err, result) {
                     con.end();
@@ -32,12 +32,16 @@ module.exports = {
         con.connect(function (err) {
             if (!err) {
                 const sql = "SELECT user_id, password FROM USERS WHERE username = ?";
-                let values = [[con.escape(loginParams.username)]]
+                let values = loginParams.username;
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
                     if (!err) {
                         if(checkPassword(result, loginParams.password)){
-                            callback(200, generateUniqueID(result[0].user_id));
+                            let userDetails = {
+                                token: generateUniqueID(result[0].user_id),
+                                id: result[0].user_id
+                            };
+                            callback(200, userDetails);
                         }else{
                             callback(400, "Invalid username/password supplied");
                         }
