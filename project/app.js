@@ -16,5 +16,5 @@ app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
 
 app.listen(4941, function () {
-    console.log('listening on port: ' + 3000);
+    console.log('listening on port: ' + 4941);
 });
