@@ -35,6 +35,7 @@ router.get('/:id', function (req, res) {
 
 router.put('/:id', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
+    //let currentUserID = validator.currentUser.user_id;
     let user_data = req.body;
     user.updateUser(id, user_data, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));

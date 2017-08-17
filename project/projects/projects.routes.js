@@ -1,6 +1,7 @@
 const project = require('./project.repository');
 const reward = require('../rewards/reward.repository');
 const router = require('express').Router();
+const validator = require('../conf/validation');
 
 const middleware = (req, res, next) => {
     validator.isValidToken(req.get('X-Authorization'), function callback(authorized){
