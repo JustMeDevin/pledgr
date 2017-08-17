@@ -7,7 +7,7 @@ module.exports = {
             port: process.env.SENG365_MYSQL_PORT || 3306,
             user: 'root',
             password: 'root' || 'secret',
-            database: 'CrowdFund'
+            database: 'CrowdFund' || 'mysql'
         });
         return con;
     }
