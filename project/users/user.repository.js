@@ -2,16 +2,16 @@ const databaseConnection = require('../conf/db-connection');
 
 
 module.exports = {
-    addUser: function (user_data, callback) {
+    addUser: function (userData, callback) {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
                 const sql = "INSERT INTO Users (username, location, email, password) VALUES ?";
                 let values = [[ 
-                    user_data.user.username, 
-                    user_data.user.location, 
-                    user_data.user.email, 
-                    user_data.password
+                    userData.user.username, 
+                    userData.user.location, 
+                    userData.user.email, 
+                    userData.password
                 ]];
                 con.query(sql, [values], function (err, result) {
                     con.end();
@@ -31,15 +31,17 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT user_id, password FROM USERS WHERE username = ?";
+                const sql = "SELECT id, password FROM USERS WHERE username = ?";
                 let values = loginParams.username;
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
                     if (!err) {
                         if(checkPassword(result, loginParams.password)){
+                            let newToken = generateUniqueID(result[0].id);
+                            updateToken(newToken, result[0].id);
                             let userDetails = {
-                                token: generateUniqueID(result[0].user_id),
-                                id: result[0].user_id
+                                token: newToken,
+                                id: result[0].id
                             };
                             callback(200, userDetails);
                         }else{
@@ -59,7 +61,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT user_id, username, location, email FROM USERS WHERE user_id = ?";
+                const sql = "SELECT id, username, location, email FROM USERS WHERE id = ?";
                 let values = [[con.escape(parseInt(id))]]
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
@@ -80,18 +82,18 @@ module.exports = {
         });
     },
 
-    updateUser: function (user_id, user_data, callback){
+    updateUser: function (userID, userData, callback){
     const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
                 let values = [
-                    user_data.user.username, 
-                    user_data.user.location, 
-                    con.escape(user_data.user.email), 
-                    con.escape(user_data.password),
-                    user_id
+                    userData.user.username, 
+                    userData.user.location, 
+                    con.escape(userData.user.email), 
+                    con.escape(userData.password),
+                    userID
                 ];
-                const sql = "UPDATE Users SET username = ?, location = ?, email = ?, password = ? WHERE user_id = ?";
+                const sql = "UPDATE Users SET username = ?, location = ?, email = ?, password = ? WHERE id = ?";
                 con.query(sql, values, function (err, result, fields) {
                     con.end();
                     if (!err) {
@@ -112,7 +114,7 @@ module.exports = {
     const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "UPDATE Users SET session_token = ? WHERE session_token = ?";
+                const sql = "UPDATE Users SET sessionToken = ? WHERE sessionToken = ?";
                 con.query(sql, [null, token], function (err, result, fields) {
                     con.end();
                     if (!err) {
@@ -131,12 +133,12 @@ module.exports = {
         })
     },
 
-    deleteUser: function (user_id, callback){
+    deleteUser: function (userID, callback){
     const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "DELETE FROM Users WHERE user_id = ?";
-                con.query(sql, [user_id], function (err, result, fields) {
+                const sql = "DELETE FROM Users WHERE id = ?";
+                con.query(sql, [userID], function (err, result, fields) {
                     con.end();
                     if (!err) {
                         if(result.affectedRows === 1){
@@ -161,16 +163,16 @@ function checkPassword(actualPass, passAttempt){
     }
 }
 
-function generateUniqueID(user_id){
+function generateUniqueID(userID){
     let uuid = guid();
     const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "UPDATE Users SET session_token = ? WHERE user_id = ?";
-                con.query(sql, [uuid, user_id], function (err, result, fields) {
+                const sql = "UPDATE Users SET sessionToken = ? WHERE id = ?";
+                con.query(sql, [uuid, userID], function (err, result, fields) {
                     con.end();
                     if (!err) {
-                        return getTokenJSON(user_id);
+                        return getTokenJSON(userID);
                     } else {
                         console.log("error");
                     }
@@ -182,12 +184,12 @@ function generateUniqueID(user_id){
     return uuid;
 }
 
-function getTokenJSON(user_id){
+function getTokenJSON(userID){
     const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT user_id, session_token FROM USERS WHERE user_id = ?";
-                con.query(sql, [user_id], function (err, result, fields) {
+                const sql = "SELECT id, sessionToken FROM USERS WHERE id = ?";
+                con.query(sql, [userID], function (err, result, fields) {
                     con.end();
                     if (!err) {
                         return result[0];
@@ -199,6 +201,19 @@ function getTokenJSON(user_id){
                 console.log("unexpected error")
             }
         })
+}
+
+function updateToken(token, id){
+    const con = databaseConnection.connect();
+    con.connect(function (err) {
+        if (!err) {
+            const sql = "UPDATE Users SET sessionToken = ? WHERE id = ?";
+            con.query(sql, [token, id], function (err, result, fields) {
+                con.end();
+                 
+            });
+        } 
+    })
 }
 
 function guid() {

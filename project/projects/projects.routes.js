@@ -22,8 +22,8 @@ router.get('', function (req, res) {
 });
 
 router.post('/', validator.authMiddleware, function (req, res) {
-    let project_data = req.body;
-    project.createProject(project_data, function callback(status, response) {
+    let projectData = req.body;
+    project.createProject(projectData, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });
@@ -37,8 +37,8 @@ router.get('/:id', function (req, res) {
 
 router.put('/:id', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
-    let updated_data = req.body;
-    project.updateProject(id, updated_data, function callback(status, response) {
+    let updatedData = req.body;
+    project.updateProject(id, updatedData, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });
@@ -57,8 +57,8 @@ router.put('/:id/image', validator.authMiddleware, function (req, res) {
 
 router.post('/:id/pledge', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
-    let pledge_data = req.body;
-    projects.pledge(id, pledge_data, function callback(status, response) {
+    let pledgeData = req.body;
+    projects.pledge(id, pledgeData, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });

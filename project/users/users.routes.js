@@ -13,8 +13,8 @@ const middleware = (req, res, next) => {
 }
 
 router.post('/', function (req, res) {
-    let user_data = req.body;
-    user.addUser(user_data, function callback(status, response) {
+    let userData = req.body;
+    user.addUser(userData, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });

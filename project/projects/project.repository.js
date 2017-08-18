@@ -3,34 +3,32 @@ const user = require('../users/users.routes');
 
 
 module.exports = {
-    createProject: function(project_data, callback) {
+    createProject: function(projectData, callback) {
         const con = databaseConnection.connect();
         let timeStamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
         con.connect(function (err) {
             if (!err) {
                 const sql = "INSERT INTO Projects (title, creationDate, subtitle, description, target) VALUES ?";
                 let values = [[ 
-                    con.escape(project_data.title), 
+                    projectData.title, 
                     timeStamp,
-                    con.escape(project_data.subtitle), 
-                    con.escape(project_data.description), 
-                    con.escape(project_data.target)
+                    projectData.subtitle, 
+                    projectData.description, 
+                    projectData.target
                 ]];
                 con.query(sql, [values], function (err, result) {
                     if (!err) {
                         let projectID = result.insertId;
-                        const sql = "INSERT INTO Creators (creator_id, project_id, name) VALUES ?";
+                        const sql = "INSERT INTO Creators (d, projectID, name) VALUES ?";
                         let creatorValues = [];
-                        for(var i = 0; i < project_data.creators.length; i++){
-                            creatorValues.push([project_data.creators[i].id, projectID, project_data.creators[i].name]);                            
-                        }
+                        for(var i = 0; i < projectData.creators.length; i++)
+                            creatorValues.push([projectData.creators[i].id, projectID, projectData.creators[i].name]);
                         con.query(sql, [creatorValues], function (err, result) {
                             if (!err) {
-                                const sql = "INSERT INTO Rewards (reward_id, amount, description, project_id) VALUES ?";
+                                const sql = "INSERT INTO Rewards (id, amount, description, projectID) VALUES ?";
                                 let rewardValues = [];
-                                for(var i=0; i< project_data.rewards.length; i++){
-                                    rewardValues.push([project_data.rewards[i].id, project_data.rewards[i].amount, project_data.rewards[i].description, projectID]);                                    
-                                }
+                                for(var i=0; i< projectData.rewards.length; i++)
+                                    rewardValues.push([projectData.rewards[i].id, projectData.rewards[i].amount, projectData.rewards[i].description, projectID]);
                                 con.query(sql, [rewardValues], function (err, result) {
                                     con.end();
                                     if (!err) {
@@ -57,13 +55,52 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT * FROM PROJECTS WHERE project_id = ?";
+                const sql = "SELECT * FROM Projects WHERE id = ?";
                 let values = [[con.escape(parseInt(id))]]
                 con.query(sql, [values], function (err, result, fields) {
-                    con.end();
                     if (!err) {
                         if(result.length > 0){
-                            callback(200, result[0]);
+                            let projectDetails = result[0];
+                            const sql = "SELECT id, name FROM Creators WHERE projectID = ?";
+                            con.query(sql, [id], function (err, result, fields) {
+                                if (!err) {
+                                    if(result.length > 0){
+                                        let creators = result;
+                                        const sql = "SELECT id, amount, description FROM Rewards WHERE projectID = ?";
+                                        con.query(sql, [id], function (err, result, fields) {
+                                            if (!err) {
+                                                if(result.length > 0){
+                                                    let rewards = result;
+                                                    const sql = "SELECT id, amount FROM Backers WHERE projectID = ?";
+                                                    let values = [[con.escape(parseInt(id))]]
+                                                    con.query(sql, [values], function (err, result, fields) {
+                                                        if (!err) {
+                                                            if(result.length > 0){
+                                                                let backers = result;
+                                                                let constructedResult = constructGetProject(projectDetails, rewards, creators, backers);
+                                                                callback(200, constructedResult);
+                                                            }else{
+                                                                let constructedResult = constructGetProject(projectDetails, rewards, creators, backers=[]);
+                                                                callback(200, constructedResult);
+                                                            }
+                                                        } else {
+                                                            callback(400, "Invalid id supplied");
+                                                        }
+                                                    });
+                                                }else{
+                                                    callback(404, "not Found");
+                                                }
+                                            } else {
+                                                callback(400, "Invalid id supplied");
+                                            }
+                                        });
+                                    }else{
+                                        callback(404, "not Found");
+                                    }
+                                } else {
+                                    callback(400, "Invalid id supplied");
+                                }
+                            });
                         }else{
                             callback(404, "not Found");
                         }
@@ -81,7 +118,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT project_id, title, subtitle, image_url FROM PROJECTS LIMIT ?";
+                const sql = "SELECT id, title, subtitle, image_url FROM PROJECTS LIMIT ?";
                 let values = [parseInt(startIndex), parseInt(count)];
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
@@ -101,16 +138,16 @@ module.exports = {
         });
     },
 
-    updateProject: function (project_id, project_data, callback){
+    updateProject: function (projectID, projectData, callback){
         const con = databaseConnection.connect();
         let open = 0;
             con.connect(function (err) {
                 if (!err) {
                     let values = [ 
-                        project_data.open,
-                        project_id
+                        projectData.open,
+                        projectID
                     ];
-                    const sql = "UPDATE Projects SET open = ? WHERE project_id = ?";
+                    const sql = "UPDATE Projects SET open = ? WHERE id = ?";
                     con.query(sql, values, function (err, result, fields) {
                         con.end();
                         if (!err) {
@@ -135,10 +172,10 @@ module.exports = {
                 if (!err) {
                     const sql = "INSERT INTO Projects (title, subtitle, description, target) VALUES ?";
                     let values = [[ 
-                        con.escape(project_data.title), 
-                        con.escape(project_data.subtitle), 
-                        con.escape(project_data.description), 
-                        con.escape(project_data.target)
+                        project_data.title, 
+                        project_data.subtitle, 
+                        project_data.description, 
+                        project_data.target
                     ]];
                     con.query(sql, [values], function (err, result) {
                         con.end();
@@ -153,4 +190,28 @@ module.exports = {
                 }
             })
         }
+}
+
+function constructGetProject(projectData, rewards, creators, backers){
+    return projectDetails = {
+        project: {
+            id: projectData.project_id,
+            creationDate: projectData.creationDate,
+            data: {
+                title: projectData.title,
+                subtitle: projectData.subtitle,
+                description: projectData.description,
+                imageUri: projectData.imageUri,
+                target: projectData.target,
+                creators,
+                rewards,
+            }
+        },
+        progress: {
+            target: projectData.target,
+            currentPledged: projectData.currentPledged,
+            numberOfBackers: backers.length 
+        },
+        backers
+    };
 }
