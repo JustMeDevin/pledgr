@@ -14,6 +14,7 @@ function connect() {
         password: 'root' || 'secret',
         database: 'CrowdFund' || 'mysql'
     });
+    console.log(con);
     return con;
  }
 
