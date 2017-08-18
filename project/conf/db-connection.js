@@ -14,6 +14,34 @@ function connect() {
         password: 'root' || 'secret',
         database: 'CrowdFund' || 'mysql'
     });
+    let con = mysql.createConnection({
+        host: 'localhost' || process.env.SENG365_MYSQL_HOST ,
+        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        user: 'root',
+        password: 'root' || 'secret',
+        database: 'CrowdFund' || 'mysql'
+    });
+    let con = mysql.createConnection({
+        host: 'localhost' || process.env.SENG365_MYSQL_HOST ,
+        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        user: 'root',
+        password: 'root' || 'secret',
+        database: 'CrowdFund' || 'mysql'
+    });
+    let con = mysql.createConnection({
+        host: 'localhost' || process.env.SENG365_MYSQL_HOST ,
+        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        user: 'root',
+        password: 'root' || 'secret',
+        database: 'CrowdFund' || 'mysql'
+    });
+    let con = mysql.createConnection({
+        host: 'localhost' || process.env.SENG365_MYSQL_HOST ,
+        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        user: 'root',
+        password: 'root' || 'secret',
+        database: 'CrowdFund' || 'mysql'
+    });
     return con;
  }
 
