@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const databaseConnection = require('./conf/db-connection');
-databaseConnection.createDatabase();
+//databaseConnection.createDatabase();
 app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
