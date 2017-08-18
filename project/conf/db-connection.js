@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'mysql' : 'CrowdFund';
+//const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'mysql' : 'CrowdFund';
 
 module.exports = {
     connect : connect,
@@ -12,7 +12,7 @@ function connect() {
         port: process.env.SENG365_MYSQL_PORT || 3306,
         user: 'root',
         password: 'root' || 'secret',
-        database: mysqlDatabase
+        database: 'CrowdFund' || 'mysql'
     });
     return con;
  }
