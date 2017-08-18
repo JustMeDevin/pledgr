@@ -3,7 +3,7 @@ const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'mysql' : 'CrowdFund';
 
 module.exports = {
     connect : connect,
-    createDatabase : createDatabase
+    //createDatabase : createDatabase
 }
 
 function connect() {
