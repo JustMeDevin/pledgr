@@ -14,8 +14,8 @@ const middleware = (req, res, next) => {
 }
 
 router.get('', function (req, res) {
-    let startIndex = req.params.startIndex;
-    let count = req.params.count;
+    let startIndex = req.query.startIndex;
+    let count = req.query.count;
     project.getProjects(startIndex, count, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });

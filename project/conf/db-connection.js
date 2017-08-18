@@ -6,6 +6,17 @@ module.exports = {
     createDatabase : createDatabase
 }
 
+function connect() {
+    let con = mysql.createConnection({
+        host: process.env.SENG365_MYSQL_HOST || 'localhost',
+        port: process.env.SENG365_MYSQL_PORT || 3306,
+        user: 'root',
+        password: 'root' || 'secret',
+        database: mysqlDatabase
+    });
+    return con;
+ }
+
 function createDatabase(){
     let con = connect();
     con.query("CREATE TABLE `Backers` (`user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,`amount` int(11) NOT NULL,`anonymous` tinyint(1) NOT NULL, `card` int(11) DEFAULT NULL,PRIMARY KEY (`user_id`));", function(err, rows, fields){
@@ -51,14 +62,3 @@ function createDatabase(){
     });
 
 }
-
-function connect() {
-    let con = mysql.createConnection({
-        host: process.env.SENG365_MYSQL_HOST || 'localhost',
-        port: process.env.SENG365_MYSQL_PORT || 3306,
-        user: 'root',
-        password: 'root' || 'secret',
-        database: mysqlDatabase
-    });
-    return con;
- }

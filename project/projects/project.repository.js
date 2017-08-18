@@ -17,9 +17,32 @@ module.exports = {
                     con.escape(project_data.target)
                 ]];
                 con.query(sql, [values], function (err, result) {
-                    con.end();
                     if (!err) {
-                        callback(201, "OK");
+                        let projectID = result.insertId;
+                        const sql = "INSERT INTO Creators (creator_id, project_id, name) VALUES ?";
+                        let creatorValues = [];
+                        for(var i = 0; i < project_data.creators.length; i++){
+                            creatorValues.push([project_data.creators[i].id, projectID, project_data.creators[i].name]);                            
+                        }
+                        con.query(sql, [creatorValues], function (err, result) {
+                            if (!err) {
+                                const sql = "INSERT INTO Rewards (reward_id, amount, description, project_id) VALUES ?";
+                                let rewardValues = [];
+                                for(var i=0; i< project_data.rewards.length; i++){
+                                    rewardValues.push([project_data.rewards[i].id, project_data.rewards[i].amount, project_data.rewards[i].description, projectID]);                                    
+                                }
+                                con.query(sql, [rewardValues], function (err, result) {
+                                    con.end();
+                                    if (!err) {
+                                        callback(201, "OK");
+                                    } else {
+                                        callback(400, "Malformed project data");
+                                    }
+                                });
+                            } else {
+                                callback(400, "Malformed project data");
+                            }
+                        });
                     } else {
                         callback(400, "Malformed project data");
                     }
@@ -59,7 +82,7 @@ module.exports = {
         con.connect(function (err) {
             if (!err) {
                 const sql = "SELECT project_id, title, subtitle, image_url FROM PROJECTS LIMIT ?";
-                let values = [startIndex, count]
+                let values = [parseInt(startIndex), parseInt(count)];
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
                     if (!err) {
