@@ -9,6 +9,8 @@ const databaseConnection = require('./conf/db-connection');
 databaseConnection.createDatabase();
 app.use(bodyParser.json());
 
+//There is some callback hell in here that given more time I would swap out for promises.
+
 app.use(function (req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   next();
