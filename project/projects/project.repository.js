@@ -129,8 +129,7 @@ module.exports = {
                             callback(404, "not Found");
                         }
                     } else {
-                        //callback(400, "Invalid id supplied");
-                        callback(400, err);
+                        callback(400, "Invalid id supplied");
                     }
                 });
             }else {
