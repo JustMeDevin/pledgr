@@ -45,10 +45,10 @@ module.exports = {
                             };
                             callback(200, userDetails);
                         }else{
-                            callback(400, "Invalid username/password supplied");
+                            callback(400, err);
                         }
                     } else {
-                        callback(400, "Invalid username/password supplied");
+                        callback(400, err);
                     }
                 });
             }else {
