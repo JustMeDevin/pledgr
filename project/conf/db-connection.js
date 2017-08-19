@@ -29,7 +29,7 @@ function connect() {
 function createDatabase() {
     setTimeout(function () {
         createDatabaseTables()
-    }, 10000)
+    }, 20000)
 }
 
 function createDatabaseTables(){
