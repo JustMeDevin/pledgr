@@ -25,6 +25,11 @@ function createDatabase() {
 
 function createDatabaseTables(){
     let con = connect();
+    con.query("CREATE DATABASE mysql", function (err, result) {
+        if (err) throw err;
+        console.log("Database created");
+    });
+
     con.query("CREATE TABLE `Backers` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`amount` int(11) NOT NULL,`anonymous` tinyint(1) NOT NULL,`card` int(11) DEFAULT NULL,`projectID` int(11) DEFAULT NULL,PRIMARY KEY (`id`))", function(err, rows, fields){
         if(err){
             console.log(err);
@@ -66,5 +71,6 @@ function createDatabaseTables(){
             console.log(err);
         }
     });
+    con.end();
 
 }
