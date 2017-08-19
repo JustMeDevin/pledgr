@@ -57,8 +57,14 @@ function createDatabase(){
     });
 
     con.query("CREATE TABLE `CFUsers` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`username` varchar(11) NOT NULL DEFAULT '',`location` varchar(15) NOT NULL DEFAULT '',`email` varchar(25) NOT NULL DEFAULT '',`password` varchar(20) NOT NULL DEFAULT '',`sessionToken` varchar(64) DEFAULT '',PRIMARY KEY (`id`))", function(err, rows, fields){
-        if(err){
+        if(err){        
             console.log(err);
+        }else{
+            con.query( "INSERT INTO `CFUsers` (`username`, `location`, `email`, `password`)VALUES('Devin', 'Christchurch', '\'justmedevin@gmail.com\'', 'test');", function(err, rows, fields){
+                if(err){
+                    console.log(err);
+                }
+            });
         }
     });
 
