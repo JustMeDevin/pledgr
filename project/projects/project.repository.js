@@ -118,7 +118,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT id, title, subtitle, image_url FROM PROJECTS LIMIT ?";
+                const sql = "SELECT id, title, subtitle, image_url FROM Projects LIMIT ?";
                 let values = [parseInt(startIndex), parseInt(count)];
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
