@@ -54,7 +54,8 @@ router.post('/:id/pledge', validator.authMiddleware, function (req, res) {
 });
 
 router.get('/:id/rewards', function (req, res) {
-    reward.getReward(loginParams, function callback(status, response) {
+    let id = req.params.id;
+    reward.getReward(id, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });

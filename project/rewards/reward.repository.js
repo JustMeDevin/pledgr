@@ -5,13 +5,12 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT * FROM PROJECTS WHERE project_id = ?";
-                let values = [[con.escape(parseInt(id))]]
-                con.query(sql, [values], function (err, result, fields) {
+                const sql = "SELECT id, amount, description FROM Rewards WHERE projectID = ?";
+                con.query(sql, id, function (err, result, fields) {
                     con.end();
                     if (!err) {
                         if(result.length > 0){
-                            callback(200, result[0]);
+                            callback(200, result);
                         }else{
                             callback(404, "not Found");
                         }
