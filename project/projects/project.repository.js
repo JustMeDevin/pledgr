@@ -19,7 +19,7 @@ module.exports = {
                 con.query(sql, [values], function (err, result) {
                     if (!err) {
                         let projectID = result.insertId;
-                        const sql = "INSERT INTO Creators (d, projectID, name) VALUES ?";
+                        const sql = "INSERT INTO Creators (id, projectID, name) VALUES ?";
                         let creatorValues = [];
                         for(var i = 0; i < projectData.creators.length; i++)
                             creatorValues.push([projectData.creators[i].id, projectID, projectData.creators[i].name]);
