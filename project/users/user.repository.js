@@ -18,7 +18,7 @@ module.exports = {
                     if (!err) {
                         callback(201, result.insertId);
                     } else {
-                        callback(400, "Error inserting user");
+                        callback(400, err);
                     }
                 });
             } else {
