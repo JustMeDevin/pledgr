@@ -25,10 +25,10 @@ module.exports = {
                             creatorValues.push([projectData.creators[i].id, projectID, projectData.creators[i].name]);
                         con.query(sql, [creatorValues], function (err, result) {
                             if (!err) {
-                                const sql = "INSERT INTO Rewards (id, amount, description, projectID) VALUES ?";
+                                const sql = "INSERT INTO Rewards (amount, description, projectID) VALUES ?";
                                 let rewardValues = [];
                                 for(var i=0; i< projectData.rewards.length; i++)
-                                    rewardValues.push([projectData.rewards[i].id, projectData.rewards[i].amount, projectData.rewards[i].description, projectID]);
+                                    rewardValues.push([projectData.rewards[i].amount, projectData.rewards[i].description, projectID]);
                                 con.query(sql, [rewardValues], function (err, result) {
                                     con.end();
                                     if (!err) {
@@ -71,7 +71,7 @@ module.exports = {
                                             if (!err) {
                                                 if(result.length > 0){
                                                     let rewards = result;
-                                                    const sql = "SELECT id, amount FROM Backers WHERE projectID = ?";
+                                                    const sql = "SELECT id, amount FROM Backers WHERE projectID = ? AND anonymous = 0";
                                                     let values = [[con.escape(parseInt(id))]]
                                                     con.query(sql, [values], function (err, result, fields) {
                                                         if (!err) {
@@ -166,30 +166,68 @@ module.exports = {
             })
         },
 
-        pledge: function(id, pledge_data, callback) {
-            const con = databaseConnection.connect();
-            con.connect(function (err) {
-                if (!err) {
-                    const sql = "INSERT INTO Projects (title, subtitle, description, target) VALUES ?";
-                    let values = [[ 
-                        project_data.title, 
-                        project_data.subtitle, 
-                        project_data.description, 
-                        project_data.target
-                    ]];
-                    con.query(sql, [values], function (err, result) {
-                        con.end();
-                        if (!err) {
-                            callback(201, "OK");
-                        } else {
-                            callback(400, "Malformed project data");
+    pledge: function(id, pledgeData, callback) {
+        const con = databaseConnection.connect();
+        let valid = false;
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "SELECT name FROM Creators WHERE id = ? AND projectID = ?";
+                let values = [parseInt(pledgeData.id), parseInt(id)];
+                con.query(sql, values, function (err, result, fields) {
+                    if (!err) {
+                        if(result.length != 0){
+                            callback(403, "Forbidden - cannot pledge to own project - this is fraud!");
+                        }else{
+                            if (!err) {
+                                const sql = "INSERT INTO Backers (id, amount, anonymous, projectID) VALUES ?";
+                                let values = [
+                                    pledgeData.id,
+                                    pledgeData.amount,
+                                    pledgeData.anonymous,
+                                    parseInt(id)
+                                ];
+                                con.query(sql, [[values]], function (err, result) {
+                                    if (!err) {
+                                        const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
+                                        let values = [
+                                            pledgeData.card.authToken,
+                                            pledgeData.id,
+                                            parseInt(id)
+                                        ];
+                                        con.query(sql, [[values]], function (err, result) {
+                                            if (!err) {
+                                                const sql = "UPDATE Projects SET currentPledged = currentPledged + ?, numberOfBackers = numberOfBackers + 1 WHERE id = ?";
+                                                let values = [
+                                                    pledgeData.amount,
+                                                    parseInt(id)
+                                                ];
+                                                con.query(sql, values, function (err, result) {
+                                                    con.end();
+                                                    if (!err) {
+                                                        callback(201, "OK");
+                                                    } else {
+                                                        callback(400, "Bad user, project, or pledge details");
+                                                    }
+                                                });
+                                            } else {
+                                                callback(400, "Bad user, project, or pledge details");
+                                            }
+                                        });
+                                } else {
+                                    callback(400, "Bad user, project, or pledge details");
+                                }
+                                });
+                            } else {
+                                callback(500, "Unexpected Server Error");
+                            }
                         }
-                    });
-                } else {
-                    callback(500, "Unexpected Server Error");
-                }
-            })
-        }
+                    } else {
+                        callback(500, "Unexpected Server Error");
+                    }
+                });
+            }
+        })
+    }
 }
 
 function constructGetProject(projectData, rewards, creators, backers){
@@ -210,7 +248,7 @@ function constructGetProject(projectData, rewards, creators, backers){
         progress: {
             target: projectData.target,
             currentPledged: projectData.currentPledged,
-            numberOfBackers: backers.length 
+            numberOfBackers: projectData.numberOfBackers
         },
         backers
     };

@@ -3,16 +3,6 @@ const reward = require('../rewards/reward.repository');
 const router = require('express').Router();
 const validator = require('../conf/validation');
 
-const middleware = (req, res, next) => {
-    validator.isValidToken(req.get('X-Authorization'), function callback(authorized){
-        if (authorized){
-            next(); // if we have a valid token, we can proceed 
-        } else {
-            res.sendStatus(401); // otherwise respond with 401 unauthorized 
-        }
-    }); 
-}
-
 router.get('', function (req, res) {
     let startIndex = req.query.startIndex;
     let count = req.query.count;
@@ -58,7 +48,7 @@ router.put('/:id/image', validator.authMiddleware, function (req, res) {
 router.post('/:id/pledge', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
     let pledgeData = req.body;
-    projects.pledge(id, pledgeData, function callback(status, response) {
+    project.pledge(id, pledgeData, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });
@@ -70,7 +60,7 @@ router.get('/:id/rewards', function (req, res) {
 });
 
 router.put('/:id/rewards', validator.authMiddleware, function (req, res) {
-    user.loginUser(loginParams, function callback(status, response) {
+    reward.loginUser(loginParams, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });
