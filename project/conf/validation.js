@@ -19,7 +19,7 @@ function isValidToken(token, callback){
     const con = databaseConnection.connect();
     con.connect(function (err) {
         if (!err) {
-            const sql = "SELECT id FROM USERS WHERE sessionToken = ?";
+            const sql = "SELECT id FROM Users WHERE sessionToken = ?";
             con.query(sql, [token], function (err, result) {
                 con.end();
                 if (!err) {
