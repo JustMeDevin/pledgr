@@ -14,11 +14,16 @@ function connect() {
         password: 'secret' || 'root',
         database: mysqlDatabase
     });
-    console.log(con);
     return con;
  }
 
-function createDatabase(){
+function createDatabase() {
+    setTimeout(function () {
+        createDatabaseTables()
+    }, 5000)
+}
+
+function createDatabaseTables(){
     let con = connect();
     con.query("CREATE TABLE `Backers` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`amount` int(11) NOT NULL,`anonymous` tinyint(1) NOT NULL,`card` int(11) DEFAULT NULL,`projectID` int(11) DEFAULT NULL,PRIMARY KEY (`id`))", function(err, rows, fields){
         if(err){
