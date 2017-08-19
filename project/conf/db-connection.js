@@ -7,10 +7,10 @@ module.exports = {
 
 function connect() {
     let con = mysql.createConnection({
-        host: 'localhost' || process.env.SENG365_MYSQL_HOST,
-        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        host: process.env.SENG365_MYSQL_HOST || 'localhost',
+        port: process.env.SENG365_MYSQL_PORT || 3306,
         user: 'root',
-        password: 'root' || 'secret',
+        password: 'secret' || 'root',
         database: 'CrowdFund' || 'CrowdFund'
     });
     return con;
@@ -18,10 +18,10 @@ function connect() {
 
 function initDatabase() {
     let con = mysql.createConnection({
-        host: 'localhost' || process.env.SENG365_MYSQL_HOST,
-        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        host: process.env.SENG365_MYSQL_HOST || 'localhost',
+        port: process.env.SENG365_MYSQL_PORT || 3306,
         user: 'root',
-        password: 'root' || 'secret',
+        password: 'secret' || 'root'
     });
     con.connect(function (err) {
         if (err) {
@@ -40,11 +40,10 @@ function initDatabase() {
 function createDatabase() {
 
     let con = mysql.createConnection({
-        host: 'localhost' || process.env.SENG365_MYSQL_HOST,
-        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        host: process.env.SENG365_MYSQL_HOST || 'localhost',
+        port: process.env.SENG365_MYSQL_PORT || 3306,
         user: 'root',
-        password: 'root' || 'secret',
-        database: 'mysql' || 'mysql'
+        password: 'secret' || 'root',
     });
     con.query("CREATE DATABASE CrowdFund", function (err, rows, fields) {
         con.end();
