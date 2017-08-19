@@ -21,7 +21,7 @@ function connect() {
         host: process.env.SENG365_MYSQL_HOST || 'localhost',
         port: process.env.SENG365_MYSQL_PORT || 3306,
         user: 'root',
-        password: 'root' || 'root',
+        password: 'secret' || 'root',
         database: 'CrowdFunder'
     });
     return con;
@@ -30,7 +30,7 @@ function connect() {
 function createDatabase() {
     setTimeout(function () {
         createDatabaseTables()
-    }, 10)
+    }, 5000)
 }
 
 function createDatabaseTables(){
