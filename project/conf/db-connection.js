@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'mysql' : 'crownfunder';
 
 module.exports = {
     connect : connect,
@@ -22,7 +21,7 @@ function connect() {
         port: process.env.SENG365_MYSQL_PORT || 3306,
         user: 'root',
         password: 'secret' || 'root',
-        database: mysqlDatabase
+        database: 'crowdfunder'
     });
     return con;
 }
@@ -30,7 +29,7 @@ function connect() {
 function createDatabase() {
     setTimeout(function () {
         createDatabaseTables()
-    }, 5000)
+    }, 20000)
 }
 
 function createDatabaseTables(){
