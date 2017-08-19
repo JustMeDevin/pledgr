@@ -8,10 +8,10 @@ module.exports = {
 
 function connect() {
     let con = mysql.createConnection({
-        host: 'localhost' || process.env.SENG365_MYSQL_HOST ,
-        port: 3306 || process.env.SENG365_MYSQL_PORT,
+        host: process.env.SENG365_MYSQL_HOST || 'localhost',
+        port: process.env.SENG365_MYSQL_PORT || 3306,
         user: 'root',
-        password: 'root' || 'secret',
+        password: 'secret' || 'root',
         database: mysqlDatabase
     });
     console.log(con);
