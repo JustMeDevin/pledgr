@@ -65,7 +65,7 @@ function createDatabaseTables(){
                 }
             });
 
-            con.query("CREATE TABLE `Projects` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`creationDate` datetime DEFAULT NULL,`title` varchar(25) NOT NULL DEFAULT '',`subtitle` varchar(30) NOT NULL DEFAULT '',`description` varchar(500) NOT NULL DEFAULT '',`imageUri` varchar(100) DEFAULT NULL,`target` int(20) NOT NULL,`currentPledged` int(11) DEFAULT '0',`numberOfBackers` int(11) DEFAULT NULL,`open` tinyint(1) NOT NULL,`backers` int(11) unsigned DEFAULT NULL,PRIMARY KEY (`id`))", function(err, rows, fields){
+            con.query("CREATE TABLE `Projects` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`creationDate` datetime DEFAULT NULL,`title` varchar(25) NOT NULL DEFAULT '',`subtitle` varchar(30) NOT NULL DEFAULT '',`description` varchar(500) NOT NULL DEFAULT '',`imageUri` varchar(100) DEFAULT NULL,`target` int(20) NOT NULL,`currentPledged` int(11) DEFAULT '0',`numberOfBackers` int(11) DEFAULT NULL,`open` tinyint(1) DEFAULT NULL,`backers` int(11) unsigned DEFAULT NULL,PRIMARY KEY (`id`))", function(err, rows, fields){
                 if(err){
                     console.log(err);
                 }
