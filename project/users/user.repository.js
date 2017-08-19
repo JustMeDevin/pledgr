@@ -16,7 +16,7 @@ module.exports = {
                 con.query(sql, [values], function (err, result) {
                     con.end();
                     if (!err) {
-                        callback(201, result.insertId);
+                        callback(201, "OK");
                     } else {
                         callback(400, err);
                     }
@@ -62,8 +62,7 @@ module.exports = {
         con.connect(function (err) {
             if (!err) {
                 const sql = "SELECT id, username, location, email FROM USERS WHERE id = ?";
-                let values = [[con.escape(parseInt(id))]]
-                con.query(sql, [values], function (err, result, fields) {
+                con.query(sql, [id], function (err, result, fields) {
                     con.end();
                     if (!err) {
                         console.log(result);
