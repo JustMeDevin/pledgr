@@ -31,7 +31,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT id, password FROM USERS WHERE username = ?";
+                const sql = "SELECT id, password FROM Users WHERE username = ?";
                 let values = loginParams.username;
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
@@ -61,7 +61,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT id, username, location, email FROM USERS WHERE id = ?";
+                const sql = "SELECT id, username, location, email FROM Users WHERE id = ?";
                 con.query(sql, [id], function (err, result, fields) {
                     con.end();
                     if (!err) {
