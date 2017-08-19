@@ -27,18 +27,9 @@ function connect() {
 }
 
 function createDatabase() {
-    let con = connectForDBCreation().connect(function (err) {
-        if (err) {
-            console.log('mysql connection failed - retry');
-            setTimeout(() => {
-                createDatabase();
-            }, 3000)
-        } else {
-            con.end();
-            createDatabaseTables();
-        }
-
-    });
+    setTimeout(function () {
+        createDatabaseTables()
+    }, 20000)
 }
 
 function createDatabaseTables(){
