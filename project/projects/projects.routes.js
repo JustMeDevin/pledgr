@@ -61,7 +61,10 @@ router.get('/:id/rewards', function (req, res) {
 });
 
 router.put('/:id/rewards', validator.authMiddleware, function (req, res) {
-    reward.loginUser(loginParams, function callback(status, response) {
+    let id = req.params.id;
+    let rewardData = req.body;
+    let token = req.get('X-Authorization');
+    reward.updateRewards(id, rewardData, token, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });
