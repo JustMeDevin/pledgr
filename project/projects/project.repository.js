@@ -34,19 +34,19 @@ module.exports = {
                                     if (!err) {
                                         callback(201, "OK");
                                     } else {
-                                        callback(400, "Malformed project data");
+                                        callback(400, err);
                                     }
                                 });
                             } else {
-                                callback(400, "Malformed project data");
+                                callback(400, err);
                             }
                         });
                     } else {
-                        callback(400, "Malformed project data");
+                        callback(400, err);
                     }
                 });
             } else {
-                callback(500, "Unexpected Server Error");
+                callback(500, err);
             }
         })
     },
