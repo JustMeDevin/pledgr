@@ -34,19 +34,19 @@ module.exports = {
                                     if (!err) {
                                         callback(201, "OK");
                                     } else {
-                                        callback(400, err);
+                                        callback(400, "Malformed Data");
                                     }
                                 });
                             } else {
-                                callback(400, err);
+                                callback(400, "Malformed Data");
                             }
                         });
                     } else {
-                        callback(400, err);
+                        callback(400, "Malformed Data");
                     }
                 });
             } else {
-                callback(500, err);
+                callback(500, "Malformed Data");
             }
         })
     },
@@ -129,7 +129,8 @@ module.exports = {
                             callback(404, "not Found");
                         }
                     } else {
-                        callback(400, "Invalid id supplied");
+                        //callback(400, "Invalid id supplied");
+                        callback(400, err);
                     }
                 });
             }else {
