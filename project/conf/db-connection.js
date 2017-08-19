@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'sqidid' : 'test';
+const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'mysql' : 'test';
 
 module.exports = {
     connect : connect,
@@ -20,7 +20,7 @@ function connect() {
 function createDatabase() {
     setTimeout(function () {
         createDatabaseTables()
-    }, 5000)
+    }, 10000)
 }
 
 function createDatabaseTables(){
