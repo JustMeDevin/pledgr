@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'mysql' : 'CrowdFund';
+const mysqlDatabase = (process.env.SENG365_MYSQL_HOST) ? 'mysql' : 'test';
 
 module.exports = {
     connect : connect,
@@ -56,7 +56,7 @@ function createDatabase(){
         }
     });
 
-    con.query("CREATE TABLE `Users` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`username` varchar(11) NOT NULL DEFAULT '',`location` varchar(15) NOT NULL DEFAULT '',`email` varchar(25) NOT NULL DEFAULT '',`password` varchar(20) NOT NULL DEFAULT '',`sessionToken` varchar(64) DEFAULT '',PRIMARY KEY (`id`))", function(err, rows, fields){
+    con.query("CREATE TABLE `CFUsers` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`username` varchar(11) NOT NULL DEFAULT '',`location` varchar(15) NOT NULL DEFAULT '',`email` varchar(25) NOT NULL DEFAULT '',`password` varchar(20) NOT NULL DEFAULT '',`sessionToken` varchar(64) DEFAULT '',PRIMARY KEY (`id`))", function(err, rows, fields){
         if(err){
             console.log(err);
         }

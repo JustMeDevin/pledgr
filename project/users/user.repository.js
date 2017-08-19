@@ -6,7 +6,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "INSERT INTO Users (username, location, email, password) VALUES ?";
+                const sql = "INSERT INTO CFUsers (username, location, email, password) VALUES ?";
                 let values = [[ 
                     userData.user.username, 
                     userData.user.location, 
@@ -31,7 +31,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT id, password FROM USERS WHERE username = ?";
+                const sql = "SELECT id, password FROM CFUSERS WHERE username = ?";
                 let values = loginParams.username;
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
@@ -61,7 +61,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                const sql = "SELECT id, username, location, email FROM USERS WHERE id = ?";
+                const sql = "SELECT id, username, location, email FROM CFUSERS WHERE id = ?";
                 let values = [[con.escape(parseInt(id))]]
                 con.query(sql, [values], function (err, result, fields) {
                     con.end();
