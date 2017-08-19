@@ -31,7 +31,7 @@ function createDatabase() {
         if (err) {
             console.log('mysql connection failed - retry');
             setTimeout(() => {
-                createDatabaseTables();
+                createDatabase();
             }, 3000)
         } else {
             con.end();
