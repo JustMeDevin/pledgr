@@ -30,7 +30,8 @@ router.get('/:id', function (req, res) {
 router.put('/:id', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
     let updatedData = req.body;
-    project.updateProject(id, updatedData, function callback(status, response) {
+    let userID = validator.currentUser.userID;
+    project.updateProject(id, updatedData, userID, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });
@@ -62,7 +63,8 @@ router.put('/:id/image', [validator.authMiddleware, upload.single('image')], fun
 router.post('/:id/pledge', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
     let pledgeData = req.body;
-    project.pledge(id, pledgeData, function callback(status, response) {
+    let user = validator.currentUser.userID;
+    project.pledge(user, id, pledgeData, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });
 });

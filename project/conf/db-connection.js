@@ -71,7 +71,7 @@ function createDatabaseTables(){
                     console.log(err);
                 }else{
                     let con = connect();
-                    con.query("INSERT INTO `Projects` (`id`, `creationDate`, `title`, `subtitle`, `description`, `imageUri`, `target`, `currentPledged`, `numberOfBackers`, `open`, `backers`, `imageName`)VALUES(1,'2017-08-19 06:32:16','Smart Butter Knife','spread better with AI','butterKnife is the lastest in smart home technology',NULL,20,0,NULL,1,NULL,NULL),(7,'2017-08-19 06:42:26','Smart Fork','knows what your eating','the new smart fork will change your life',NULL,100000,0,NULL,NULL,NULL,NULL),(8,'2017-08-19 06:43:43','Picture Book','a book of pictures','a really good book of really good pictures',NULL,40000,0,NULL,NULL,NULL,NULL),(9,'2017-08-19 06:45:22','Smarter Phone','smarter than a smart Phone','can do more things than ever',NULL,7000000,0,NULL,NULL,NULL,NULL);", function(err, rows, fields){
+                    con.query("INSERT INTO `Projects` (`id`, `creationDate`, `title`, `subtitle`, `description`, `imageUri`, `target`, `currentPledged`, `numberOfBackers`, `open`, `backers`, `imageName`)VALUES(1,'2017-08-19 06:32:16','Smart Butter Knife','spread better with AI','butterKnife is the lastest in smart home technology',NULL,20,0,0,1,NULL,NULL),(7,'2017-08-19 06:42:26','Smart Fork','knows what your eating','the new smart fork will change your life',NULL,100000,0,0,NULL,NULL,NULL),(8,'2017-08-19 06:43:43','Picture Book','a book of pictures','a really good book of really good pictures',NULL,40000,0,0,NULL,NULL,NULL),(9,'2017-08-19 06:45:22','Smarter Phone','smarter than a smart Phone','can do more things than ever',NULL,7000000,0,0,NULL,NULL,NULL);", function(err, rows, fields){
                         if(err){
                             console.log(err);
                         }
@@ -97,7 +97,7 @@ function createDatabaseTables(){
                     console.log(err);
                 }else{
                     let con = connect();
-                    con.query("INSERT INTO `Users` (`id`, `username`, `location`, `email`, `password`, `sessionToken`) VALUES (1,'Devin','Christchurch','devin@gmail.com','test','20088b47-1f19-f854-e476-d65ee3101752'), (2,'Shay','Wellington','shay@gmail.com','test',''), (3,'Glen','Russia','glen@gmail.com','test','');", function(err, rows, fields){
+                    con.query("INSERT INTO `Users` (`id`, `username`, `location`, `email`, `password`, `sessionToken`) VALUES (1,'Devin','Christchurch','devin@gmail.com','test',''), (2,'Shay','Wellington','shay@gmail.com','test',''), (3,'Glen','Russia','glen@gmail.com','test','');", function(err, rows, fields){
                         if(err){
                             console.log(err);
                         }

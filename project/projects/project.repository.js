@@ -138,41 +138,53 @@ module.exports = {
         });
     },
 
-    updateProject: function (projectID, projectData, callback){
+    updateProject: function (projectID, projectData, userID, callback){
         const con = databaseConnection.connect();
         let open = 0;
-            con.connect(function (err) {
-                if (!err) {
-                    let values = [ 
-                        projectData.open,
-                        projectID
-                    ];
-                    const sql = "UPDATE Projects SET open = ? WHERE id = ?";
-                    con.query(sql, values, function (err, result, fields) {
-                        con.end();
-                        if (!err) {
-                            if(result.affectedRows === 1){
-                                callback(201, "Ok");
-                            }else{
-                                callback(404, "Not found");
-                            }
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "SELECT name FROM Creators WHERE id = ? AND projectID = ?";
+                let values = [parseInt(userID), parseInt(projectID)];
+                con.query(sql, values, function (err, result, fields) {
+                    if (!err) {
+                        if (result.length == 0) {
+                            callback(403, "Forbidden - unable to update a project you do not own");
                         } else {
-                            callback(400, "Malformed request");
+                            if (!err) {
+                                let values = [
+                                    projectData.open,
+                                    projectID
+                                ];
+                                const sql = "UPDATE Projects SET open = ? WHERE id = ?";
+                                con.query(sql, values, function (err, result, fields) {
+                                    con.end();
+                                    if (!err) {
+                                        if (result.affectedRows === 1) {
+                                            callback(201, "Ok");
+                                        } else {
+                                            callback(404, "Not found");
+                                        }
+                                    } else {
+                                        callback(400, "Malformed request");
+                                    }
+                                });
+                            } else {
+                                callback(500, "Unexpected server error");
+                            }
                         }
-                    });
-                } else {
-                    callback(500, "Unexpected server error");
-                }
-            })
-        },
+                    }
+                });
+            }
+        })
+    },
 
-    pledge: function(id, pledgeData, callback) {
+    pledge: function(user, id, pledgeData, callback) {
         const con = databaseConnection.connect();
         let valid = false;
         con.connect(function (err) {
             if (!err) {
                 const sql = "SELECT name FROM Creators WHERE id = ? AND projectID = ?";
-                let values = [parseInt(pledgeData.id), parseInt(id)];
+                let values = [parseInt(user), parseInt(id)];
                 con.query(sql, values, function (err, result, fields) {
                     if (!err) {
                         if(result.length != 0){
@@ -181,7 +193,7 @@ module.exports = {
                             if (!err) {
                                 const sql = "INSERT INTO Backers (id, amount, anonymous, projectID) VALUES ?";
                                 let values = [
-                                    pledgeData.id,
+                                    user,
                                     pledgeData.amount,
                                     pledgeData.anonymous,
                                     parseInt(id)
@@ -196,7 +208,7 @@ module.exports = {
                                         ];
                                         con.query(sql, [[values]], function (err, result) {
                                             if (!err) {
-                                                const sql = "UPDATE Projects SET currentPledged = currentPledged + ?, numberOfBackers = numberOfBackers + 1 WHERE id = ?";
+                                                const sql = "UPDATE Projects SET numberOfBackers = numberOfBackers + 1, currentPledged = currentPledged + ? WHERE id = ?";
                                                 let values = [
                                                     pledgeData.amount,
                                                     parseInt(id)

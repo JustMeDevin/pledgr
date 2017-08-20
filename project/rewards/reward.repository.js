@@ -39,7 +39,7 @@ module.exports = {
                             con.query(sql, values, function (err, result, fields) {
                                 if (!err) {
                                     if (result.length == 0) {
-                                        callback(403, "Forbidden - cannot pledge to own project - this is fraud!");
+                                        callback(403, "Forbidden - unable to update a project you do not own");
                                     } else {
                                         const sql = "DELETE FROM Rewards WHERE projectID = ?";
                                         con.query(sql, parseInt(id), function (err, result, fields) {

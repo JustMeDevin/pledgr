@@ -44,7 +44,7 @@ router.post('/logout', validator.authMiddleware, function (req, res) {
 
 router.delete('/:id', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
-    if(validator,currentUser.userID === parseInt(id)){
+    if(validator, validator.currentUser.userID === parseInt(id)){
         user.deleteUser(id, function callback(status, response) {
             res.status(status).send(JSON.stringify(response));
         });
