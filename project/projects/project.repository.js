@@ -199,7 +199,7 @@ module.exports = {
                                     if (!err && result.affectedRows === 1) {
                                         const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
                                         let values = [
-                                            pledgeData.card.authToken,
+                                            "string",
                                             user,
                                             parseInt(id)
                                         ];
