@@ -218,15 +218,15 @@ module.exports = {
                                                     if (!err) {
                                                         callback(201, "OK");
                                                     } else {
-                                                        callback(400, err);
+                                                        callback(400, "Bad user, project, or pledge details");
                                                     }
                                                 });
                                             } else {
-                                                callback(400, err);
+                                                callback(400, "Bad user, project, or pledge details");
                                             }
                                         });
                                 } else {
-                                    callback(400, err);
+                                    callback(400, "Bad user, project, or pledge details");
                                 }
                                 });
                             } else {

@@ -43,7 +43,7 @@ module.exports = {
                                 token: newToken,
                                 id: result[0].id
                             };
-                            callback(200, userDetails);
+                            callback(200, result);
                         }else{
                             callback(400, "Invalid username/password supplied");
                         }
