@@ -64,7 +64,6 @@ router.post('/:id/pledge', validator.authMiddleware, function (req, res) {
     let id = req.params.id;
     let pledgeData = req.body;
     let user = validator.currentUser.userID;
-    res.status(200).send("works in router");
     project.pledge(user, id, pledgeData, function callback(status, response) {
         res.status(status).send(JSON.stringify(response));
     });

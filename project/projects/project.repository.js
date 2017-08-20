@@ -182,6 +182,7 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
+                callback(200, "works here");
                 const sql = "SELECT name FROM Creators WHERE id = ? AND projectID = ?";
                 let values = [parseInt(user), parseInt(id)];
                 con.query(sql, values, function (err, result, fields) {
