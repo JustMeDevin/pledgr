@@ -191,15 +191,13 @@ module.exports = {
                             callback(403, "Forbidden - cannot pledge to own project - this is fraud!");
                         }else{
                             if (!err) {
-                                const sql = "INSERT INTO Backers (id, amount, anonymous, projectID) VALUES ?";
+                                const sql = "UPDATE Projects SET numberOfBackers = numberOfBackers + 1, currentPledged = currentPledged + ? WHERE id = ?";
                                 let values = [
-                                    user,
                                     pledgeData.amount,
-                                    pledgeData.anonymous,
                                     parseInt(id)
                                 ];
-                                con.query(sql, [[values]], function (err, result) {
-                                    if (!err) {
+                                con.query(sql, values, function (err, result) {
+                                    if (!err && result.affectedRows == 1) {
                                         const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
                                         let values = [
                                             pledgeData.card.authToken,
@@ -208,12 +206,14 @@ module.exports = {
                                         ];
                                         con.query(sql, [[values]], function (err, result) {
                                             if (!err) {
-                                                const sql = "UPDATE Projects SET numberOfBackers = numberOfBackers + 1, currentPledged = currentPledged + ? WHERE id = ?";
+                                                const sql = "INSERT INTO Backers (id, amount, anonymous, projectID) VALUES ?";
                                                 let values = [
+                                                    user,
                                                     pledgeData.amount,
+                                                    pledgeData.anonymous,
                                                     parseInt(id)
                                                 ];
-                                                con.query(sql, values, function (err, result) {
+                                                con.query(sql, [[values]], function (err, result) {
                                                     con.end();
                                                     if (!err) {
                                                         callback(201, "OK");
