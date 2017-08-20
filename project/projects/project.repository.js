@@ -203,9 +203,9 @@ module.exports = {
                                             pledgeData.id,
                                             parseInt(id)
                                         ];
+                                        callback(200, "works here");
                                         con.query(sql, [[values]], function (err, result) {
                                             if (!err) {
-                                                callback(200, "works here");
                                                 const sql = "INSERT INTO Backers (id, amount, anonymous, projectID) VALUES ?";
                                                 let values = [
                                                     user,
