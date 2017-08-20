@@ -200,10 +200,9 @@ module.exports = {
                                         const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
                                         let values = [
                                             pledgeData.card.authToken,
-                                            pledgeData.id,
+                                            user,
                                             parseInt(id)
                                         ];
-                                        callback(200, "works here");
                                         con.query(sql, [[values]], function (err, result) {
                                             if (!err) {
                                                 const sql = "INSERT INTO Backers (id, amount, anonymous, projectID) VALUES ?";
