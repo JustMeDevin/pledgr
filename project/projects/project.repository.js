@@ -182,7 +182,6 @@ module.exports = {
         const con = databaseConnection.connect();
         con.connect(function (err) {
             if (!err) {
-                callback(200, "works here");
                 const sql = "SELECT name FROM Creators WHERE id = ? AND projectID = ?";
                 let values = [parseInt(user), parseInt(id)];
                 con.query(sql, values, function (err, result, fields) {
@@ -198,6 +197,7 @@ module.exports = {
                                 ];
                                 con.query(sql, values, function (err, result) {
                                     if (!err && result.affectedRows === 1) {
+                                        callback(200, "works here");
                                         const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
                                         let values = [
                                             pledgeData.card.authToken,
