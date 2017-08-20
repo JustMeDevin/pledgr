@@ -34,27 +34,16 @@ module.exports = {
                 const sql = "SELECT id, password FROM Users WHERE username = ?";
                 let values = loginParams.username;
                 con.query(sql, [values], function (err, result, fields) {
+                    con.end();
                     if (!err) {
                         if(checkPassword(result, loginParams.password)){
                             let newToken = generateUniqueID(result[0].id);
-                            //updateToken(newToken, result[0].id);
-                            con.connect(function (err) {
-                                if (!err) {
-                                    const sql = "UPDATE Users SET sessionToken = ? WHERE id = ?";
-                                    con.query(sql, [newToken, result[0].id], function (err, result, fields) {
-                                        con.end();
-                                        if(!err){
-                                            let userDetails = {
-                                                token: newToken,
-                                                id: result[0].id
-                                            };
-                                            callback(200, userDetails);
-                                        }else{
-                                            callback(400, "Invalid username/password supplied");
-                                        }
-                                    });
-                                }
-                            })
+                            updateToken(newToken, result[0].id);
+                            let userDetails = {
+                                token: newToken,
+                                id: result[0].id
+                            };
+                            callback(200, userDetails);
                         }else{
                             callback(400, "Invalid username/password supplied");
                         }
