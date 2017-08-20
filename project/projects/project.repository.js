@@ -180,7 +180,6 @@ module.exports = {
 
     pledge: function(user, id, pledgeData, callback) {
         const con = databaseConnection.connect();
-        let valid = false;
         con.connect(function (err) {
             if (!err) {
                 const sql = "SELECT name FROM Creators WHERE id = ? AND projectID = ?";
@@ -197,7 +196,7 @@ module.exports = {
                                     parseInt(id)
                                 ];
                                 con.query(sql, values, function (err, result) {
-                                    if (!err && result.affectedRows == 1) {
+                                    if (!err && result.affectedRows === 1) {
                                         const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
                                         let values = [
                                             pledgeData.card.authToken,
@@ -225,9 +224,9 @@ module.exports = {
                                                 callback(400, "Bad user, project, or pledge details");
                                             }
                                         });
-                                } else {
-                                    callback(400, "Bad user, project, or pledge details");
-                                }
+                                    } else {
+                                        callback(400, "Bad user, project, or pledge details");
+                                    }
                                 });
                             } else {
                                 callback(500, "Unexpected Server Error");
