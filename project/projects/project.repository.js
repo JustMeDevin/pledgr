@@ -197,7 +197,6 @@ module.exports = {
                                 ];
                                 con.query(sql, values, function (err, result) {
                                     if (!err && result.affectedRows === 1) {
-                                        callback(200, "works here");
                                         const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
                                         let values = [
                                             pledgeData.card.authToken,
@@ -206,6 +205,7 @@ module.exports = {
                                         ];
                                         con.query(sql, [[values]], function (err, result) {
                                             if (!err) {
+                                                callback(200, "works here");
                                                 const sql = "INSERT INTO Backers (id, amount, anonymous, projectID) VALUES ?";
                                                 let values = [
                                                     user,
