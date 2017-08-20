@@ -227,6 +227,69 @@ module.exports = {
                 });
             }
         })
+    },
+
+    addImage: function(image, projectID, userID, callback) {
+        /* in production app would move these files to a permanent location, 
+        just leaving in /tmp folder to try and avoid any write permission issues on docker */
+        const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "SELECT name FROM Creators WHERE id = ? AND projectID = ?";
+                let values = [userID, projectID];
+                con.query(sql, values, function (err, result, fields) {
+                    if (!err) {
+                        if (result.length == 0) {
+                            callback(403, "Forbidden - unable to update a project you do not own");
+                        } else {
+                            if (!err) {
+                                const sql = "UPDATE Projects SET imageUri = ?, imageName = ? WHERE id = ?";
+                                let values = [
+                                    image.path,
+                                    image.originalname,
+                                    parseInt(projectID),
+                                ];
+                                con.query(sql, values, function (err, result) {
+                                    con.end();
+                                    if (!err) {
+                                        callback(201, "OK");
+                                    } else {
+                                        callback(400, "Malformed request");
+                                    }
+                                });
+                            } else {
+                                callback(500, "Server error");
+                            }
+                        }
+                    }
+                })
+            }
+        });
+    },
+
+    getImage: function(projectID, callback) {
+        const con = databaseConnection.connect();
+        con.connect(function (err) {
+            if (!err) {
+                const sql = "SELECT imageUri, imageName FROM Projects WHERE id = ?";
+                con.query(sql, projectID, function (err, result) {
+                    con.end();
+                    if (!err) {
+                        if(result[0].imageUri != null){
+                            let response = [result[0].imageUri, result[0].imageName];
+                            callback(201, response, true);
+                        }else{
+                            callback(404, "Not Found", false);
+                        }
+                        
+                    } else {
+                        callback(404, "Not Found", false);
+                    }
+                });
+            } else {
+                callback(500, "Server error");
+            }
+        });
     }
 }
 

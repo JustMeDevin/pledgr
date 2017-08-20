@@ -66,18 +66,12 @@ function createDatabaseTables(){
                 }
             });
 
-            con.query("CREATE TABLE `Images` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`))", function(err, rows, fields){
-                if(err){
-                    console.log(err);
-                }
-            });
-
-            con.query("CREATE TABLE `Projects` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`creationDate` datetime DEFAULT NULL,`title` varchar(25) NOT NULL DEFAULT '',`subtitle` varchar(30) NOT NULL DEFAULT '',`description` varchar(500) NOT NULL DEFAULT '',`imageUri` varchar(100) DEFAULT NULL,`target` int(20) NOT NULL,`currentPledged` int(11) DEFAULT '0',`numberOfBackers` int(11) DEFAULT '0',`open` tinyint(1) DEFAULT NULL,`backers` int(11) unsigned DEFAULT NULL,PRIMARY KEY (`id`))", function(err, rows, fields){
+            con.query("CREATE TABLE `Projects` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`creationDate` datetime DEFAULT NULL,`title` varchar(25) NOT NULL DEFAULT '',`subtitle` varchar(30) NOT NULL DEFAULT '',`description` varchar(500) NOT NULL DEFAULT '',`imageUri` varchar(100) DEFAULT NULL,`target` int(20) NOT NULL,`currentPledged` int(11) DEFAULT '0',`numberOfBackers` int(11) DEFAULT '0',`open` tinyint(1) DEFAULT NULL,`backers` int(11) unsigned DEFAULT NULL,`imageName` char(50) DEFAULT NULL,PRIMARY KEY (`id`))", function(err, rows, fields){
                 if(err){
                     console.log(err);
                 }else{
                     let con = connect();
-                    con.query("INSERT INTO `Projects` (`id`, `creationDate`, `title`, `subtitle`, `description`, `imageUri`, `target`, `currentPledged`, `numberOfBackers`, `open`, `backers`) VALUES (1,'2017-08-19 06:32:16','Smart Butter Knife','spread better with AI','butterKnife is the lastest in smart home technology',NULL,20,0,NULL,1,NULL), (7,'2017-08-19 06:42:26','Smart Fork','knows what your eating','the new smart fork will change your life',NULL,100000,0,NULL,NULL,NULL), (8,'2017-08-19 06:43:43','Picture Book','a book of pictures','a really good book of really good pictures',NULL,40000,0,NULL,NULL,NULL), (9,'2017-08-19 06:45:22','Smarter Phone','smarter than a smart Phone','can do more things than ever',NULL,7000000,0,NULL,NULL,NULL);", function(err, rows, fields){
+                    con.query("INSERT INTO `Projects` (`id`, `creationDate`, `title`, `subtitle`, `description`, `imageUri`, `target`, `currentPledged`, `numberOfBackers`, `open`, `backers`, `imageName`)VALUES(1,'2017-08-19 06:32:16','Smart Butter Knife','spread better with AI','butterKnife is the lastest in smart home technology',NULL,20,0,NULL,1,NULL,NULL),(7,'2017-08-19 06:42:26','Smart Fork','knows what your eating','the new smart fork will change your life',NULL,100000,0,NULL,NULL,NULL,NULL),(8,'2017-08-19 06:43:43','Picture Book','a book of pictures','a really good book of really good pictures',NULL,40000,0,NULL,NULL,NULL,NULL),(9,'2017-08-19 06:45:22','Smarter Phone','smarter than a smart Phone','can do more things than ever',NULL,7000000,0,NULL,NULL,NULL,NULL);", function(err, rows, fields){
                         if(err){
                             console.log(err);
                         }

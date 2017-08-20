@@ -88,8 +88,8 @@ module.exports = {
                 let values = [
                     userData.user.username, 
                     userData.user.location, 
-                    con.escape(userData.user.email), 
-                    con.escape(userData.password),
+                    userData.user.email, 
+                    userData.password,
                     userID
                 ];
                 const sql = "UPDATE Users SET username = ?, location = ?, email = ?, password = ? WHERE id = ?";

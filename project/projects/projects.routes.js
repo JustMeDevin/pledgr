@@ -2,6 +2,8 @@ const project = require('./project.repository');
 const reward = require('../rewards/reward.repository');
 const router = require('express').Router();
 const validator = require('../conf/validation');
+var multer  = require('multer');
+var upload = multer({ dest: 'tmp/uploads/' });
 
 router.get('', function (req, res) {
     let startIndex = req.query.startIndex;
@@ -34,15 +36,27 @@ router.put('/:id', validator.authMiddleware, function (req, res) {
 });
 
 router.get('/:id/image', function (req, res) {
-    user.loginUser(loginParams, function callback(status, response) {
-        res.status(status).send(JSON.stringify(response));
+    let id = req.params.id;
+    project.getImage(id, function callback(status, response, found) {
+        if(found){
+            res.setHeader('Content-Type', 'image/png');
+            res.status(status).download(response[0], response[1]);
+        }else{
+            res.status(status).send(JSON.stringify(response));
+        }
     });
 });
 
-router.put('/:id/image', validator.authMiddleware, function (req, res) {
-    user.loginUser(loginParams, function callback(status, response) {
-        res.status(status).send(JSON.stringify(response));
-    });
+router.put('/:id/image', [validator.authMiddleware, upload.single('image')], function (req, res) {
+    let id = req.params.id;
+    if(req.file.mimetype === 'image/jpeg' || req.file.mimetype === 'image/png'){
+        project.addImage(req.file, id, validator.currentUser.userID, function callback(status, response) {
+            res.status(status).send(JSON.stringify(response));
+        });
+    }else{
+        res.status(400).send(JSON.stringify("Malformed request"));
+    }
+    
 });
 
 router.post('/:id/pledge', validator.authMiddleware, function (req, res) {
