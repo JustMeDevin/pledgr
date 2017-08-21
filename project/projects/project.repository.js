@@ -199,7 +199,7 @@ module.exports = {
                                     if (!err && result.affectedRows === 1) {
                                         const sql = "INSERT INTO Cards (authToken, userID, projectID) VALUES ?";
                                         let values = [
-                                            "string",
+                                            pledgeData.card.authToken,
                                             user,
                                             parseInt(id)
                                         ];
@@ -217,16 +217,15 @@ module.exports = {
                                                     if (!err) {
                                                         callback(201, "OK");
                                                     } else {
-                                                        //callback(400, "Bad user, project, or pledge details");
-                                                        callback(400, err);
+                                                        callback(400, "Bad user, project, or pledge details");
                                                     }
                                                 });
                                             } else {
-                                                callback(400, err);
+                                                callback(400, "Bad user, project, or pledge details");
                                             }
                                         });
                                     } else {
-                                        callback(400, err);
+                                        callback(400, "Bad user, project, or pledge details");
                                     }
                                 });
                             } else {
