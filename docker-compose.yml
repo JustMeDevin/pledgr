@@ -11,5 +11,6 @@ services:
       - mysql
   mysql:
     image: "mysql:5.7"
+    command: --skip-innodb-use-native-aio
     environment:
       - MYSQL_ROOT_PASSWORD=secret
