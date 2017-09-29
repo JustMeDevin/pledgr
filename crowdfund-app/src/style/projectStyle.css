@@ -1,0 +1,45 @@
+body{
+    font-family: "Helvetica Neue";
+}
+
+#projects{
+    margin-top: -2rem;
+    margin-left: 13%;
+}
+
+.project{
+    float: left;
+    margin: 20px;
+    width:200px;
+    height:250px;
+    background-color: #ffffff;
+    box-shadow: 0px 6px 15px -3px #bdbdbd;
+    border-radius: 15px;
+    padding: 10px 0px 0px 20px;
+    overflow: hidden;
+
+}
+
+.project-img{
+    height: 10rem;
+    width: 10rem;
+}
+
+h3{
+    margin-left: 4rem;
+    margin-top: 5rem;
+    font-size: 2em;
+    color: #353535;
+}
+
+h1{
+    margin-top: 1px;
+    font-size: 2em;
+    color: #454545;
+}
+
+h2{
+    margin-top: -1em;
+    font-size: 1.1em;
+    color: #5d5d5d;
+}
