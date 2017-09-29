@@ -4,11 +4,12 @@
         <div v-if="errorFlag" style="color: red;">
             {{ error }}
         </div>
+        <div id="searchWrap">
+            <input class="search" type="text" v-model="search" placeholder="search..."/>
+        </div>
 
-        <h3>Projects</h3>
-        <div id="projects" v-for="project in projects">
+        <div id="projects" v-for="project in searchedProjects">
             <div class="project">
-                <!--<img class="project-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/jeremiah-wilson-5.jpg" alt>-->
                 <h1>{{ project.title }}</h1>
                 <h2>{{ project.subtitle }}</h2>
             </div>
@@ -21,6 +22,7 @@
     export default {
         data(){
             return{
+                search: '',
                 error: "",
                 errorFlag: false,
                 projects: []
@@ -39,6 +41,17 @@
                     this.errorFlag = true;
                 });
             }
+        },
+        computed: {
+            searchedProjects: function() {
+                var self=this;
+                return this.projects.filter(function(project){return project.title.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
+            }
         }
     }
 </script>
+
+
+
+
+

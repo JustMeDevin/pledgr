@@ -2,8 +2,34 @@ body{
     font-family: "Helvetica Neue";
 }
 
+
+#searchWrap{
+    margin-right: auto;
+    margin-left: auto;
+    text-align:center
+}
+
+.search{
+    margin-top: 5rem;
+    height: 3rem;
+    border-radius: 40px;
+    border-color: #353535;
+    max-width: 100%;
+    width: 20rem;
+    padding: 0.625rem 0rem 0.625rem 1.5rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: none;
+    border-style: none;
+    outline: none;
+    color: #292929;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    box-shadow: 0px 6px 15px -3px #bdbdbd;
+}
+
 #projects{
-    margin-top: -2rem;
+    margin-top: 2rem;
     margin-left: 13%;
 }
 
@@ -23,13 +49,6 @@ body{
 .project-img{
     height: 10rem;
     width: 10rem;
-}
-
-h3{
-    margin-left: 4rem;
-    margin-top: 5rem;
-    font-size: 2em;
-    color: #353535;
 }
 
 h1{
