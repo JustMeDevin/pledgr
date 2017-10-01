@@ -1,0 +1,1 @@
+export const config = { apiUrl: 'http://localhost:4941/api/v2/'}
