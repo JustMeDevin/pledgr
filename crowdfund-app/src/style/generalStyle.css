@@ -83,13 +83,13 @@ body{
 }
 
 .window-close{
-    -webkit-animation: pane_unblur 0.5s forwards;
+    -webkit-animation: pane_unblur 0.2s ease-in forwards;
     pointer-events: none;
 
 }
 
 .window-open{
-    -webkit-animation: pane_blur 1s forwards;
+    -webkit-animation: pane_blur 0.3s ease-in forwards;
     pointer-events: all;
 }
 
