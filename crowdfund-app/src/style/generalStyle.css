@@ -23,32 +23,6 @@ body{
     user-select: none;
 }
 
-#log-in{
-    position: absolute;
-    margin-top: 22px;
-    right: 2%;
-    -webkit-appearance: none;
-    border:none;
-    background: none;
-    color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-#log-in-form{
-    float: right;
-    width: 400px;
-    height: 250px;
-    background-color: #ffffff;
-    box-shadow: 0px 6px 15px -3px #bdbdbd;
-    border-radius: 15px;
-    padding: 10px 10px 0px 10px;
-    margin: 5rem 2rem 0rem 0rem;
-    z-index: 100;
-    position: fixed;
-    right: 0;
-}
-
 .unselectable{
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
@@ -91,9 +65,44 @@ body{
     display: none;
 }
 
+.pledgr-button{
+    font-size: 0.8rem;
+    height: 2.6rem;
+    width: 6rem;
+    border-style: none;
+    color: white;
+    border-radius: 10px;
+    background: linear-gradient(to right, #f3ce79, #ffc171);
+    cursor: pointer;
+}
 
-.search.expand-enter, .search.expand-leave {
-    height: 0;
-    padding: 0 10px;
-    opacity: 0;
+.fade-window {
+    width: 110vw;
+    height: 100vh;
+    position: fixed;
+}
+
+.window-close{
+    -webkit-animation: pane_unblur 0.5s forwards;
+    pointer-events: none;
+
+}
+
+.window-open{
+    -webkit-animation: pane_blur 1s forwards;
+    pointer-events: all;
+}
+
+@-webkit-keyframes pane_blur {
+    0% { -webkit-backdrop-filter: blur(0px);}
+    100% {
+        -webkit-backdrop-filter: blur(5px);
+    }
+}
+
+@-webkit-keyframes pane_unblur {
+    0% { -webkit-backdrop-filter: blur(5px);}
+    100% {
+        -webkit-backdrop-filter: blur(0px);
+    }
 }
