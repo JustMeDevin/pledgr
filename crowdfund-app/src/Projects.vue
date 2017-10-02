@@ -7,13 +7,16 @@
             <input class="search" type="text" v-model="search" placeholder=""/>
         </div>
 
-        <div id="projects" v-for="project in searchedProjects">
-            <div class="project">
-                <div id="img-wrapper">
-                    <!--<img id="project-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/jeremiah-wilson-3.jpg" alt>-->
+        <div id="projects-wrapper">
+            <div id="projects" v-for="project in searchedProjects">
+                <div class="project float">
+                    <div id="img-wrapper">
+                        <img img :src="getImage(project)" v-bind:alt="project" onerror="this.style.display='none'">
+                    </div>
+                    <h1>{{ project.title }}</h1>
+                    <h2>{{ project.subtitle }}</h2>
+                    <p id="project-desc">{{ project.description }}</p>
                 </div>
-                <h1>{{ project.title }}</h1>
-                <h2>{{ project.subtitle }}</h2>
             </div>
         </div>
 
@@ -44,13 +47,27 @@
                     this.error = error;
                     this.errorFlag = true;
                 });
+            },
+
+            getImage: function(project){
+                return config.apiUrl + "projects/" + project.id + "/image";
             }
         },
         computed: {
             searchedProjects: function() {
-                var self=this;
-                return this.projects.filter(function(project){return project.title.toLowerCase()
-                    .indexOf(self.search.toLowerCase())>=0;});
+                var self = this;
+                return this.projects.filter(
+                    function(project){
+                        var exists = false;
+
+                        if(project.title.toLowerCase().indexOf(self.search.toLowerCase()) >= 0){
+                            exists = true;
+                        }
+                        if(project.subtitle.toLowerCase().indexOf(self.search.toLowerCase()) >= 0){
+                            exists = true;
+                        }
+                        return exists;
+                    });
             }
         }
     }
