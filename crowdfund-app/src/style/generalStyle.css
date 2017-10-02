@@ -58,4 +58,17 @@ body{
     background-size: 40px;
     background-position: 95%;
     background-repeat: no-repeat;
+
+    transition: all 10s ease;
+}
+
+.hide {
+    display: none;
+}
+
+
+.search.expand-enter, .search.expand-leave {
+    height: 0;
+    padding: 0 10px;
+    opacity: 0;
 }
