@@ -51,14 +51,13 @@ fieldset {
 .spinner {
     flex: 1;
     position: fixed;
-
     width: 40px;
     height: 40px;
 }
 
 .login{
-    margin-top: 8.5rem;
-    margin-left: 8rem;
+    margin-left: 12rem;
+    margin-top: -3rem;
 }
 
 .double-bounce1, .double-bounce2 {

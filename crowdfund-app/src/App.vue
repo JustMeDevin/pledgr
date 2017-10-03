@@ -5,6 +5,8 @@
 
     <create-account v-model="isLoggedIn" v-if="createAccountVisible"></create-account>
 
+    <user-springboard v-if="springboardVisible"> </user-springboard>
+
     <div v-on:click="hideLoginWindow" v-bind:class="[fadeContent ? 'window-open' : '', 'window-close']" class="fade-window"></div>
 
     <div v-bind:class="[fadeContent  ? 'dark-dropshadow' : '', 'light-dropshadow']" id="header">
@@ -12,7 +14,7 @@
       <div id="header-button-wrapper">
         <button v-on:click='showLoginWindow' v-if="!isLoggedIn" id="log-in">Log in</button>
         <button v-on:click='showCreateAccountWindow'  v-if="!isLoggedIn" id="create-account">Create account</button>
-        <button v-if="isLoggedIn" id="account-name">{{ username }}</button>
+        <button v-if="isLoggedIn" v-on:click='showSpringboard' id="account-name">{{ username }}</button>
         <button v-if="isLoggedIn" v-on:click='logUserOut' id="log-out">log out</button>
       </div>
     </div>
@@ -23,8 +25,9 @@
 
 <script>
     import { config } from './config';
-    import CreateAccount from './CreateAccount.vue'
-    import Login from './Login.vue'
+    import CreateAccount from './CreateAccount.vue';
+    import Login from './Login.vue';
+    import UserSpringboard from './UserSpringboard.vue';
 
     export default {
         data(){
@@ -36,15 +39,18 @@
                 loginVisible: false,
                 createAccountVisible: false,
                 fadeContent: false,
-                username: null
+                username: null,
+                springboardVisible: false
             }
         },
         components: {
             CreateAccount,
-            Login
+            Login,
+            UserSpringboard
         },
 
         mounted: function() {
+
             if(localStorage.getItem('userToken')){
                 this.isLoggedIn = true;
             }
@@ -61,6 +67,7 @@
             hideLoginWindow: function(){
                 this.loginVisible = false;
                 this.createAccountVisible = false;
+                this.springboardVisible = false;
                 this.fadeContent = false;
             },
             showCreateAccountWindow: function(){
@@ -79,7 +86,14 @@
                 }
                 this.loginVisible = !this.loginVisible;
             },
+            showSpringboard: function(){
+                this.springboardVisible = !this.springboardVisible;
+                this.fadeContent = !this.fadeContent;
+            },
+
             logUserOut: function(){
+                this.springboardVisible = false;
+                this.fadeContent = false;
                 this.$http.post(config.apiUrl + "users/logout", {}, {
                     headers: {
                         'X-Authorization': localStorage.getItem('userToken')}
@@ -91,6 +105,9 @@
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
+                        this.isLoggedIn = false;
+                        localStorage.removeItem('userToken');
+                        localStorage.removeItem('username');
                     });
             }
         },

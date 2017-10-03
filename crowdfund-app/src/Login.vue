@@ -8,15 +8,16 @@
 
                 <button id="log-in-button" type="submit" class="pledgr-button">Log In</button>
 
-                <div v-if="isLoading" class="spinner login">
-                    <div class="double-bounce1"></div>
-                    <div class="double-bounce2"></div>
-                </div>
-
                 <p v-if="errorFlag" id="error-label">username or password incorrect</p>
 
             </fieldset>
         </form>
+
+        <div v-if="isLoading" class="spinner login">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+
     </div>
 
 </template>

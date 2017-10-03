@@ -12,14 +12,14 @@
 
                 <input v-bind:class="[passwordInvalid  ? 'invalidInput input' : '', 'input']" id="password" v-model="user.password" type="password" placeholder="password">
 
-                <div v-if="isLoading" class="spinner accountCreation">
-                    <div class="double-bounce1"></div>
-                    <div class="double-bounce2"></div>
-                </div>
-
                 <button id="log-in-button" type="submit" class="pledgr-button">Create</button>
             </fieldset>
         </form>
+
+        <div v-if="isLoading" class="spinner accountCreation">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
     </div>
 </template>
 
@@ -52,6 +52,11 @@
         watch: {
             'isLoggedIn': function() {
                 this.$emit('input', this.isLoggedIn);
+            },
+            'errorFlag': function(){
+                this.emailInvalid = true;
+                this.usernameInvalid = true;
+                this.isLoading = false;
             }
         },
 
@@ -128,12 +133,7 @@
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
-                        this.isLoading = false;
                     });
-            },
-
-            hideCreateAccountWindow: function(){
-                this.createAccountVisible = false;
             }
         },
 
