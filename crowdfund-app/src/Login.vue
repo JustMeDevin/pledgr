@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loginVisible" id="log-in-form">
+    <div v-if="!isLoggedIn" id="log-in-form">
         <form class="login-form" v-on:submit.prevent="loginUser" id="form">
             <fieldset>
                 <input class="input" id="username" v-model="user.username" type="text" placeholder="Username">
@@ -8,7 +8,7 @@
 
                 <button id="log-in-button" type="submit" class="pledgr-button">Log In</button>
 
-                <p v-if="errorFlag" id="error-label">password/username is incorrect</p>
+                <p v-if="errorFlag" id="error-label">username or password incorrect</p>
 
             </fieldset>
         </form>
@@ -31,7 +31,12 @@
                     password: null,
                 },
                 submitData: null,
-                loginVisible: true
+                loginVisible: true,
+            }
+        },
+        watch: {
+            'isLoggedIn': function() {
+                this.$emit('input', this.isLoggedIn);
             }
         },
         methods: {
@@ -40,7 +45,9 @@
 
                 this.$http.post(config.apiUrl + "users/login?username=" + this.user.username + "&password=" + this.user.password)
                     .then(function(response){
-                        console.log(response.data)
+                        localStorage.setItem('userToken', response.data.token);
+                        localStorage.setItem('username', this.user.username);
+                        this.isLoggedIn = true;
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;

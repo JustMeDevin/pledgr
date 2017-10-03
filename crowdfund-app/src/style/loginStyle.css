@@ -26,7 +26,7 @@ fieldset {
 
 #log-in-form{
     float: right;
-    width: 290px;
+    width: 295px;
     height: 230px;
     background-color: #ffffff;
     box-shadow: 0px 6px 15px -3px #808080;
@@ -43,4 +43,8 @@ fieldset {
 #log-in-button{
     margin-top: 1rem;
     float: right;
+}
+
+#error-label{
+    color: #f86363;
 }

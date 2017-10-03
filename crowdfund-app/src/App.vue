@@ -1,9 +1,9 @@
 <template>
   <div id="app">
 
-    <login v-if="loginVisible"></login>
+    <login v-model="isLoggedIn" v-if="loginVisible"></login>
 
-    <create-account v-if="createAccountVisible"></create-account>
+    <create-account v-model="isLoggedIn" v-if="createAccountVisible"></create-account>
 
     <div v-on:click="hideLoginWindow" v-bind:class="[fadeContent ? 'window-open' : '', 'window-close']" class="fade-window"></div>
 
@@ -12,6 +12,8 @@
       <div id="header-button-wrapper">
         <button v-on:click='showLoginWindow' v-if="!isLoggedIn" id="log-in">Log in</button>
         <button v-on:click='showCreateAccountWindow'  v-if="!isLoggedIn" id="create-account">Create account</button>
+        <button v-if="isLoggedIn" id="account-name">{{ username }}</button>
+        <button v-if="isLoggedIn" v-on:click='logUserOut' id="log-out">log out</button>
       </div>
     </div>
 
@@ -33,7 +35,8 @@
                 isLoggedIn: false,
                 loginVisible: false,
                 createAccountVisible: false,
-                fadeContent: false
+                fadeContent: false,
+                username: null
             }
         },
         components: {
@@ -42,6 +45,17 @@
         },
 
         mounted: function() {
+            if(localStorage.getItem('userToken')){
+                this.isLoggedIn = true;
+            }
+        },
+        watch: {
+            'isLoggedIn': function() {
+                this.fadeContent = false;
+                this.loginVisible = false;
+                this.createAccountVisible = false;
+                this.username = localStorage.getItem('username');
+            }
         },
         methods: {
             hideLoginWindow: function(){
@@ -64,7 +78,20 @@
                     this.fadeContent = !this.fadeContent;
                 }
                 this.loginVisible = !this.loginVisible;
-
+            },
+            logUserOut: function(){
+                this.$http.post(config.apiUrl + "users/logout", {}, {
+                    headers: {
+                        'X-Authorization': localStorage.getItem('userToken')}
+                    })
+                    .then(function(response){
+                        this.isLoggedIn = false;
+                        localStorage.removeItem('userToken');
+                        localStorage.removeItem('username');
+                    }, function(error) {
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
             }
         },
 
