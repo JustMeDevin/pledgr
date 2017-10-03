@@ -12,6 +12,11 @@
 
                 <input v-bind:class="[passwordInvalid  ? 'invalidInput input' : '', 'input']" id="password" v-model="user.password" type="password" placeholder="password">
 
+                <div v-if="isLoading" class="spinner accountCreation">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+
                 <button id="log-in-button" type="submit" class="pledgr-button">Create</button>
             </fieldset>
         </form>
@@ -40,7 +45,8 @@
                 emailInvalid: false,
                 passwordInvalid: false,
                 inputValid: true,
-                isLoggedIn: false
+                isLoggedIn: false,
+                isLoading: false
             }
         },
         watch: {
@@ -98,7 +104,7 @@
             },
 
             sendUserInfoToServer: function (){
-
+                this.isLoading = true;
                 var data = JSON.stringify(this.user);
 
                 this.$http.post(config.apiUrl + "users", data)
@@ -118,9 +124,11 @@
                         localStorage.setItem('userToken', response.data.token);
                         localStorage.setItem('username', this.user.username);
                         this.isLoggedIn = true;
+                        this.isLoading = false;
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
+                        this.isLoading = false;
                     });
             },
 

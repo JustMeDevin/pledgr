@@ -8,6 +8,11 @@
 
                 <button id="log-in-button" type="submit" class="pledgr-button">Log In</button>
 
+                <div v-if="isLoading" class="spinner login">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+
                 <p v-if="errorFlag" id="error-label">username or password incorrect</p>
 
             </fieldset>
@@ -32,6 +37,7 @@
                 },
                 submitData: null,
                 loginVisible: true,
+                isLoading: false
             }
         },
         watch: {
@@ -41,6 +47,7 @@
         },
         methods: {
             loginUser: function() {
+                this.isLoading = true;
                 this.submitData = this.user;
 
                 this.$http.post(config.apiUrl + "users/login?username=" + this.user.username + "&password=" + this.user.password)
@@ -48,9 +55,11 @@
                         localStorage.setItem('userToken', response.data.token);
                         localStorage.setItem('username', this.user.username);
                         this.isLoggedIn = true;
+                        this.isLoading = false;
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
+                        this.isLoading = false;
                     });
             }
         },
