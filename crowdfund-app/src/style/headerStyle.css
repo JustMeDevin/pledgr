@@ -1,0 +1,49 @@
+#log-in{
+    margin-top: 22px;
+    right: 2%;
+    -webkit-appearance: none;
+    background: none;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding-bottom: 1.1rem;
+    border-style: none;
+    outline: none;
+}
+
+#log-in:hover{
+    border-bottom: thick solid #ffffff;
+}
+
+#log-in:active{
+    border-bottom: thick solid #ffffff;
+}
+
+#create-account:hover{
+    border-bottom: thick solid #ffffff;
+}
+
+#create-account:active{
+    border-bottom: thick solid #ffffff;
+}
+
+#create-account{
+    margin-top: 22px;
+    right: 2%;
+    -webkit-appearance: none;
+    background: none;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding-bottom: 1.1rem;
+    border-style: none;
+    outline: none;
+}
+
+#header-button-wrapper{
+    text-align: center;
+    display: table-cell;
+    float: right;
+    vertical-align: middle;
+    padding-right: 10px;
+}

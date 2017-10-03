@@ -1,26 +1,18 @@
 <template>
   <div id="app">
 
-    <div v-if="visible" id="log-in-form">
-      <form class="login-form" v-on:submit.prevent="loginUser" id="form">
-        <fieldset>
+    <login v-if="loginVisible"></login>
 
-          <input class="input" id="username" v-model="user.username" type="text" placeholder="Username">
+    <create-account v-if="createAccountVisible"></create-account>
 
-          <input class="input" id="password" v-model="user.password" type="password" placeholder="Password">
+    <div v-on:click="hideLoginWindow" v-bind:class="[fadeContent ? 'window-open' : '', 'window-close']" class="fade-window"></div>
 
-          <button id="log-in-button" type="submit" class="pledgr-button">Log In</button>
-          <p v-if="submitData">{{submitData|json}}</p>
-
-        </fieldset>
-      </form>
-    </div>
-
-  <div v-on:click="hideLoginWindow" v-bind:class="[visible ? 'window-open' : '', 'window-close']" class="fade-window"></div>
-
-    <div id="header">
+    <div v-bind:class="[fadeContent  ? 'dark-dropshadow' : '', 'light-dropshadow']" id="header">
       <h1 id="header-title" class="unselectable">Pledgr</h1>
-      <button v-on:click='visible = !visible' v-if="!isLoggedIn" id="log-in">Log in</button>
+      <div id="header-button-wrapper">
+        <button v-on:click='showLoginWindow' v-if="!isLoggedIn" id="log-in">Log in</button>
+        <button v-on:click='showCreateAccountWindow'  v-if="!isLoggedIn" id="create-account">Create account</button>
+      </div>
     </div>
 
     <router-view></router-view>
@@ -29,6 +21,8 @@
 
 <script>
     import { config } from './config';
+    import CreateAccount from './CreateAccount.vue'
+    import Login from './Login.vue'
 
     export default {
         data(){
@@ -37,23 +31,40 @@
                 error: "",
                 errorFlag: false,
                 isLoggedIn: false,
-                visible: false,
-                user: {
-                    username: null,
-                    password: null,
-                },
-                submitData: null
+                loginVisible: false,
+                createAccountVisible: false,
+                fadeContent: false
             }
         },
+        components: {
+            CreateAccount,
+            Login
+        },
+
         mounted: function() {
         },
         methods: {
-            loginUser: function() {
-                this.submitData = this.user;
-            },
-
             hideLoginWindow: function(){
-                this.visible = false;
+                this.loginVisible = false;
+                this.createAccountVisible = false;
+                this.fadeContent = false;
+            },
+            showCreateAccountWindow: function(){
+                if(this.loginVisible == true){
+                    this.loginVisible = false;
+                }else{
+                    this.fadeContent = !this.fadeContent;
+                }
+                this.createAccountVisible = !this.createAccountVisible;
+            },
+            showLoginWindow: function(){
+                if(this.createAccountVisible == true){
+                    this.createAccountVisible = false;
+                }else{
+                    this.fadeContent = !this.fadeContent;
+                }
+                this.loginVisible = !this.loginVisible;
+
             }
         },
 
