@@ -17,8 +17,6 @@
 
                 <h5> Creators </h5>
                 <p v-for="creator in selectedProject.creators"> {{ creator.username }} </p>
-
-
             </div>
         </div>
 

@@ -15,8 +15,15 @@ const routes = [
     },
     {
         path: "/projects",
+        name: "projects",
+        component: Projects
+    },
+    {
+        path: "/projects/:projectId",
+        name: "project",
         component: Projects
     }
+
 ];
 
 const router = new VueRouter({
