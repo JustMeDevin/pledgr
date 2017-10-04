@@ -44,17 +44,6 @@ body{
     display: none;
 }
 
-.pledgr-button{
-    font-size: 0.8rem;
-    height: 2.6rem;
-    width: 6rem;
-    border-style: none;
-    color: white;
-    border-radius: 10px;
-    background: linear-gradient(to right, #f3ce79, #ffc171);
-    cursor: pointer;
-}
-
 .fade-window {
     margin: 0;
     min-width: 100%;

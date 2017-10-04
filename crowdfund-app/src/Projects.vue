@@ -4,43 +4,37 @@
             {{ error }}
         </div>
 
-        <div id="details-wrapper">
-            <div v-if="selectedProject !== null" id="project-details">
-                <h3>{{ selectedProject.title }}</h3>
-                <h4>{{ selectedProject.subtitle }}</h4>
+        <div v-if="$route.params.projectId">
+            <project-view> </project-view>
+        </div>
 
-                <div id="img-wrapper-pDetails">
-                    <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
-                </div>
-
-                <p id="project-description"> {{ selectedProject.description }}</p>
-
-                <h5> Creators </h5>
-                <p v-for="creator in selectedProject.creators"> {{ creator.username }} </p>
+        <div v-else>
+            <div id="searchWrap">
+                <input class="search" id="search-bar" type="text" v-model="search" placeholder=""/>
             </div>
-        </div>
 
-        <div id="searchWrap">
-            <input v-if="!isSelected" class="search" id="search-bar" type="text" v-model="search" placeholder=""/>
-        </div>
-
-        <div id="projects-wrapper">
-            <div id="projects" v-if="!isSelected" v-for="project in searchedProjects" >
-                <div v-bind:id="project.id" class="project float" v-on:click="getProject(project)">
-                    <div id="img-wrapper">
-                        <img img :src="getImage(project)" v-bind:alt="project" onerror="this.style.display='none'">
+            <div id="projects-wrapper">
+                <div id="projects" v-for="project in searchedProjects" >
+                    <div v-bind:id="project.id" class="project float">
+                        <router-link :to="{name: 'project', params: {projectId: project.id}} " tag="div">
+                            <div id="img-wrapper">
+                                <img img :src="getImage(project)" v-bind:alt="project" onerror="this.style.display='none'">
+                            </div>
+                            <h1>{{ project.title }}</h1>
+                            <h2>{{ project.subtitle }}</h2>
+                            <p id="project-desc">{{ project.description }}</p>
+                        </router-link>
                     </div>
-                    <h1>{{ project.title }}</h1>
-                    <h2>{{ project.subtitle }}</h2>
-                    <p id="project-desc">{{ project.description }}</p>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
 <script>
     import { config } from './config';
+    import ProjectView from './ProjectView.vue';
 
     export default {
         data(){
@@ -49,9 +43,11 @@
                 error: "",
                 errorFlag: false,
                 projects: [],
-                selectedProject: null,
-                isSelected: false
+                selectedProject: null
             }
+        },
+        components: {
+            ProjectView
         },
         mounted: function() {
             this.getProjects();
@@ -69,22 +65,7 @@
 
             getImage: function(project){
                 return config.apiUrl + "projects/" + project.id + "/image";
-            },
-
-            getProject: function(project){
-                this.$http.get(config.apiUrl + "projects/" + project.id)
-                    .then(function(response){
-                        this.selectedProject = response.data;
-                        this.hideProjects();
-                    }, function(error) {
-                        this.error = error;
-                        this.errorFlag = true;
-                    });
-            },
-
-            hideProjects: function(){
-                this.isSelected = !this.isSelected;
-            },
+            }
         },
 
         computed: {
