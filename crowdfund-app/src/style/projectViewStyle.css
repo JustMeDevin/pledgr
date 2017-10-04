@@ -49,7 +49,7 @@ h5{
 
 #project-details{
     padding: 0px 10px 2rem 20px;
-    margin-top: 8rem;
+    margin-top: 7rem;
     margin-bottom: 2rem;
     width: 90vw;
     background-color: #ffffff;
@@ -82,6 +82,13 @@ h5{
     flex-wrap: wrap;
 }
 
+#backer-wrapper{
+    margin-top: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 #creator-names{
     font-weight: 500;
     color: white;
@@ -107,4 +114,9 @@ h5{
 #backers-wrapper{
     float: left;
     clear: both;
+}
+
+.progress-bar{
+    border-radius: 50px;
+    completed-color: black;
 }

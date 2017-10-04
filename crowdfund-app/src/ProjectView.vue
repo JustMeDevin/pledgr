@@ -20,6 +20,15 @@
 
             <div id="backers-wrapper">
                 <h5>Backers</h5>
+                <div id="backer-wrapper">
+                    <div v-if="selectedProject.backers[0] == null">
+                        <pledger :backer="null"></pledger>
+                    </div>
+
+                    <div id="backers" v-else v-for="backer in backers">
+                        <pledger :backer="backer"> </pledger>
+                    </div>
+                </div>
             </div>
 
             <div id="creators-wrapper">
@@ -31,6 +40,8 @@
                 </div>
             </div>
 
+            <!--<progress-bar v-model="progressValue" ></progress-bar>-->
+
         </div>
     </div>
 </template>
@@ -38,20 +49,30 @@
 <script>
     import { config } from './config';
     import Reward from './Reward.vue'
+    import Pledger from './Pledger.vue'
 
     export default {
         data(){
             return{
-                search: '',
                 error: "",
                 errorFlag: false,
                 projects: [],
                 selectedProject: null,
-                progressValue: 0.5
+                progressValue: 0.5,
+                noBackers: {
+                    username: null,
+                    amount: null
+                },
+                backers: [],
+                anonBacker:{
+                    username: "Anonymous",
+                    amount: 0
+                }
             }
         },
         components: {
-            Reward
+            Reward,
+            Pledger
         },
 
         mounted: function() {
@@ -62,10 +83,30 @@
                 return config.apiUrl + "projects/" + this.$route.params.projectId + "/image";
             },
 
+            calculateAnonBackers: function(){
+                this.backers.push(this.anonBacker);
+                var knownBackers = [];
+
+                for(var i = 0; i < this.selectedProject.backers.length; i++){
+
+                    if(this.selectedProject.backers[i].username == 'anonymous'){
+                        this.anonBacker.amount = this.anonBacker.amount + this.selectedProject.backers[i].amount;
+                    }else{
+                        knownBackers.push(this.selectedProject.backers[i]);
+                    }
+                }
+
+                var lastFive = knownBackers.slice(-5)
+                for(var i = 0 ; i < knownBackers.length && i < 5 ; i++){
+                    this.backers.push(lastFive[i])
+                }
+            },
+
             getProject: function(){
                 this.$http.get(config.apiUrl + "projects/" + this.$route.params.projectId)
                     .then(function(response){
                         this.selectedProject = response.data;
+                        this.calculateAnonBackers();
                         console.log(this.selectedProject);
                     }, function(error) {
                         this.error = error;
