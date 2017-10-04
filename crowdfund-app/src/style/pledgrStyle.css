@@ -20,3 +20,9 @@
     cursor: pointer;
     font-weight: 600;
 }
+
+.springboard-button{
+    margin: 1rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #ed80b3, #ff91c5);
+}

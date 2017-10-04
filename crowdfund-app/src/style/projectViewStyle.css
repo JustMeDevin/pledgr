@@ -39,7 +39,7 @@ h5{
     width: 600px;
     height: 300px;
     border-radius: 15px;
-    margin-top: 2rem;
+    margin-top: 6rem;
     margin-right: -5rem;
     float: right;
     flex: 1;
@@ -48,17 +48,63 @@ h5{
 }
 
 #project-details{
-    padding: 0px 10px 0px 20px;
+    padding: 0px 10px 2rem 20px;
     margin-top: 8rem;
+    margin-bottom: 2rem;
     width: 90vw;
     background-color: #ffffff;
-    box-shadow: 0px 6px 15px -3px #bdbdbd;
+    box-shadow: 0px 5px 17px 0px #bdbdbd;
     border-radius: 15px;
     overflow: scroll;
     z-index: 0;
+    float:left;
 }
 
 #project-description{
     margin-left: 1rem;
     margin-right: 50rem;
+    margin-bottom: 1rem;
+}
+
+#rewards{
+    margin: 0rem 0rem 0rem 1rem;
+}
+
+#creators-wrapper{
+    float: left;
+    clear: both;
+}
+
+#circle-wrappers{
+    margin-top: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#creator-names{
+    font-weight: 500;
+    color: white;
+    white-space: nowrap;
+    margin: 0px;
+}
+
+#creator-div{
+    margin: 0rem 0.5rem 1rem 0.5rem;
+    background: linear-gradient(to right, #ff8ac1, #f085b7);
+    border-radius: 300px;
+    box-shadow: 0px 6px 15px -3px #bdbdbd;
+    width: 5rem;
+    height: 5rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#backers-wrapper{
+    float: left;
+    clear: both;
 }
