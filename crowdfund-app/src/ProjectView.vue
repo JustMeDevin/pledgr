@@ -2,17 +2,17 @@
     <div id="details-wrapper">
         <div id="project-details">
             <router-link :to="{name: 'projects'}" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">back</router-link>
-            <h3>{{ selectedProject.title }}</h3>
-            <h4>{{ selectedProject.subtitle }}</h4>
-
             <div id="img-wrapper-pDetails">
                 <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
             </div>
 
+            <h3>{{ selectedProject.title }}</h3>
+            <h4>{{ selectedProject.subtitle }}</h4>
+
             <p id="project-description"> {{ selectedProject.description }}</p>
 
             <h5> Creators </h5>
-            <p v-for="creator in selectedProject.creators"> {{ creator.username }} </p>
+            <p id="creator-names" v-for="creator in selectedProject.creators"> {{ creator.username }} </p>
         </div>
     </div>
 </template>
@@ -42,7 +42,6 @@
                 this.$http.get(config.apiUrl + "projects/" + this.$route.params.projectId)
                     .then(function(response){
                         this.selectedProject = response.data;
-                        this.hideProjects();
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
