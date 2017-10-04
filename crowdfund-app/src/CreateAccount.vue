@@ -4,15 +4,15 @@
             <fieldset>
 
 
-                <input v-bind:class="[usernameInvalid  ? 'invalidInput input' : '', 'input']" id="username" v-model="user.username" type="text" placeholder="username">
+                <input v-bind:class="[usernameInvalid  ? 'invalidInput input' : '', 'input']" id="username" v-model="user.username" type="text" placeholder="Username">
 
-                <input v-bind:class="[emailInvalid  ? 'invalidInput input' : '', 'input']" id="email" v-model="user.email" type="email" placeholder="email">
+                <input v-bind:class="[emailInvalid  ? 'invalidInput input' : '', 'input']" id="email" v-model="user.email" type="email" placeholder="Email">
 
-                <input class="input" id="location" v-model="user.location" type="text" placeholder="location">
+                <input class="input" id="location" v-model="user.location" type="text" placeholder="Location">
 
-                <input v-bind:class="[passwordInvalid  ? 'invalidInput input' : '', 'input']" id="password" v-model="user.password" type="password" placeholder="password">
+                <input v-bind:class="[passwordInvalid  ? 'invalidInput input' : '', 'input']" id="password" v-model="user.password" type="password" placeholder="Password">
 
-                <button id="log-in-button" type="submit" class="pledgr-button">Create</button>
+                <button id="log-in-button" type="submit" class="pledgr-button button-float">Create</button>
             </fieldset>
         </form>
 

@@ -6,7 +6,7 @@
 
                 <input class="input" id="password" v-model="user.password" type="password" placeholder="Password">
 
-                <button id="log-in-button" type="submit" class="pledgr-button">Log In</button>
+                <button id="log-in-button" type="submit" class="pledgr-button button-float">Log In</button>
 
                 <p v-if="errorFlag" id="error-label">username or password incorrect</p>
 

@@ -51,14 +51,37 @@ body{
     -ms-transition:all .2s ease-out;
     -o-transition:all .2s ease-out;
     transition:all .2s ease-out;
+    -webkit-animation: depth_effect_reverse 0.2s linear forwards;
 }
 
 .float:hover {
-    -webkit-transform:translate(0px,-10px);
-    -moz-transform:translate(0px,-10px);
-    -ms-transform:translate(0px,-10px);
-    -o-transform:translate(0px,-10px);
-    transform:translate(0px,-10px);
+    -webkit-transform:translate(0px,-8px);
+    -moz-transform:translate(0px,-8px);
+    -ms-transform:translate(0px,-8px);
+    -o-transform:translate(0px,-8px);
+    transform:translate(0px,-8px);
+    -webkit-animation: depth_effect 0.2s linear forwards;
+}
+
+
+
+@-webkit-keyframes depth_effect {
+    0% {
+        box-shadow: 0px 6px 15px -3px #bdbdbd;
+
+    }
+    100% {
+        box-shadow: 0px 10px 20px 0px rgba(189, 189, 189, 0.70);
+    }
+}
+
+@-webkit-keyframes depth_effect_reverse {
+    0% {
+        box-shadow: 0px 10px 20px 0px rgba(189, 189, 189, 0.70);
+    }
+    100% {
+        box-shadow: 0px 6px 15px -3px #bdbdbd;
+    }
 }
 
 #img-wrapper{
