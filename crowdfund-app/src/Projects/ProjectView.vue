@@ -25,44 +25,44 @@
                     <div id="img-wrapper-pDetails">
                         <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
                     </div>
-
-
-
                 </div>
 
-                <h3>{{ selectedProject.title }}</h3>
-                <h4>{{ selectedProject.subtitle }}</h4>
+                <div id="lefthand-project-details">
+                    <h3>{{ selectedProject.title }}</h3>
+                    <h4>{{ selectedProject.subtitle }}</h4>
 
-                <p id="project-description"> {{ selectedProject.description }}</p>
+                    <p id="project-description"> {{ selectedProject.description }}</p>
 
-                <h5 id="rewards-header">Rewards</h5>
-                <div id="rewards" v-for="reward in selectedProject.rewards">
-                    <reward :reward="reward"></reward>
-                </div>
+                    <h5 id="rewards-header">Rewards</h5>
+                    <div id="rewards" v-for="reward in selectedProject.rewards">
+                        <reward :reward="reward"></reward>
+                    </div>
 
-                <div id="backers-wrapper">
-                    <h5>Backers</h5>
-                    <div id="backer-wrapper">
-                        <div v-if="selectedProject.backers[0] == null" class="float-in">
-                            <pledger :backer="null"></pledger>
+                    <div id="backers-wrapper">
+                        <h5>Backers</h5>
+                        <div id="backer-wrapper">
+                            <div v-if="selectedProject.backers[0] == null" class="float-in">
+                                <pledger :backer="null"></pledger>
+                            </div>
+
+                            <div id="backers" v-else v-for="backer in backers" class="float-in">
+                                <div>
+                                    <pledger :backer="backer"> </pledger>
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div id="backers" v-else v-for="backer in backers" class="float-in">
-                            <div>
-                                <pledger :backer="backer"> </pledger>
+                    <div id="creators-wrapper">
+                        <h5> Creators </h5>
+                        <div id="circle-wrappers" class="float-in">
+                            <div v-for="creator in selectedProject.creators" id="creator-div">
+                                <p id="creator-names">{{creator.username}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="creators-wrapper">
-                    <h5> Creators </h5>
-                    <div id="circle-wrappers" class="float-in">
-                        <div v-for="creator in selectedProject.creators" id="creator-div">
-                            <p id="creator-names">{{creator.username}}</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -94,6 +94,7 @@
                 amountRaised:{
                     target: 0,
                     currentAmount: 0,
+                    progressAmount: 0,
                     numberBackers: 0
                 },
                 date: null
@@ -159,16 +160,18 @@
 
             updateTargetInfo: function(){
                 if(this.selectedProject.progress != null){
-                    if(this.selectedProject.progress.currentPledged > this.selectedProject.target){
-                        this.amountRaised.currentAmount = this.selectedProject.target;
+                    if(this.selectedProject.progress.currentPledged >= this.selectedProject.target){
+                        this.amountRaised.progressAmount = this.selectedProject.target;
+                    }else{
+                        this.amountRaised.progressAmount = this.selectedProject.progress.currentPledged;
                     }
-                    this.amountRaised.currentAmount = this.selectedProject.progress.currentPledged;
-                    this.amountRaised.target = this.selectedProject.target;
                     this.amountRaised.numberBackers = this.selectedProject.progress.numberOfBackers;
+                    this.amountRaised.currentAmount = this.selectedProject.progress.currentPledged;
                 }else{
                     this.amountRaised.currentAmount = 0;
-                    this.amountRaised.target = this.selectedProject.target;
                 }
+                this.amountRaised.target = this.selectedProject.target;
+                console.log()
             }
         },
 
