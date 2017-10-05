@@ -1,9 +1,14 @@
 <template>
     <div id="details-wrapper">
-        <div id="project-details">
+        <div v-if="selectedProject" id="project-details">
             <div id="project-button-bar">
                 <router-link :to="{name: 'projects'}" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">back</router-link>
             </div>
+
+            <div id="target-wrapper">
+                <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
+            </div>
+
             <div id="img-wrapper-pDetails">
                 <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
             </div>
@@ -40,16 +45,15 @@
                 </div>
             </div>
 
-            <!--<progress-bar v-model="progressValue" ></progress-bar>-->
-
         </div>
     </div>
 </template>
 
 <script>
-    import { config } from './config';
+    import { config } from '../config';
     import Reward from './Reward.vue'
     import Pledger from './Pledger.vue'
+    import TargetProgressBar from './TargetProgressBar.vue'
 
     export default {
         data(){
@@ -65,14 +69,19 @@
                 },
                 backers: [],
                 anonBacker:{
-                    username: "Anonymous",
+                    username: "anonymous",
                     amount: 0
+                },
+                amountRaised:{
+                    target: null,
+                    currentAmount: null
                 }
             }
         },
         components: {
             Reward,
-            Pledger
+            Pledger,
+            TargetProgressBar
         },
 
         mounted: function() {
@@ -96,8 +105,8 @@
                     }
                 }
 
-                var lastFive = knownBackers.slice(-5)
-                for(var i = 0 ; i < knownBackers.length && i < 5 ; i++){
+                var lastFive = knownBackers.slice(-4)
+                for(var i = 0 ; i < knownBackers.length && i < 4 ; i++){
                     this.backers.push(lastFive[i])
                 }
             },
@@ -107,12 +116,21 @@
                     .then(function(response){
                         this.selectedProject = response.data;
                         this.calculateAnonBackers();
+                        this.updateTargetInfo();
                         console.log(this.selectedProject);
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
                     });
             },
+
+            updateTargetInfo: function(){
+                if(this.selectedProject.progress.currentPledged > this.selectedProject.target){
+                    this.amountRaised.currentAmount = this.selectedProject.target;
+                }
+                this.amountRaised.currentAmount = this.selectedProject.progress.currentPledged;
+                this.amountRaised.target = this.selectedProject.target;
+            }
         },
 
         computed: {

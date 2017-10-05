@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import Home from './Home.vue';
-import Projects from './Projects.vue';
-import Progressbar from 'vue-progress-bar';
+import Projects from './Projects/Projects.vue';
 
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
@@ -33,9 +32,6 @@ const router = new VueRouter({
 });
 
 Vue.http.options.emulateJSON = true;
-
-
-Vue.component('progress-bar', Progressbar);
 
 
 

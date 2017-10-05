@@ -26,9 +26,9 @@
 
 <script>
     import { config } from './config';
-    import CreateAccount from './CreateAccount.vue';
-    import Login from './Login.vue';
-    import UserSpringboard from './UserSpringboard.vue';
+    import CreateAccount from './AccountManagement/CreateAccount.vue';
+    import Login from './AccountManagement/Login.vue';
+    import UserSpringboard from './AccountManagement/UserSpringboard.vue';
 
     export default {
         data(){

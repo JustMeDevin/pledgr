@@ -12,6 +12,11 @@
     backdrop-filter: blur(20px);
 }
 
+#header-wrapper{
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
 .light-dropshadow{
     box-shadow: 0px 3px 20px 0px #bdbdbd;
 }

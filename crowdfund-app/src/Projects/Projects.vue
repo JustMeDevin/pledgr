@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import { config } from './config';
+    import { config } from '../config';
     import ProjectView from './ProjectView.vue';
 
     export default {
