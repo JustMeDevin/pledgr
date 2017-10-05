@@ -11,35 +11,14 @@
             <div v-if="selectedProject" id="project-details">
 
                 <div id="righthand-project-details">
-                    <p id="current-pledged-amount">${{ amountRaised.currentAmount }}</p>
-                    <p id="target-amount-desc"> pledged of ${{ selectedProject.target }} goal</p>
-                    <div id="target-wrapper">
-                        <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
-                    </div>
-                    <p id="backers-desc">{{ amountRaised.numberBackers }} backers</p>
-
-                    <div id="creation-date-wrapper">
-                        <p id="creation">created: {{ date }}</p>
-                    </div>
 
                     <div id="img-wrapper-pDetails">
                         <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
                     </div>
-                </div>
 
-                <div id="lefthand-project-details">
-                    <h3>{{ selectedProject.title }}</h3>
-                    <h4>{{ selectedProject.subtitle }}</h4>
-
-                    <p id="project-description"> {{ selectedProject.description }}</p>
-
-                    <div id="rewards-wrapper">
-                        <h5 id="rewards-header">Rewards</h5>
-                        <div id="rewards" v-for="reward in selectedProject.rewards">
-                            <reward :reward="reward"></reward>
-                        </div>
+                    <div id="creation-date-wrapper">
+                        <p id="creation">created: {{ date }}</p>
                     </div>
-
 
                     <div id="backers-wrapper">
                         <h5>Backers</h5>
@@ -62,6 +41,27 @@
                             <div v-for="creator in selectedProject.creators" id="creator-div">
                                 <p id="creator-names">{{creator.username}}</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="lefthand-project-details">
+                    <h3>{{ selectedProject.title }}</h3>
+                    <h4>{{ selectedProject.subtitle }}</h4>
+
+                    <p id="project-description"> {{ selectedProject.description }}</p>
+
+                    <p id="current-pledged-amount">${{ amountRaised.currentAmount }}</p>
+                    <p id="target-amount-desc"> pledged of ${{ selectedProject.target }} goal</p>
+                    <div id="target-wrapper">
+                        <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
+                    </div>
+                    <p id="backers-desc">{{ amountRaised.numberBackers }} backers</p>
+
+                    <div id="rewards-wrapper">
+                        <h5 id="rewards-header">Rewards</h5>
+                        <div id="rewards" v-for="reward in selectedProject.rewards">
+                            <reward :reward="reward"></reward>
                         </div>
                     </div>
                 </div>

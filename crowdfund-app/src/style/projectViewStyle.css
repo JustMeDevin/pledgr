@@ -12,7 +12,7 @@
 #back-wrapper{
     z-index: 10;
     position: absolute;
-    margin-top: 6rem;
+    margin-top: 5.6rem;
     right: 2.4rem;
 }
 
@@ -50,13 +50,13 @@ h5{
     height: 300px;
     border-radius: 15px;
     z-index: 1;
-    margin-bottom: 2rem;
-    margin-top: 0.1rem;
+    margin-top: 0.5rem;
+    margin-right: 0rem;
 }
 
 #project-details{
     padding: 0px 10px 2rem 20px;
-    margin-top: 7rem;
+    margin-top: 6.5rem;
     margin-bottom: 2rem;
     width: 90vw;
     background-color: #ffffff;
@@ -67,7 +67,7 @@ h5{
 }
 
 #project-description{
-    margin-left: 1rem;
+    margin-left: 2rem;
     margin-right: 50rem;
     margin-bottom: 1rem;
 }
@@ -133,7 +133,7 @@ h5{
 
 #target-wrapper{
     margin-bottom: 1.2rem;
-
+    margin-left: 2rem;
 }
 
 #righthand-project-details{
@@ -144,8 +144,8 @@ h5{
 }
 
 #target-heading{
-    margin-left: 0rem;
     margin-bottom: 0.1rem;
+    margin-left: 2rem;
 }
 
 #current-pledged-amount{
@@ -154,6 +154,7 @@ h5{
     font-weight: 500;
     color: #ffc171;
     font-size: 1.8rem;
+    margin-left: 2rem;
 }
 
 #target-amount-desc{
@@ -162,11 +163,13 @@ h5{
     font-weight: 500;
     color: #525252;
     font-size: 1.2rem;
+    margin-left: 2rem;
 }
 
 #backers-desc{
-    margin-bottom: 0.1rem;
+    margin-bottom: 1rem;
     margin-top: 0.1rem;
+    margin-left: 2rem;
     font-weight: 500;
     color: #525252;
 }
