@@ -4,7 +4,7 @@
         <p> <b class="backer-amount">${{ backer.amount }}</b><br><small id="backer-name">{{ backer.username }}</small></p>
     </div>
 
-    <div v-else class="pledger-div empty-backers">
+    <div class="pledger-div empty-backers float-in" v-else >
         <p id="no-backers">No<br>backers</p>
     </div>
 

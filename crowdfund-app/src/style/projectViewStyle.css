@@ -1,15 +1,25 @@
 #details-wrapper{
+}
+
+#pane-wrapper{
     display: flex;
     flex-wrap: wrap; /* optional. only if you want the items to wrap */
     justify-content: center; /* for horizontal alignment */
+    overflow: hidden;
+
+}
+
+#back-wrapper{
+    z-index: 10;
+    position: absolute;
+    margin-top: 6rem;
+    right: 2.4rem;
 }
 
 #back-to-projects-button{
-    margin-top: 1.5rem;
-    margin-right: 1rem;
-    float: right;
-    z-index: 2;
-    position: relative;
+    border-radius: 300px;
+    width: 40px;
+    height: 40px;
 }
 
 h3{
@@ -39,9 +49,6 @@ h5{
     width: 600px;
     height: 300px;
     border-radius: 15px;
-    margin-top: 6rem;
-    margin-right: -5rem;
-    float: right;
     flex: 1;
     z-index: 1;
     margin-bottom: 2rem;
@@ -55,7 +62,6 @@ h5{
     background-color: #ffffff;
     box-shadow: 0px 5px 17px 0px #bdbdbd;
     border-radius: 15px;
-    overflow: scroll;
     z-index: 0;
     float:left;
 }
@@ -122,8 +128,41 @@ h5{
 }
 
 #target-wrapper{
+    margin-bottom: 1.2rem;
+
+}
+
+#righthand-project-details{
     float: right;
-    margin-top: 3rem;
-    margin-left: 40rem;
-    position: absolute;
+    margin-right: 1rem;
+    margin-top: 1.2rem;
+    z-index: 1;
+}
+
+#target-heading{
+    margin-left: 0rem;
+    margin-bottom: 0.1rem;
+}
+
+#current-pledged-amount{
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
+    font-weight: 500;
+    color: #ffc171;
+    font-size: 1.5rem;
+}
+
+#target-amount-desc{
+    margin-bottom: 0.3rem;
+    margin-top: 0.1rem;
+    font-weight: 500;
+    color: #525252;
+    font-size: 1.2rem;
+}
+
+#backers-desc{
+    margin-bottom: 1rem;
+    margin-top: 0.1rem;
+    font-weight: 500;
+    color: #525252;
 }
