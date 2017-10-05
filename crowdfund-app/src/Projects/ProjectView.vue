@@ -18,9 +18,16 @@
                     </div>
                     <p id="backers-desc">{{ amountRaised.numberBackers }} backers</p>
 
+                    <div id="creation-date-wrapper">
+                        <p id="creation">created: {{ date }}</p>
+                    </div>
+
                     <div id="img-wrapper-pDetails">
                         <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
                     </div>
+
+
+
                 </div>
 
                 <h3>{{ selectedProject.title }}</h3>
@@ -56,12 +63,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
-
     </div>
 </template>
 
@@ -92,7 +95,8 @@
                     target: 0,
                     currentAmount: 0,
                     numberBackers: 0
-                }
+                },
+                date: null
             }
         },
         components: {
@@ -134,11 +138,23 @@
                         this.selectedProject = response.data;
                         this.calculateAnonBackers();
                         this.updateTargetInfo();
+                        this.getDate();
                         console.log(this.selectedProject);
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
                     });
+            },
+
+            getDate: function(){
+
+                var date = new Date( parseFloat( this.selectedProject.creationDate));
+                this.date = date.getHours() +
+                    ":" + date.getMinutes() +
+                    " " + date.getDate() +
+                    "/" + date.getMonth() +
+                    "/" + date.getFullYear();
+
             },
 
             updateTargetInfo: function(){

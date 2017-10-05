@@ -49,9 +49,9 @@ h5{
     width: 600px;
     height: 300px;
     border-radius: 15px;
-    flex: 1;
     z-index: 1;
     margin-bottom: 2rem;
+    margin-top: 0.1rem;
 }
 
 #project-details{
@@ -145,15 +145,15 @@ h5{
 }
 
 #current-pledged-amount{
-    margin-bottom: 0.1rem;
+    margin-bottom: 0.2rem;
     margin-top: 0.1rem;
     font-weight: 500;
     color: #ffc171;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
 #target-amount-desc{
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
     margin-top: 0.1rem;
     font-weight: 500;
     color: #525252;
@@ -161,8 +161,18 @@ h5{
 }
 
 #backers-desc{
-    margin-bottom: 1rem;
+    margin-bottom: 0.1rem;
     margin-top: 0.1rem;
     font-weight: 500;
     color: #525252;
+}
+
+#creation-date-wrapper{
+    text-align: right;
+    margin-bottom: 0.1rem;
+}
+
+#creation{
+    color: #a9a9a9;
+    font-size: 0.8rem;
 }
