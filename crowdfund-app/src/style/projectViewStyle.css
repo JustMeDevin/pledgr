@@ -77,8 +77,7 @@ h5{
 }
 
 #creators-wrapper{
-    float: left;
-    clear: both;
+    clear: left;
 }
 
 #circle-wrappers{
@@ -86,6 +85,14 @@ h5{
     margin-left: 2rem;
     display: flex;
     flex-wrap: wrap;
+}
+
+#rewards-wrapper{
+    float: left;
+}
+
+#backers-wrapper{
+    clear: left;
 }
 
 #backer-wrapper{
@@ -115,11 +122,8 @@ h5{
     justify-content: center;
     text-align: center;
     white-space: nowrap;
-}
 
-#backers-wrapper{
-    float: left;
-    clear: both;
+    opacity: 0;
 }
 
 .progress-bar{

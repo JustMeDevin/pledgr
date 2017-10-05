@@ -33,10 +33,13 @@
 
                     <p id="project-description"> {{ selectedProject.description }}</p>
 
-                    <h5 id="rewards-header">Rewards</h5>
-                    <div id="rewards" v-for="reward in selectedProject.rewards">
-                        <reward :reward="reward"></reward>
+                    <div id="rewards-wrapper">
+                        <h5 id="rewards-header">Rewards</h5>
+                        <div id="rewards" v-for="reward in selectedProject.rewards">
+                            <reward :reward="reward"></reward>
+                        </div>
                     </div>
+
 
                     <div id="backers-wrapper">
                         <h5>Backers</h5>
