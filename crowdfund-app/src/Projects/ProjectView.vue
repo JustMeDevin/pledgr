@@ -1,5 +1,5 @@
 <template>
-    <div id="details-wrapper">
+    <div v-bind:class="[selectedProject ? 'open-project' : 'close-project']" id="details-wrapper">
 
         <div id="back-wrapper">
             <router-link :to="{name: 'projects'}" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
@@ -51,12 +51,15 @@
 
                     <p id="project-description"> {{ selectedProject.description }}</p>
 
-                    <p id="current-pledged-amount">${{ amountRaised.currentAmount }}</p>
-                    <p id="target-amount-desc"> pledged of ${{ selectedProject.target }} goal</p>
-                    <div id="target-wrapper">
-                        <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
+                    <h5>Progress</h5>
+                    <div id="progress-wrapper">
+                        <p id="current-pledged-amount">${{ amountRaised.currentAmount }}</p>
+                        <p id="target-amount-desc"> pledged of ${{ selectedProject.target }} goal</p>
+                        <div id="target-wrapper">
+                            <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
+                        </div>
+                        <p id="backers-desc">{{ amountRaised.numberBackers }} backers</p>
                     </div>
-                    <p id="backers-desc">{{ amountRaised.numberBackers }} backers</p>
 
                     <div id="rewards-wrapper">
                         <h5 id="rewards-header">Rewards</h5>

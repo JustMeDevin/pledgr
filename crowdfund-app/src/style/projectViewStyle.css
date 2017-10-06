@@ -24,20 +24,32 @@
 
 h3{
     margin: 1.2rem 0rem 0rem 1rem;
-    font-size: 3.2em;
+    font-size: 4rem;
     color: #454545;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.1s;
 }
 
 h4{
-    margin: 0rem 0 0 1rem;
-    font-size: 1.8em;
-    color: #5d5d5d;
+    margin: -0.5rem 0 0 1rem;
+    font-size: 2.1em;
+    color: #848484;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 h5{
     margin: 0rem 0rem 0rem 1rem;
-    font-size: 1.5em;
+    font-size: 1.8em;
     color: #5d5d5d;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.3s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.3s;
 }
 
 #creator-names{
@@ -51,7 +63,12 @@ h5{
     border-radius: 15px;
     z-index: 1;
     margin-top: 0.5rem;
-    margin-right: 0rem;
+    opacity: 0;
+    box-shadow: 0px 6px 15px -3px #bdbdbd;
+
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.1s;
 }
 
 #project-details{
@@ -70,10 +87,16 @@ h5{
     margin-left: 2rem;
     margin-right: 50rem;
     margin-bottom: 1rem;
+    color: #323232;
 }
 
 #rewards{
     margin: 0rem 0rem 0rem 1rem;
+
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 #creators-wrapper{
@@ -122,18 +145,19 @@ h5{
     justify-content: center;
     text-align: center;
     white-space: nowrap;
+    cursor: default;
 
     opacity: 0;
-}
-
-.progress-bar{
-    border-radius: 50px;
-    completed-color: black;
 }
 
 #target-wrapper{
     margin-bottom: 1.2rem;
     margin-left: 2rem;
+
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 #righthand-project-details{
@@ -146,15 +170,25 @@ h5{
 #target-heading{
     margin-bottom: 0.1rem;
     margin-left: 2rem;
+
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 #current-pledged-amount{
     margin-bottom: 0.2rem;
-    margin-top: 0.1rem;
+    margin-top: 1.5rem;
     font-weight: 500;
     color: #ffc171;
     font-size: 1.8rem;
     margin-left: 2rem;
+
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 #target-amount-desc{
@@ -164,22 +198,75 @@ h5{
     color: #525252;
     font-size: 1.2rem;
     margin-left: 2rem;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 #backers-desc{
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     margin-top: 0.1rem;
     margin-left: 2rem;
     font-weight: 500;
     color: #525252;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 #creation-date-wrapper{
     text-align: right;
     margin-bottom: 0.1rem;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
 }
 
 #creation{
     color: #a9a9a9;
     font-size: 0.8rem;
+}
+
+#progress-wrapper{
+}
+
+.close-project{
+    display: none;
+}
+
+.open-project{
+    -webkit-animation: enter-project 0.5s ease-out forwards;
+    -webkit-transform-origin: 100% 0%;
+}
+
+@-webkit-keyframes enter-project {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(300px);
+        -moz-transform:translateY(300px);
+        -ms-transform:translateY(300px);
+        -o-transform:translateY(300px);
+        transform:translateY(300px);
+
+    }
+
+    70%{
+        -webkit-transform:translateY(-30px);
+        -moz-transform:translateY(-30px);
+        -ms-transform:translateY(-30px);
+        -o-transform:translateY(-30px);
+        transform:translateY(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform:translateY(0);
+        -moz-transform:translateY(0);
+        -ms-transform:translateY(0);
+        -o-transform:translateY(0);
+        transform:translateY(0);
+    }
 }

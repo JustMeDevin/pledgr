@@ -34,7 +34,7 @@ fieldset {
     z-index: 1000;
     position: fixed;
     right: 0;
-    opacity: 0.9;
+    opacity: 0;
     -webkit-backdrop-filter: blur(10px);
 }
 

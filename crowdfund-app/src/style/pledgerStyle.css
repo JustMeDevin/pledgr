@@ -12,6 +12,7 @@
     text-align: center;
     white-space: nowrap;
     opacity: 0;
+    cursor: default;
 }
 
 .empty-backers{
@@ -46,7 +47,9 @@
 }
 
 .float-in div{
-    -webkit-animation: float-element-in 0.6s ease-in forwards;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.8s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.8s;
 }
 
 .float-in:nth-child(1) div { animation-delay: 0s }
@@ -65,6 +68,15 @@
         transform: translate(0px, 20px);
 
     }
+
+    70% {
+        -webkit-transform: translate(0px, -5px);
+        -moz-transform: translate(0px, -5px);
+        -ms-transform: translate(0px, -5px);
+        -o-transform: translate(0px, -5px);
+        transform: translate(0px, -5px);
+    }
+
     100% {
         opacity: 1;
         -webkit-transform: translate(0px, 0px);

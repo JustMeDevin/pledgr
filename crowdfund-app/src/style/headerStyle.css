@@ -48,28 +48,49 @@
 }
 
 #log-in:hover{
-    border-bottom: thick solid rgba(255, 255, 255, 0.30);
+    -webkit-animation: border-animation 0.3s linear forwards;
+    border-bottom: thick solid;
+    -webkit-transform-origin: 50% 100%;
 }
 
 #log-in:active{
-    border-bottom: thick solid rgba(255, 255, 255, 0.30);
+    -webkit-animation: border-animation 0.3s linear forwards;
+    border-bottom: thick solid;
 }
 
 #create-account:hover{
-    border-bottom: thick solid rgba(255, 255, 255, 0.30);
+    -webkit-animation: border-animation 0.3s linear forwards;
+    border-bottom: thick solid;
 }
 
 #create-account:active{
-    border-bottom: thick solid rgba(255, 255, 255, 0.30);
+    -webkit-animation: border-animation 0.3s linear forwards;
+    border-bottom: thick solid;
 }
 
 #account-name:hover{
-    border-bottom: thick solid rgba(255, 255, 255, 0.30);
+    -webkit-animation: border-animation 0.3s linear forwards;
+    border-bottom: thick solid;
 }
 
 #log-out:hover{
-    border-bottom: thick solid rgba(255, 255, 255, 0.30);
+    -webkit-animation: border-animation 0.3s linear forwards;
+    border-bottom: thick solid;
 }
+
+@-webkit-keyframes border-animation {
+     0% {
+
+         border-color: rgba(255, 255, 255, 0.00);
+
+     }
+     100% {
+         border-color: rgba(255, 255, 255, 0.30);
+
+     }
+ }
+
+
 
 
 
@@ -121,4 +142,34 @@
     float: right;
     vertical-align: middle;
     padding-right: 10px;
+}
+
+.pane-invisible{
+    display: none;
+}
+
+.pane-visible{
+    -webkit-animation: header-pane-fade 0.3s linear forwards;
+    -webkit-transform-origin: 100% 0%;
+}
+
+@-webkit-keyframes header-pane-fade {
+    0% {
+
+        opacity: 0;
+        -webkit-transform:rotate(-7deg);
+        -moz-transform:rotate(-7deg);
+        -ms-transform:rotate(-7deg);
+        -o-transform:rotate(-7deg);
+        transform:rotate(-7deg);
+
+    }
+    100% {
+        opacity: 0.9;
+        -webkit-transform:rotate(0deg);
+        -moz-transform:rotate(0deg);
+        -ms-transform:rotate(0deg);
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
 }

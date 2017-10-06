@@ -42,8 +42,7 @@
                 search: '',
                 error: "",
                 errorFlag: false,
-                projects: [],
-                selectedProject: null
+                projects: []
             }
         },
         components: {

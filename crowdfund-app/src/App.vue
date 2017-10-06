@@ -1,11 +1,11 @@
 <template>
   <div id="app">
 
-    <login v-model="isLoggedIn" v-if="loginVisible"></login>
+    <login v-model="isLoggedIn" v-bind:class="[loginVisible ? 'pane-visible' : 'pane-invisible']"></login>
 
-    <create-account v-model="isLoggedIn" v-if="createAccountVisible"></create-account>
+    <create-account v-model="isLoggedIn" v-bind:class="[createAccountVisible ? 'pane-visible' : 'pane-invisible']"></create-account>
 
-    <user-springboard v-if="springboardVisible"> </user-springboard>
+    <user-springboard v-bind:class="[springboardVisible ? 'pane-visible' : 'pane-invisible']"> </user-springboard>
 
     <div v-on:click="hideLoginWindow" v-bind:class="[fadeContent ? 'window-open' : '', 'window-close']" class="fade-window"></div>
 
@@ -41,7 +41,7 @@
                 createAccountVisible: false,
                 fadeContent: false,
                 username: null,
-                springboardVisible: false
+                springboardVisible: false,
             }
         },
         components: {
@@ -55,6 +55,7 @@
             if(localStorage.getItem('userToken')){
                 this.isLoggedIn = true;
             }
+
         },
         watch: {
             'isLoggedIn': function() {
