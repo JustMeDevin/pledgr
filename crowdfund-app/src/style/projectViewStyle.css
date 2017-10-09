@@ -20,6 +20,7 @@
     border-radius: 300px;
     width: 40px;
     height: 40px;
+    outline: none;
 }
 
 h3{
@@ -57,7 +58,7 @@ h5{
 }
 
 #img-wrapper-pDetails{
-    background: linear-gradient(to right, rgb(196, 196, 196), rgb(216, 216, 216));
+    background: linear-gradient(to bottom, #C4C4C4, #C4C4C4, #C4C4C4, #b7b7b7);
     width: 600px;
     height: 300px;
     border-radius: 15px;
@@ -76,7 +77,7 @@ h5{
     margin-top: 6.5rem;
     margin-bottom: 2rem;
     width: 90vw;
-    background-color: #ffffff;
+    background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #f9f9f9);
     box-shadow: 0px 5px 17px 0px #bdbdbd;
     border-radius: 15px;
     z-index: 0;
@@ -134,11 +135,12 @@ h5{
 
 #creator-div{
     margin: 0rem 0.5rem 1rem 0.5rem;
-    background: linear-gradient(to right, #ff8ac1, #f085b7);
+    background: linear-gradient(to bottom, #ff96c7, #ff96c7, #ff96c7, #f78cc3);
     border-radius: 300px;
     box-shadow: 0px 6px 15px -3px #bdbdbd;
     width: 5rem;
     height: 5rem;
+
 
     display: inline-flex;
     align-items: center;

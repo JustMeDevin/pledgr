@@ -6,7 +6,7 @@
     top:0;
     opacity: 0.9;
     z-index: 1000;
-    background: linear-gradient(to right, #ed80b3, #f3ce79);
+    background: linear-gradient(to right, #f78cc3, #ffcf78 80%);
 
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);

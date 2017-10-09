@@ -1,10 +1,10 @@
 <template>
     <div id="bigdaddy-wrapper">
         <div id="reward-wrapper">
-            <div id="reward-shape" class="float">
+            <router-link :to="{name: 'reward', params: {rewardId: reward.id}} " id="reward-shape" class="float" tag="div">
                 <p id="reward-price"> Pledge ${{ reward.amount}}</p>
                 <p id="reward-description"> {{ reward.description }}</p>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>

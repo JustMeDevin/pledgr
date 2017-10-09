@@ -1,74 +1,82 @@
 <template>
-    <div v-bind:class="[selectedProject ? 'open-project' : 'close-project']" id="details-wrapper">
+    <div>
+        <reward-details v-if="$route.params.rewardId" :projectId="$route.params.projectId"></reward-details>
 
-        <div id="back-wrapper">
-            <router-link :to="{name: 'projects'}" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
-                <img src="/src/img/exitCross.png" alt="cross" style="width:25px;height:25px;">
-            </router-link>
-        </div>
+        <div v-bind:class="[selectedProject ? 'open-project' : 'close-project']" id="details-wrapper">
 
-        <div id="pane-wrapper">
-            <div v-if="selectedProject" id="project-details">
+            <router-link :to="{name: 'project', params: {projectId: $route.params.projectId}}"
+                         v-bind:class="[$route.params.rewardId ? 'window-open' : '', 'window-close']"
+                         class="fade-window"></router-link>
 
-                <div id="righthand-project-details">
+            <div id="back-wrapper">
+                <router-link :to="{name: 'projects'}" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
+                    <img src="/src/img/exitCross.png" alt="cross" style="width:25px;height:25px;">
+                </router-link>
+            </div>
 
-                    <div id="img-wrapper-pDetails">
-                        <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
-                    </div>
+            <div id="pane-wrapper">
+                <div v-if="selectedProject" id="project-details">
 
-                    <div id="creation-date-wrapper">
-                        <p id="creation">created: {{ date }}</p>
-                    </div>
+                    <div id="righthand-project-details">
 
-                    <div id="backers-wrapper">
-                        <h5>Backers</h5>
-                        <div id="backer-wrapper">
-                            <div v-if="selectedProject.backers[0] == null" class="float-in">
-                                <pledger :backer="null"></pledger>
+                        <div id="img-wrapper-pDetails">
+                            <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
+                        </div>
+
+                        <div id="creation-date-wrapper">
+                            <p id="creation">created: {{ date }}</p>
+                        </div>
+
+                        <div id="backers-wrapper">
+                            <h5>Backers</h5>
+                            <div id="backer-wrapper">
+                                <div v-if="selectedProject.backers[0] == null" class="float-in">
+                                    <pledger :backer="null"></pledger>
+                                </div>
+
+                                <div id="backers" v-else v-for="backer in backers" class="float-in">
+                                    <div>
+                                        <pledger :backer="backer"> </pledger>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
 
-                            <div id="backers" v-else v-for="backer in backers" class="float-in">
-                                <div>
-                                    <pledger :backer="backer"> </pledger>
+                        <div id="creators-wrapper">
+                            <h5> Creators </h5>
+                            <div id="circle-wrappers" class="float-in">
+                                <div v-for="creator in selectedProject.creators" id="creator-div">
+                                    <p id="creator-names">{{creator.username}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="creators-wrapper">
-                        <h5> Creators </h5>
-                        <div id="circle-wrappers" class="float-in">
-                            <div v-for="creator in selectedProject.creators" id="creator-div">
-                                <p id="creator-names">{{creator.username}}</p>
+                    <div id="lefthand-project-details">
+                        <h3>{{ selectedProject.title }}</h3>
+                        <h4>{{ selectedProject.subtitle }}</h4>
+
+                        <p id="project-description"> {{ selectedProject.description }}</p>
+
+                        <h5>Progress</h5>
+                        <div id="progress-wrapper">
+                            <p id="current-pledged-amount">${{ amountRaised.currentAmount }}</p>
+                            <p id="target-amount-desc"> pledged of ${{ selectedProject.target }} goal</p>
+                            <div id="target-wrapper">
+                                <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
+                            </div>
+                            <p id="backers-desc">{{ amountRaised.numberBackers }} backers</p>
+                        </div>
+
+                        <div id="rewards-wrapper">
+                            <h5 id="rewards-header">Rewards</h5>
+                            <div id="rewards" v-for="reward in selectedProject.rewards">
+                                <reward :reward="reward"></reward>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-                <div id="lefthand-project-details">
-                    <h3>{{ selectedProject.title }}</h3>
-                    <h4>{{ selectedProject.subtitle }}</h4>
-
-                    <p id="project-description"> {{ selectedProject.description }}</p>
-
-                    <h5>Progress</h5>
-                    <div id="progress-wrapper">
-                        <p id="current-pledged-amount">${{ amountRaised.currentAmount }}</p>
-                        <p id="target-amount-desc"> pledged of ${{ selectedProject.target }} goal</p>
-                        <div id="target-wrapper">
-                            <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
-                        </div>
-                        <p id="backers-desc">{{ amountRaised.numberBackers }} backers</p>
-                    </div>
-
-                    <div id="rewards-wrapper">
-                        <h5 id="rewards-header">Rewards</h5>
-                        <div id="rewards" v-for="reward in selectedProject.rewards">
-                            <reward :reward="reward"></reward>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -76,9 +84,10 @@
 
 <script>
     import { config } from '../config';
-    import Reward from './Reward.vue'
-    import Pledger from './Pledger.vue'
-    import TargetProgressBar from './TargetProgressBar.vue'
+    import Reward from '../Rewards/RewardSummary.vue';
+    import Pledger from '../Pledging/Pledger.vue';
+    import TargetProgressBar from './TargetProgressBar.vue';
+    import RewardDetails from '../Rewards/RewardDetails.vue';
 
     export default {
         data(){
@@ -109,7 +118,8 @@
         components: {
             Reward,
             Pledger,
-            TargetProgressBar
+            TargetProgressBar,
+            RewardDetails
         },
 
         mounted: function() {

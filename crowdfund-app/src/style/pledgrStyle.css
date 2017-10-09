@@ -5,8 +5,9 @@
     border-style: none;
     color: white;
     border-radius: 10px;
-    background: linear-gradient(to right, #f3ce79, #ffc171);
+    background: linear-gradient(to bottom, #ffda7d, #ffd97b, #ffd97b, #ffcf78);
     cursor: pointer;
+    font-weight: 500;
 }
 
 .pledgr-button-bold{
@@ -16,7 +17,8 @@
     border-style: none;
     color: white;
     border-radius: 10px;
-    background: linear-gradient(to right, #f3ce79, #ffc171);
+    background: linear-gradient(to bottom, #ffda7d, #ffd97b, #ffd97b, #ffcf78);
+
     cursor: pointer;
     font-weight: 600;
 }
@@ -24,5 +26,5 @@
 .springboard-button{
     margin: 1rem;
     font-weight: bold;
-    background: linear-gradient(to right, #ed80b3, #ff91c5);
+    background: linear-gradient(to bottom, #ff96c7, #f085b7, #f085b7, #f07dac);
 }

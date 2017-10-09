@@ -22,6 +22,11 @@ const routes = [
         path: "/projects/:projectId",
         name: "project",
         component: Projects
+    },
+    {
+        path: "/projects/:projectId/rewards/:rewardId",
+        name: "reward",
+        component: Projects
     }
 
 ];

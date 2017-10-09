@@ -1,15 +1,16 @@
 #reward-shape{
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     padding: 0.4rem 1rem 0.4rem 1rem;
     width: 10rem;
     height: 4rem;
-    background-color: #ffffff;
+    background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #fbfbfb);
+    overflow: hidden;
     box-shadow: 0px 5px 14px 0px #cbcbcb;
     border-radius: 15px;
-    overflow: hidden;
     z-index: 0;
     float: left;
     cursor: pointer;
+
 }
 
 #bigdaddy-wrapper{
@@ -35,6 +36,112 @@
     font-size: 0.8rem;
     margin-top: 0.1rem;
     color: #454545;
+}
+
+#reward-details-price{
+    font-weight: 500;
+    color: #ffc171;
+    font-size: 1.9rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+
+}
+
+#reward-details-description{
+    font-weight: 400;
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #454545;
+}
+
+#bigdaddy-details-wrapper{
+    position: absolute;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 1100;
+}
+
+#reward-details-shape{
+    padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+    width: 20rem;
+    height: 16rem;
+    background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #fbfbfb);
+    overflow: hidden;
+    box-shadow: 0px 3px 20px 0px #808080;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+#pledge-button{
+    bottom: 0;
+    right: 0;
+    position: absolute;
+}
+
+#payment-wrapper{
+}
+
+.no-class{
+
+}
+
+
+.transition-button-out{
+     -webkit-animation: transition-elements-out 0.3s ease-out forwards;
+    -webkit-animation-delay: 0.3s;
+
+ }
+
+.transition-amount-out{
+    -webkit-animation: transition-elements-out 0.3s ease-out forwards;
+    -webkit-animation-delay: 0.1s;
+}
+
+.transition-description-out{
+    -webkit-animation: transition-elements-out 0.3s ease-out forwards;
+    -webkit-animation-delay: 0.2s;
+}
+
+@-webkit-keyframes transition-elements-out {
+    0% {
+        -webkit-transform: translateX(0px);
+        -moz-transform:translateX(0px);
+        -ms-transform:translateX(0px);
+        -o-transform:translateX(0px);
+        transform:translateX(0px);
+    }
+    100% {
+        -webkit-transform: translateX(-400px);
+        -moz-transform:translateX(-400px);
+        -ms-transform:translateX(-400px);
+        -o-transform:translateX(-400px);
+        transform:translateX(-400px);
+    }
+}
+
+.transition-element-in{
+    -webkit-animation: transition-elements-in 0.3s ease-out forwards;
+}
+
+@-webkit-keyframes transition-elements-in {
+    0% {
+        -webkit-transform: translateX(400px);
+        -moz-transform:translateX(400px);
+        -ms-transform:translateX(400px);
+        -o-transform:translateX(400px);
+        transform:translateX(400px);
+    }
+    100% {
+        -webkit-transform: translateX(0px);
+        -moz-transform:translateX(0px);
+        -ms-transform:translateX(0px);
+        -o-transform:translateX(0px);
+        transform:translateX(0px);
+    }
 }
 
 

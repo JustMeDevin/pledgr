@@ -16,7 +16,7 @@
             <div id="projects-wrapper">
                 <div id="projects" v-for="project in searchedProjects" >
                     <div v-bind:id="project.id" class="project float">
-                        <router-link :to="{name: 'project', params: {projectId: project.id}} " tag="div">
+                        <router-link :to="{name: 'project', params: {projectId: project.id}}" tag="div">
                             <div id="img-wrapper">
                                 <img img :src="getImage(project)" v-bind:alt="project" onerror="this.style.display='none'">
                             </div>

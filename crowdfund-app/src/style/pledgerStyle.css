@@ -1,6 +1,6 @@
 .pledger-div{
     margin: 0rem 0.5rem 1rem 0.5rem;
-    background: linear-gradient(to right, #ffda7d, #ffd97b);
+    background: linear-gradient(to bottom, #ffda7d, #ffd97b, #ffd97b, #ffcf78);
     border-radius: 300px;
     box-shadow: 0px 6px 15px -3px #bdbdbd;
     width: 5rem;
