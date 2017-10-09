@@ -10,9 +10,10 @@
             <div >
                 <p v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="reward-details-price"> Pledge ${{ selectedReward.amount }}</p>
                 <p v-bind:class="[isPaying ? 'transition-description-out' : 'no-class']" id="reward-details-description"> {{ selectedReward.description }}</p>
+
             </div>
 
-            <button v-on:click="isPaying = !isPaying" id="pledge-button" class="springboard-button pledgr-button button-float">Pledge</button>
+            <button v-on:click="processPayment" id="pledge-button" class="springboard-button pledgr-button button-float">{{ buttonText }}</button>
 
         </div>
     </div>
@@ -33,7 +34,12 @@
             return{
                 availableRewards: [],
                 selectedReward: null,
-                isPaying: false
+                isPaying: false,
+                anonymous: false,
+                error: null,
+                errorFlag: false,
+                buttonText: "pledge",
+                pledgeSuccessful: false
             }
         },
 
@@ -41,6 +47,15 @@
             this.getRewards();
         },
         methods: {
+            processPayment: function(){
+                if(this.isPaying){
+                    this.makePledge();
+                }else{
+                    this.isPaying = !this.isPaying;
+                    this.buttonText = "Pay";
+                }
+            },
+
             getRewards: function(){
                 this.$http.get(config.apiUrl + "projects/" + this.projectId + "/rewards")
                     .then(function(response){
@@ -50,6 +65,35 @@
                         this.error = error;
                         this.errorFlag = true;
                     });
+            },
+
+            makePledge: function(){
+
+                var userId = parseInt(localStorage.getItem('userId'));
+
+                var body = JSON.stringify({
+                    id: userId,
+                    amount: this.selectedReward.amount,
+                    anonymous: this.anonymous,
+                    card: {
+                        authToken: "string"
+                    }});
+
+                var header = {
+                    headers: {
+                        'X-Authorization': localStorage.getItem('userToken')}
+                }
+
+                this.$http.post(config.apiUrl + "projects/" + this.projectId + "/pledge", body, header)
+                .then(function(response){
+                    if(response.ok == true){
+                        this.pledgeSuccessful = true;
+                        this.$router.push({ name: 'project', params: { projectId: this.projectId }})
+                    }
+                }, function(error) {
+                    this.error = error;
+                    this.errorFlag = true;
+                });
             },
 
             getReward: function(){
@@ -62,11 +106,14 @@
         },
 
         watch: {
+            'pledgeSuccessful': function() {
+                this.$emit('input', this.pledgeSuccessful);
+            },
+
             '$route.params.rewardId'() {
                 this.getReward();
             }
         },
-
 
         computed: {
         }

@@ -104,12 +104,15 @@
                         this.isLoggedIn = false;
                         localStorage.removeItem('userToken');
                         localStorage.removeItem('username');
+                        localStorage.removeItem('userId');
+
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
                         this.isLoggedIn = false;
                         localStorage.removeItem('userToken');
                         localStorage.removeItem('username');
+                        localStorage.removeItem('userId');
                     });
             }
         },

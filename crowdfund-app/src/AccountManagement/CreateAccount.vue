@@ -128,6 +128,8 @@
                     .then(function(response){
                         localStorage.setItem('userToken', response.data.token);
                         localStorage.setItem('username', this.user.username);
+                        localStorage.setItem('userId', response.data.id);
+                        localStorage.setItem('isLoggedIn', true);
                         this.isLoggedIn = true;
                         this.isLoading = false;
                     }, function(error) {

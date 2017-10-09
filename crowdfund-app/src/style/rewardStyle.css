@@ -1,8 +1,8 @@
 #reward-shape{
     margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     padding: 0.4rem 1rem 0.4rem 1rem;
-    width: 10rem;
-    height: 4rem;
+    width: 30rem;
+    height: auto;
     background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #fbfbfb);
     overflow: hidden;
     box-shadow: 0px 5px 14px 0px #cbcbcb;
@@ -28,7 +28,6 @@
     font-size: 1.5rem;
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
-
 }
 
 #reward-description{
@@ -50,7 +49,7 @@
 #reward-details-description{
     font-weight: 400;
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.3rem;
     color: #454545;
 }
 
@@ -73,7 +72,6 @@
     box-shadow: 0px 3px 20px 0px #808080;
     border-radius: 15px;
     position: relative;
-    cursor: pointer;
 }
 
 #pledge-button{
@@ -92,18 +90,15 @@
 
 .transition-button-out{
      -webkit-animation: transition-elements-out 0.3s ease-out forwards;
-    -webkit-animation-delay: 0.3s;
 
  }
 
 .transition-amount-out{
     -webkit-animation: transition-elements-out 0.3s ease-out forwards;
-    -webkit-animation-delay: 0.1s;
 }
 
 .transition-description-out{
     -webkit-animation: transition-elements-out 0.3s ease-out forwards;
-    -webkit-animation-delay: 0.2s;
 }
 
 @-webkit-keyframes transition-elements-out {

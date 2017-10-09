@@ -4,22 +4,22 @@
 }
 
 #name-on-Card{
-    margin: 0.3rem;
+    margin: 0.5rem 0.3rem 0.5rem 0.3rem;
     width: 18rem;
 }
 
 #card-number{
-    margin: 0.3rem;
+    margin: 0.5rem 0.3rem 0.5rem 0.3rem;
     width: 18rem;
 }
 
 #card-cvv{
-    margin: 0.3rem;
+    margin: 0.5rem 0.3rem 0.5rem 0.3rem;
     width: 3rem;
 }
 
 #date-month{
-    margin: 0.3rem;
+    margin: 0.5rem 0.3rem 0.5rem 0.3rem;
     width: 5rem;
 }
 
@@ -27,5 +27,5 @@
     font-size: 2rem;
     font-weight: 600;
     color: #646464;
-    margin: 0.2rem;
+    margin: 0.2rem 0.2rem 0.2rem 1rem;
 }

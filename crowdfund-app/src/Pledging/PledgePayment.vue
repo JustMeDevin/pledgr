@@ -1,18 +1,26 @@
 <template>
     <div>
-        <p id="payment-header">Payment</p>
-        <form class="payment-form" v-on:submit.prevent="" id="payment-form">
-            <fieldset>
-                <input class="input" id="name-on-Card" v-model="card.name" type="text" placeholder="name">
+        <div v-if="isLoggedIn">
+            <p id="payment-header">Payment</p>
+            <form class="payment-form" v-on:submit.prevent="" id="payment-form">
+                <fieldset>
+                    <input class="input" id="name-on-Card" v-model="card.name" placeholder="name">
 
-                <input class="input" id="card-number" v-model="card.number" type="text" placeholder="card number">
+                    <input class="input" id="card-number" v-model="card.number" placeholder="card number">
 
-                <input class="input" id="date-month" v-model="card.expiry" type="text" placeholder="mm-yy">
+                    <input class="input" id="date-month" v-model="card.expiry" placeholder="mm-yy">
 
-                <input class="input " id="card-cvv" v-model="card.cvv" type="text" placeholder="cvv">
+                    <input class="input " id="card-cvv" v-model="card.cvv" placeholder="cvv">
 
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        </div>
+
+        <div v-else>
+            <p id="payment-header">Please Log in to pledge</p>
+
+        </div>
+
     </div>
 
 </template>
@@ -29,18 +37,23 @@
                     expiry: null,
                     cvv: null
                 },
+                isLoggedIn: false
             }
         },
 
         mounted: function() {
+            this.isLoggedIn = localStorage.getItem('isLoggedIn');
         },
+
         methods: {
+
         },
 
         watch: {
         },
 
         computed: {
+
         }
     }
 </script>

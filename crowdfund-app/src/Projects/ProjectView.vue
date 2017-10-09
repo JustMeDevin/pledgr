@@ -1,6 +1,6 @@
 <template>
     <div>
-        <reward-details v-if="$route.params.rewardId" :projectId="$route.params.projectId"></reward-details>
+        <reward-details v-model="pledgeSuccessful" v-if="$route.params.rewardId" :projectId="$route.params.projectId"></reward-details>
 
         <div v-bind:class="[selectedProject ? 'open-project' : 'close-project']" id="details-wrapper">
 
@@ -14,17 +14,18 @@
                 </router-link>
             </div>
 
-            <div id="pane-wrapper">
+            <div id="pane-wrapper">>
                 <div v-if="selectedProject" id="project-details">
-
+                    <h3>{{ selectedProject.title }}</h3>
+                    <h4>{{ selectedProject.subtitle }}</h4>
                     <div id="righthand-project-details">
 
                         <div id="img-wrapper-pDetails">
-                            <img img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
+                            <img id="project-image" img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
                         </div>
 
                         <div id="creation-date-wrapper">
-                            <p id="creation">created: {{ date }}</p>
+                            <p id="creation">Created: {{ date }}</p>
                         </div>
 
                         <div id="backers-wrapper">
@@ -53,8 +54,6 @@
                     </div>
 
                     <div id="lefthand-project-details">
-                        <h3>{{ selectedProject.title }}</h3>
-                        <h4>{{ selectedProject.subtitle }}</h4>
 
                         <p id="project-description"> {{ selectedProject.description }}</p>
 
@@ -112,7 +111,8 @@
                     progressAmount: 0,
                     numberBackers: 0
                 },
-                date: null
+                date: null,
+                pledgeSuccessful: false
             }
         },
         components: {
@@ -125,6 +125,13 @@
         mounted: function() {
             this.getProject();
         },
+        watch: {
+            'pledgeSuccessful': function(){
+                console.log("made it here");
+                this.getProject();
+            }
+        },
+
         methods: {
             getImage: function(){
                 return config.apiUrl + "projects/" + this.$route.params.projectId + "/image";
