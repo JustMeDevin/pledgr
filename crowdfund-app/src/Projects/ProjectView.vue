@@ -14,7 +14,7 @@
                 </router-link>
             </div>
 
-            <div id="pane-wrapper">>
+            <div id="pane-wrapper">
                 <div v-if="selectedProject" id="project-details">
                     <h3>{{ selectedProject.title }}</h3>
                     <h4>{{ selectedProject.subtitle }}</h4>
@@ -51,6 +51,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div id="lefthand-project-details">

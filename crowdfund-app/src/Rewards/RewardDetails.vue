@@ -38,7 +38,7 @@
                 anonymous: false,
                 error: null,
                 errorFlag: false,
-                buttonText: "pledge",
+                buttonText: "Pledge",
                 pledgeSuccessful: false
             }
         },

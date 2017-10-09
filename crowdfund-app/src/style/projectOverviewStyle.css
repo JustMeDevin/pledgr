@@ -2,7 +2,7 @@ body{
     font-family: "Helvetica Neue";
 }
 
-*{
+#projects{
     box-sizing: border-box;
 }
 
@@ -14,12 +14,13 @@ body{
 }
 
 #projects-wrapper{
-    max-width: 90%;
     display: flex;
+    width: 80%;
     flex-wrap: wrap; /* optional. only if you want the items to wrap */
     justify-content: center; /* for horizontal alignment */
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
     align-items: flex-start;
+
 }
 
 #projects{
@@ -102,12 +103,20 @@ body{
 }
 
 #project-img{
-    width: 260px;
     cursor: hand;
+    width: auto;
+    min-width: 260px;
+    min-height: 170px;
+    max-height: 170px;
+
+    display:block;
+    margin:auto;
 }
 
+
+
 h1{
-    margin-top: 1px;
+    margin-top: 8px;
     font-size: 1.1em;
     color: #454545;
 }

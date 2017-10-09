@@ -18,7 +18,8 @@
                     <div v-bind:id="project.id" class="project float">
                         <router-link :to="{name: 'project', params: {projectId: project.id}}" tag="div">
                             <div id="img-wrapper">
-                                <img img :src="getImage(project)" v-bind:alt="project" onerror="this.style.display='none'">
+                                <img id="project-img" img :src="getImage(project)" v-bind:alt="project" onerror="this.style.display='none'">
+
                             </div>
                             <h1>{{ project.title }}</h1>
                             <h2>{{ project.subtitle }}</h2>
