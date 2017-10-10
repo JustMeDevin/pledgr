@@ -1,19 +1,28 @@
 <template>
-<div v-if="selectedReward" id="bigdaddy-details-wrapper">
-    <div id="reward-details-wrapper">
+<div  v-bind:class="[selectedReward ? 'open-pledge-window': '']" id="bigdaddy-details-wrapper">
+    <div id="reward-details-wrapper" >
         <div id="reward-details-shape" v-bind:class="[isPaying ? 'payment-process-window' : 'reward-window']">
+            <div v-if="isLoggedIn">
+                <div id="payment-wrapper">
+                    <pledge-payment v-bind:class="[isPaying ? 'transition-element-in' : 'no-class']" v-if="isPaying"> </pledge-payment>
+                </div>
 
-            <div id="payment-wrapper">
-                <pledge-payment v-bind:class="[isPaying ? 'transition-element-in' : 'no-class']" v-if="isPaying"> </pledge-payment>
+                <div >
+                    <p v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="pledge-title">Back this project</p>
+                    <div id="pledge-options-wrapper">
+                        <p v-bind:class="[isPaying ? 'transition-description-out' : 'no-class']" id="reward-details-price"> Pledge: $<input class="input" id="pledge-amount-input" v-model="pledgeAmount"></p>
+
+                        <p v-bind:class="[isPaying ? 'transition-amount-out' : '']" id="anon-label">Pledge anonymously</p>
+                        <input v-bind:class="[isPaying ? 'transition-description-out' : '']" id="anon-check-box" type="checkbox" v-model="anonymous">
+                    </div>
+                </div>
+
+                <button v-on:click="processPayment" id="pledge-button" class="springboard-button pledgr-button button-float">{{ buttonText }}</button>
             </div>
 
-            <div >
-                <p v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="reward-details-price"> Pledge ${{ selectedReward.amount }}</p>
-                <p v-bind:class="[isPaying ? 'transition-description-out' : 'no-class']" id="reward-details-description"> {{ selectedReward.description }}</p>
-
+            <div v-else>
+                <p v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="not-logged-in">You must log in to back a project</p>
             </div>
-
-            <button v-on:click="processPayment" id="pledge-button" class="springboard-button pledgr-button button-float">{{ buttonText }}</button>
 
         </div>
     </div>
@@ -39,14 +48,23 @@
                 error: null,
                 errorFlag: false,
                 buttonText: "Pledge",
-                pledgeSuccessful: false
+                pledgeSuccessful: false,
+                pledgeAmount: null,
+                isLoggedIn: false
             }
         },
 
         mounted: function() {
             this.getRewards();
+            this.checkLogIn();
         },
         methods: {
+            checkLogIn: function(){
+                if(localStorage.getItem('userId')){
+                    this.isLoggedIn = true;
+                }
+            },
+
             processPayment: function(){
                 if(this.isPaying){
                     this.makePledge();
@@ -73,7 +91,7 @@
 
                 var body = JSON.stringify({
                     id: userId,
-                    amount: this.selectedReward.amount,
+                    amount: parseInt(this.pledgeAmount),
                     anonymous: this.anonymous,
                     card: {
                         authToken: "string"
@@ -102,6 +120,8 @@
                         this.selectedReward = this.availableRewards[i];
                     }
                 }
+
+                this.pledgeAmount = this.selectedReward.amount;
             }
         },
 

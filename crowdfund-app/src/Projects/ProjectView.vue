@@ -2,11 +2,13 @@
     <div>
         <reward-details v-model="pledgeSuccessful" v-if="$route.params.rewardId" :projectId="$route.params.projectId"></reward-details>
 
+        <router-link :to="{name: 'project', params: {projectId: $route.params.projectId}}"
+                     v-bind:class="[$route.params.rewardId ? 'window-open' : '', 'window-close']"
+                     class="fade-window"></router-link>
+
         <div v-bind:class="[selectedProject ? 'open-project' : 'close-project']" id="details-wrapper">
 
-            <router-link :to="{name: 'project', params: {projectId: $route.params.projectId}}"
-                         v-bind:class="[$route.params.rewardId ? 'window-open' : '', 'window-close']"
-                         class="fade-window"></router-link>
+
 
             <div id="back-wrapper">
                 <router-link :to="{name: 'projects'}" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
