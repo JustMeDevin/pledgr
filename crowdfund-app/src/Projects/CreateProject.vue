@@ -31,9 +31,15 @@
 
                     <div id="lefthand-project-details">
 
-                        <textarea class="create-project-input" id="create-project-description" cols="40" rows="5" placeholder="Description" v-model="newProject.description" ></textarea>
+                        <textarea :style="{height: (Math.floor(newProject.description.length / 86) + 1.5) + 'rem'}" class="create-project-input" id="create-project-description" cols="40" rows="5" placeholder="Description" v-model="newProject.description" ></textarea>
 
-                        <div id="rewards-wrapper">
+                        <div id="target-wrapper">
+                            <h5 id="target-header" class="create-project-headings">Target</h5>
+                            <p id="target-symbol">$</p>
+                            <input class="" id="create-project-target" type="text" placeholder="amount" v-model="newProject.target">
+                        </div>
+
+                        <div id="create-rewards-wrapper">
                             <h5 id="rewards-header" class="create-project-headings">Rewards</h5>
                             <div id="rewards" v-for="reward in rewards">
                                 <create-reward :reward="reward"></create-reward>
@@ -62,7 +68,7 @@
                     title: "",
                     subtitle: "",
                     description: "",
-                    target: 0,
+                    target: "",
                     creators: [
                         {
                             id: null
@@ -92,8 +98,8 @@
 
         mounted: function(){
             this.creator.username = localStorage.getItem('username');
-            this.creator.id = localStorage.getItem('userId')
-            this.newProject.creators[0].id = localStorage.getItem('userId');
+            this.creator.id = parseInt(localStorage.getItem('userId'));
+            this.newProject.creators[0].id = parseInt(localStorage.getItem('userId'));
         },
 
         watch: {
@@ -110,22 +116,49 @@
                 deep: true
             },
 
-           'newProject.rewards'(newVal){
-               console.log("here");
-               var lastItem = this.newProject.rewards.length - 1;
-               if(this.newProject.rewards[lastItem].amount != "" && this.newProject.rewards[lastItem].description != ""){
-                   this.newProject.rewards.push({
-                       amount: "",
-                       description: ""
-                   });
-               }
-           }
-
         },
 
         methods: {
             createProject: function(){
+                if(this.checkInputs){
+                    var header = {
+                        headers: {
+                            'X-Authorization': localStorage.getItem('userToken')}
+                    }
+
+                    var body = this.createBody();
+
+                    this.$http.post(config.apiUrl + "projects/", body, header)
+                        .then(function(response){
+                            if(response.ok == true){
+
+                            }
+                        }, function(error) {
+                            this.error = error;
+                            this.errorFlag = true;
+                        });
+                }
             },
+
+            checkInputs: function(){
+                return true;
+            },
+
+            createBody: function(){
+                this.rewards.pop();
+
+                for(var i = 0; i < this.rewards.length; i++){
+                    this.rewards[i].amount = parseInt(this.rewards[i].amount);
+                    this.newProject.rewards.push(this.rewards[i]);
+                }
+
+                this.newProject.target = parseInt(this.newProject.target);
+
+                var body = JSON.stringify(this.newProject);
+
+                console.log(body);
+                return body;
+            }
         },
 
         computed: {

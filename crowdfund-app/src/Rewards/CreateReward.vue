@@ -4,7 +4,7 @@
             <div id="reward-shape">
                 <p id="dollar-symbol">$</p>
                 <input class="create-project-input" id="create-reward-price" type="text" placeholder="Reward amount" v-model="reward.amount">
-                <textarea class="create-project-input" id="create-reward-description" cols="1" rows="5" placeholder="Reward description" v-model="reward.description"></textarea>
+                <textarea :style="{height: (Math.floor(reward.description.length / 65) + 1.5) + 'rem'}" class="create-project-input" id="create-reward-description" cols="1" rows="5" placeholder="Reward description" v-model="reward.description"></textarea>
             </div>
         </div>
     </div>
@@ -22,8 +22,8 @@
         },
 
         mounted: function() {
-
         },
+
         methods: {
 
         },

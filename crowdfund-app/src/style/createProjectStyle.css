@@ -50,7 +50,7 @@
     padding-left: 0.6rem;
     border-radius: 10px;
     width: 40vw;
-    height: 20rem;
+    min-height: 2rem;
     background-color: transparent;
     border-style: none;
     resize: none;
@@ -117,6 +117,7 @@
     margin-top: 0.1rem;
     color: #454545;
     width: 30rem;
+    min-height: 2rem;
 
     resize: none;
 }
@@ -129,4 +130,35 @@
     margin-bottom: 0.1rem;
     margin-left: 0.7rem;
     position: absolute;
+}
+
+#target-wrapper{
+}
+
+#target-header{
+    margin-left: -0.8rem;
+}
+
+#create-rewards-wrapper{
+    float: left;
+}
+
+#target-symbol{
+    position: absolute;
+    font-weight: 500;
+    color: #ffc171;
+    font-size: 1.5rem;
+}
+
+#create-project-target{
+    margin: 0.7rem 0rem 1.5rem 0.7rem;
+    font-weight: bold;
+    color: #ffc171;
+    font-size: 1.8rem;
+
+    outline: none;
+    padding-left: 0.6rem;
+    height: 3rem;
+    background-color: transparent;
+    border-style: none;
 }
