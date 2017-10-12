@@ -1,0 +1,132 @@
+#create-project-title{
+    margin: 1.5rem 0rem 1.5rem 0.4rem;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: #454545;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.1s;
+    outline: none;
+    padding-left: 0.6rem;
+    border-radius: 10px;
+    width: 80vw;
+    height: 3rem;
+    background-color: transparent;
+    border-style: none;
+}
+
+#create-project-subtitle{
+    margin: 0rem 0.5rem 0.6rem 0.6rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #848484;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.2s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.2s;
+}
+
+.create-project-headings{
+    margin: 1rem 0rem 0rem 1rem;
+    font-size: 1.8em;
+    color: #5d5d5d;
+    opacity: 0;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.3s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.3s;
+}
+
+#create-project-description{
+    margin-left: 0.6rem;
+    margin-right: 42rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    color: #323232;
+    font-size: 0.9rem;
+    opacity: 0;
+
+    outline: none;
+    padding-left: 0.6rem;
+    border-radius: 10px;
+    width: 40vw;
+    height: 20rem;
+    background-color: transparent;
+    border-style: none;
+    resize: none;
+
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.4s;
+}
+
+.create-project-input {
+    display: block;
+    outline: none;
+    padding-left: 0.6rem;
+    border-radius: 10px;
+    width: 80vw;
+    height: 1.5rem;
+    background-color: transparent;
+    border-style: none;
+}
+
+#create-creator-div{
+    margin: 0rem 0.5rem 1rem 0.5rem;
+    background: linear-gradient(to bottom, #ff96c7, #ff96c7, #ff96c7, #f78cc3);
+    border-radius: 300px;
+    box-shadow: 0px 6px 15px -3px #bdbdbd;
+    width: 5rem;
+    height: 5rem;
+
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    cursor: default;
+
+    opacity: 0;
+}
+
+#launch-project-button{
+    opacity: 0;
+    width: 10rem;
+    float: right;
+    margin-bottom: -1rem;
+    margin-right: -0.5rem;
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.1s;
+}
+
+#create-reward-price{
+    font-weight: 500;
+    color: #ffc171;
+    font-size: 1.5rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    margin-left: 1rem;
+    height: 1.9rem;
+}
+
+#create-reward-description{
+    font-weight: 400;
+    font-size: 0.8rem;
+    margin-top: 0.1rem;
+    color: #454545;
+    width: 30rem;
+
+    resize: none;
+}
+
+#dollar-symbol{
+    font-weight: 500;
+    color: #ffc171;
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.1rem;
+    margin-left: 0.7rem;
+    position: absolute;
+}

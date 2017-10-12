@@ -1,8 +1,8 @@
 <template>
     <div v-if="springboardVisible" id="user-springboard">
         <div id="springboard-button-wrapper">
-            <button id="create-project" class="springboard-button pledgr-button button-float">new project</button>
-            <button id="view-user-projects" class="springboard-button pledgr-button  button-float">my projects</button>
+            <router-link :to="{name: 'createProject'}" id="create-project" class="springboard-button pledgr-button button-float" tag="button">new project</router-link>
+            <router-link :to="{name: 'myProjects'}" id="my-project" class="springboard-button pledgr-button button-float" tag="button">my projects</router-link>
         </div>
     </div>
 
@@ -21,6 +21,7 @@
             }
         },
         watch: {
+
         },
         methods: {
         },

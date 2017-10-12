@@ -62,8 +62,8 @@
 
                         <h5>Progress</h5>
                         <div id="progress-wrapper">
-                            <p id="current-pledged-amount">${{ amountRaised.currentAmount }}</p>
-                            <p id="target-amount-desc"> pledged of ${{ selectedProject.target }} goal</p>
+                            <p id="current-pledged-amount">${{ Number(amountRaised.currentAmount).toLocaleString('en') }}</p>
+                            <p id="target-amount-desc"> pledged of ${{ Number(selectedProject.target).toLocaleString('en') }} goal</p>
                             <div id="target-wrapper">
                                 <target-progress-bar :amountRaised="amountRaised"> </target-progress-bar>
                             </div>
@@ -129,8 +129,7 @@
             this.getProject();
         },
         watch: {
-            'pledgeSuccessful': function(){
-                console.log("made it here");
+            '$route.params.rewardId': function(){
                 this.getProject();
             }
         },
@@ -141,6 +140,7 @@
             },
 
             calculateAnonBackers: function(){
+                this.backers = [];
                 this.backers.push(this.anonBacker);
                 var knownBackers = [];
 
@@ -153,9 +153,8 @@
                     }
                 }
 
-                var lastFive = knownBackers.slice(-4)
                 for(var i = 0 ; i < knownBackers.length && i < 4 ; i++){
-                    this.backers.push(lastFive[i])
+                    this.backers.push(knownBackers[i]);
                 }
             },
 

@@ -63,6 +63,13 @@
                 this.loginVisible = false;
                 this.createAccountVisible = false;
                 this.username = localStorage.getItem('username');
+            },
+            '$route.name': function(){
+                if(this.$route.name == "myProjects" || this.$route.name == "createProject"){
+                    this.springboardVisible = !this.springboardVisible;
+                    this.fadeContent = !this.fadeContent;
+                }
+
             }
         },
         methods: {

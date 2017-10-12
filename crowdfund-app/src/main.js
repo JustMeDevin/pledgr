@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import Home from './Home.vue';
 import Projects from './Projects/Projects.vue';
+import CreateProject from './Projects/CreateProject.vue';
+import UserProjects from './Projects/UserProjects.vue';
 
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
@@ -27,6 +29,16 @@ const routes = [
         path: "/projects/:projectId/rewards/:rewardId",
         name: "reward",
         component: Projects
+    },
+    {
+        path: "/projects/my-projects/new-project",
+        name: "createProject",
+        component: CreateProject
+    },
+    {
+        path: "/projects/my-projects",
+        name: "myProjects",
+        component: UserProjects
     }
 
 ];
