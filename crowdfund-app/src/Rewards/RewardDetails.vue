@@ -10,7 +10,7 @@
                 <div >
                     <p v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="pledge-title">Back this project</p>
                     <div id="pledge-options-wrapper">
-                        <p v-bind:class="[isPaying ? 'transition-description-out' : 'no-class']" id="reward-details-price"> Pledge: $<input class="input" id="pledge-amount-input" v-model="pledgeAmount"></p>
+                        <p v-bind:class="[isPaying ? 'transition-description-out' : 'no-class']" id="reward-details-price"> Pledge: $<input v-on:keyup="targetHandler" class="input" id="pledge-amount-input" v-model="pledgeAmount"></p>
 
                         <p v-bind:class="[isPaying ? 'transition-amount-out' : '']" id="anon-label">Pledge anonymously</p>
                         <input v-bind:class="[isPaying ? 'transition-description-out' : '']" id="anon-check-box" type="checkbox" v-model="anonymous">
@@ -59,6 +59,15 @@
             this.checkLogIn();
         },
         methods: {
+
+            targetHandler: function(event) {
+                var reg = new RegExp('^[0-9]+$');
+                if (!reg.test(event.key)) {
+                    this.pledgeAmount = this.pledgeAmount.slice(0, -1);
+                    event.preventDefault();
+                }
+            },
+
             checkLogIn: function(){
                 if(localStorage.getItem('userId')){
                     this.isLoggedIn = true;

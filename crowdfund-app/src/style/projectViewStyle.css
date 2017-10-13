@@ -99,6 +99,11 @@ h5{
     margin-top: 2rem;
     color: #323232;
     font-size: 0.9rem;
+    opacity: 0;
+
+    -webkit-animation: float-element-in 0.6s ease-out forwards;
+    -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
+    animation-delay: 0.1s;
 }
 
 #rewards{

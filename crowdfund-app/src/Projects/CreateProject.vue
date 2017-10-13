@@ -9,7 +9,7 @@
 
             <div id="pane-wrapper">
                 <div v-if="newProject" id="project-details">
-                    <input class="create-project-input" id="create-project-title" type="text" placeholder="Title" v-model="newProject.title">
+                    <input v-bind:class="[titleInvalid  ? 'invalidInput create-project-input' : '', 'create-project-input']" id="create-project-title" type="text" placeholder="Title" v-model="newProject.title">
                     <input class="create-project-input" id="create-project-subtitle" type="text" placeholder="Subtitle" v-model="newProject.subtitle">
                     <div id="righthand-project-details">
 
@@ -36,7 +36,7 @@
                         <div id="target-wrapper">
                             <h5 id="target-header" class="create-project-headings">Target</h5>
                             <p id="target-symbol">$</p>
-                            <input class="" id="create-project-target" type="text" placeholder="amount" v-model="newProject.target">
+                            <input class="" v-on:keyup="targetHandler" id="create-project-target" placeholder="amount" v-model="newProject.target">
                         </div>
 
                         <div id="create-rewards-wrapper">
@@ -64,11 +64,12 @@
                 search: '',
                 error: "",
                 errorFlag: false,
+                titleInvalid: false,
                 newProject: {
-                    title: "",
-                    subtitle: "",
+                    title: null,
+                    subtitle: null,
                     description: "",
-                    target: "",
+                    target: null,
                     creators: [
                         {
                             id: null
@@ -85,7 +86,7 @@
                 },
                 rewards: [
                     {
-                        amount: "",
+                        amount: null,
                         description: ""
                     }
                 ]
@@ -119,8 +120,16 @@
         },
 
         methods: {
+            targetHandler: function(event) {
+                var reg = new RegExp('^[0-9]+$');
+                if (!reg.test(event.key)) {
+                    this.newProject.target = this.newProject.target.slice(0, -1);
+                    event.preventDefault();
+                }
+            },
+
             createProject: function(){
-                if(this.checkInputs){
+                if(this.checkInputs()){
                     var header = {
                         headers: {
                             'X-Authorization': localStorage.getItem('userToken')}
@@ -131,7 +140,7 @@
                     this.$http.post(config.apiUrl + "projects/", body, header)
                         .then(function(response){
                             if(response.ok == true){
-
+                                this.$router.push({ name: 'myProjects'})
                             }
                         }, function(error) {
                             this.error = error;
@@ -141,6 +150,39 @@
             },
 
             checkInputs: function(){
+                var errors = 0;
+                if(this.newProject.title === null){
+                    this.titleInvalid = true;
+                    errors += 1;
+                    console.log("no title");
+                }else{
+                    this.titleInvalid = false;
+                }
+
+                if(this.newProject.subtitle === null){
+                    errors += 1;
+                    console.log("no subtitle");
+                }
+
+                if(this.newProject.description === ""){
+                    errors += 1;
+                    console.log("no desc");
+                }
+
+                if(this.rewards.length === 1 && this.rewards[0].amount === null){
+                    errors += 1;
+                    console.log("no rewards");
+                }
+
+                if(this.newProject.target === null){
+                    errors += 1;
+                    console.log("no target");
+                }
+
+                if(errors != 0){
+                    return false;
+                }
+
                 return true;
             },
 

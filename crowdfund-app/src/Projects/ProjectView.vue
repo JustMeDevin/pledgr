@@ -58,7 +58,7 @@
 
                     <div id="lefthand-project-details">
 
-                        <p id="project-description"> {{ selectedProject.description }}</p>
+                        <p id="project-description" class="float-in"> {{ selectedProject.description }}</p>
 
                         <h5>Progress</h5>
                         <div id="progress-wrapper">
@@ -141,6 +141,7 @@
 
             calculateAnonBackers: function(){
                 this.backers = [];
+                this.anonBacker.amount = 0;
                 this.backers.push(this.anonBacker);
                 var knownBackers = [];
 
@@ -153,8 +154,13 @@
                     }
                 }
 
-                for(var i = 0 ; i < knownBackers.length && i < 4 ; i++){
-                    this.backers.push(knownBackers[i]);
+                var length = 4;
+                if(knownBackers.length < 4) {
+                    length = knownBackers.length;
+                }
+
+                for(var i = 0 ; i < length ; i++){
+                    this.backers.push(knownBackers[(length - 1 )-i]);
                 }
             },
 

@@ -162,3 +162,8 @@
     background-color: transparent;
     border-style: none;
 }
+
+.invalidInput{
+    border-color: #ff5351;
+    border-style: solid;
+}
