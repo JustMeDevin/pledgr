@@ -29,3 +29,9 @@
     color: #646464;
     margin: 0.2rem 0.2rem 0.2rem 1rem;
 }
+
+#payment-so-real{
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+}

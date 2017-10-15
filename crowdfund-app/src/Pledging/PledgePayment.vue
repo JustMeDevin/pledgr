@@ -4,6 +4,7 @@
             <p class="payment-header">Payment</p>
             <form class="payment-form" v-on:submit.prevent="" id="payment-form">
                 <fieldset>
+                    <img src="/src/img/payment.png" alt="cross" id="payment-so-real" style="width:90px;height:25px;">
                     <input v-bind:class="[nameInvalid  ? 'invalidInput input' : '', 'input']" id="name-on-Card" v-model="card.name" placeholder="name">
 
                     <input v-bind:class="[numberInvalid  ? 'invalidInput input' : '', 'input']" id="card-number" v-model="card.number" placeholder="card number">

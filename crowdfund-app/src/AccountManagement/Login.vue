@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isLoggedIn" id="log-in-form">
+    <div id="log-in-form">
         <form class="login-form" v-on:submit.prevent="loginUser" id="form">
             <fieldset>
                 <input class="input" id="username" v-model="user.username" type="text" placeholder="Username">
