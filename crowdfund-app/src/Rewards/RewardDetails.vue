@@ -21,7 +21,10 @@
             </div>
 
             <div v-else>
-                <p v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="not-logged-in">You must log in to back a project</p>
+                <p v-if="rewardProject.open && !isUser" v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="not-logged-in">You must log in to back a project</p>
+                <p v-else-if="!rewardProject.open" v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="not-logged-in">Sorry, this project has closed</p>
+
+                <p v-else v-bind:class="[isPaying ? 'transition-amount-out' : 'no-class']" id="not-logged-in">You cannot back your own project, sneaky!</p>
             </div>
 
         </div>
@@ -34,7 +37,7 @@
     import PledgePayment from '../Pledging/PledgePayment.vue';
 
     export default {
-        props: ['projectId'],
+        props: ['rewardProject'],
 
         components: {
             PledgePayment
@@ -54,7 +57,8 @@
                 paymentProcess: {
                     processPaymentNow: false,
                     inputValid: false
-                }
+                },
+                isUser: false
 
             }
         },
@@ -74,8 +78,16 @@
             },
 
             checkLogIn: function(){
-                if(localStorage.getItem('userId')){
+                if(localStorage.getItem('userId') && this.rewardProject.open){
                     this.isLoggedIn = true;
+                }
+
+                for(var i = 0; i < this.rewardProject.creators.length; i++){
+
+                    if(this.rewardProject.creators[i].id == localStorage.getItem('userId')){
+                        this.isLoggedIn = false;
+                        this.isUser = true;
+                    }
                 }
             },
 
@@ -89,7 +101,7 @@
             },
 
             getRewards: function(){
-                this.$http.get(config.apiUrl + "projects/" + this.projectId + "/rewards")
+                this.$http.get(config.apiUrl + "projects/" + this.rewardProject.projectId + "/rewards")
                     .then(function(response){
                         this.availableRewards = response.data;
                         this.getReward()
@@ -115,11 +127,11 @@
                         'X-Authorization': localStorage.getItem('userToken')}
                 }
 
-                this.$http.post(config.apiUrl + "projects/" + this.projectId + "/pledge", body, header)
+                this.$http.post(config.apiUrl + "projects/" + this.rewardProject.projectId + "/pledge", body, header)
                     .then(function(response){
                         if(response.ok == true){
                             this.pledgeSuccessful = true;
-                            this.$router.push({ name: 'project', params: { projectId: this.projectId }})
+                            this.$router.push({ name: 'project', params: { projectId: this.rewardProject.projectId }})
                         }
                     }, function(error) {
                         this.error = error;

@@ -33,12 +33,12 @@ const routes = [
         component: Projects
     },
     {
-        path: "/projects/my-projects/new-project",
+        path: "/user/my-projects/new",
         name: "createProject",
         component: CreateProject
     },
     {
-        path: "/projects/my-projects",
+        path: "/user/my-projects",
         name: "myProjects",
         component: UserProjects
     }

@@ -28,6 +28,9 @@
     flex-wrap: wrap; /* optional. only if you want the items to wrap */
     margin: 0 auto 2rem auto;
     align-items: flex-start;
+    justify-content: center; /* for horizontal alignment */
+    user-focus: none;
+
 }
 
 #user-projects-wrapper{

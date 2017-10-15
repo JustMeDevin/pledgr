@@ -19,6 +19,7 @@ body{
     flex-wrap: wrap; /* optional. only if you want the items to wrap */
     margin: 0 auto 2rem auto;
     align-items: flex-start;
+    justify-content: center; /* for horizontal alignment */
 
 }
 
@@ -30,12 +31,13 @@ body{
 .project{
     float: left;
     margin: 1rem;
-    width: 220px;
-    height: auto;
+    width: 20rem;
+    height: 18rem;
     background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #fbfbfb);
     box-shadow: 0px 6px 15px -3px #bdbdbd;
     border-radius: 15px;
     padding: 10px 10px 0px 10px;
+    line-height: 1rem;
     overflow: hidden;
 
 }
@@ -96,18 +98,16 @@ body{
     padding-left: -40px;
     margin: -10px -20px 0px -20px;
     background: linear-gradient(to bottom, #C4C4C4, #C4C4C4, #C4C4C4, #b7b7b7);
-    width: 260px;
-    height: 150px;
+    width: 22rem;
+    height: 11rem;
     cursor: hand;
     overflow: hidden;
 }
 
 #project-img{
     cursor: hand;
-    width: auto;
-    min-width: 260px;
-    min-height: 170px;
-    max-height: 170px;
+    width: 100%;
+    height: auto;
 
     display:block;
     margin:auto;
@@ -131,4 +131,32 @@ h2{
 .selected-image {
     padding-left: 0px;
     margin: 0px;
+}
+
+#project-status-indicator{
+    border-radius: 1000px;
+    width: 4rem;
+    height: 2rem;
+    z-index: 200;
+    color: white;
+    text-align: center;
+    line-height: 2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    position: absolute;
+    right: 0rem;
+
+}
+
+.indicator-closed{
+    background: linear-gradient(to bottom, #ff6464, #ff6464, #ff6464, #f85c60);
+}
+
+.indicator-open{
+    background: linear-gradient(to bottom, #93DA9F, #93DA9F, #93DA9F, #86da96);
+
+}
+
+#user-project-summary{
+    position: relative;
 }

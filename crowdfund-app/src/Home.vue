@@ -41,7 +41,7 @@
         methods: {
 
             getProjects: function(){
-                this.$http.get(config.apiUrl + "projects?startIndex=0&count=4")
+                this.$http.get(config.apiUrl + "projects?startIndex=0&count=3")
                     .then(function(response){
                         this.recentProjects = response.data;
                     }, function(error) {

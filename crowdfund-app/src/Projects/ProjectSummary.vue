@@ -17,7 +17,7 @@
     import { config } from '../config';
 
     export default {
-        props: ['project'],
+        props: ['project', 'previousPage'],
 
         data(){
             return{

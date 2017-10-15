@@ -86,7 +86,7 @@
                 },
                 rewards: [
                     {
-                        amount: null,
+                        amount: "",
                         description: ""
                     }
                 ]
@@ -190,8 +190,10 @@
                 this.rewards.pop();
 
                 for(var i = 0; i < this.rewards.length; i++){
-                    this.rewards[i].amount = parseInt(this.rewards[i].amount);
-                    this.newProject.rewards.push(this.rewards[i]);
+                    if(this.rewards[i].amount != "" && this.rewards[i].description != ""){
+                        this.rewards[i].amount = parseInt(this.rewards[i].amount);
+                        this.newProject.rewards.push(this.rewards[i]);
+                    }
                 }
 
                 this.newProject.target = parseInt(this.newProject.target);

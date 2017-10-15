@@ -5,7 +5,7 @@
         </div>
 
         <div v-if="$route.params.projectId">
-            <project-view> </project-view>
+            <project-view :previousPage="'projects'"> </project-view>
         </div>
 
         <div v-else>
@@ -15,7 +15,7 @@
 
             <div id="projects-wrapper">
                 <div id="projects" v-for="project in searchedProjects">
-                    <project-summary :project="project"></project-summary>
+                    <project-summary :project="project" :previousPage="'projects'"></project-summary>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <reward-details v-model="pledgeSuccessful" v-if="$route.params.rewardId" :projectId="$route.params.projectId"></reward-details>
+        <reward-details v-model="pledgeSuccessful" v-if="$route.params.rewardId" :rewardProject="rewardProject"></reward-details>
 
         <router-link :to="{name: 'project', params: {projectId: $route.params.projectId}}"
                      v-bind:class="[$route.params.rewardId ? 'window-open' : '', 'window-close']"
@@ -92,6 +92,8 @@
     import RewardDetails from '../Rewards/RewardDetails.vue';
 
     export default {
+        props: ['previousPage'],
+
         data(){
             return{
                 error: "",
@@ -115,7 +117,12 @@
                     numberBackers: 0
                 },
                 date: null,
-                pledgeSuccessful: false
+                pledgeSuccessful: false,
+                rewardProject: {
+                    projectId: null,
+                    open: null,
+                    creators: []
+                }
             }
         },
         components: {
@@ -165,7 +172,7 @@
             },
 
             goBack: function(){
-                this.$router.go(-1)
+                this.$router.push({name: this.previousPage});
             },
 
             getProject: function(){
@@ -175,6 +182,9 @@
                         this.calculateAnonBackers();
                         this.updateTargetInfo();
                         this.getDate();
+                        this.rewardProject.projectId = this.selectedProject.id;
+                        this.rewardProject.open = this.selectedProject.open;
+                        this.rewardProject.creators = this.selectedProject.creators;
                         console.log(this.selectedProject);
                     }, function(error) {
                         this.error = error;
