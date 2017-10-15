@@ -4,17 +4,18 @@
     position: fixed;
     left: 0;
     top:0;
-    opacity: 0.9;
     z-index: 1000;
-    background: linear-gradient(to right, #f78cc3, #ffcf78 80%);
 
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    background: linear-gradient(to right, rgba(247, 140, 195, 0.9), rgba(255, 207, 120, 0.9));
+
+}
+
+.blurred{
+    -webkit-backdrop-filter: blur(15px) saturate(200%);
+    backdrop-filter: blur(15px) saturate(200%);
 }
 
 #header-wrapper{
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
 }
 
 .light-dropshadow{
