@@ -10,7 +10,8 @@
     <div v-on:click="hideLoginWindow" v-bind:class="[fadeContent ? 'window-open' : '', 'window-close']" class="fade-window"></div>
 
     <div v-bind:class="[fadeContent  ? 'dark-dropshadow' : '', 'light-dropshadow']" id="header">
-      <h1 id="header-title" class="unselectable">Pledgr</h1>
+      <router-link :to="{path: '/'}" id="header-title" class="unselectable" tag="h1">Pledgr</router-link>
+
       <div id="header-button-wrapper">
         <button v-on:click='showLoginWindow' v-if="!isLoggedIn" id="log-in">Log in</button>
         <button v-on:click='showCreateAccountWindow'  v-if="!isLoggedIn" id="create-account">Create account</button>

@@ -1,0 +1,35 @@
+.all-projects{
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+#backed-projects-wrapper{
+    display: block;
+    margin-right: 2rem;
+}
+
+#my-projects-wrapper{
+    margin-right: 2rem;
+}
+
+#my-projects-title{
+    margin-top: 6rem;
+    margin-left: 2rem;
+
+}
+
+#backed-projects-title{
+    margin-left: 2rem;
+}
+
+.project-wrapper{
+    display: flex;
+    width: 90%;
+    flex-wrap: wrap; /* optional. only if you want the items to wrap */
+    margin: 0 auto 2rem auto;
+    align-items: flex-start;
+}
+
+#user-projects-wrapper{
+    display: inline-block;
+}

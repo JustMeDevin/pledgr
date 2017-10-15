@@ -23,7 +23,7 @@
     width: 5rem;
 }
 
-#payment-header{
+.payment-header{
     font-size: 2rem;
     font-weight: 600;
     color: #646464;

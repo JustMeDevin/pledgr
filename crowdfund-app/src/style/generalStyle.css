@@ -45,7 +45,7 @@ body{
 }
 
 .fade-window {
-    margin: 0;
+    margin: auto;
     min-width: 100%;
     min-height: 100%;
     position: fixed;

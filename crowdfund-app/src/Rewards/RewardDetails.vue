@@ -4,7 +4,7 @@
         <div id="reward-details-shape" v-bind:class="[isPaying ? 'payment-process-window' : 'reward-window']">
             <div v-if="isLoggedIn">
                 <div id="payment-wrapper">
-                    <pledge-payment v-bind:class="[isPaying ? 'transition-element-in' : 'no-class']" v-if="isPaying"> </pledge-payment>
+                    <pledge-payment :paymentProcess="paymentProcess" v-bind:class="[isPaying ? 'transition-element-in' : 'no-class']" v-if="isPaying"> </pledge-payment>
                 </div>
 
                 <div >
@@ -50,7 +50,12 @@
                 buttonText: "Pledge",
                 pledgeSuccessful: false,
                 pledgeAmount: null,
-                isLoggedIn: false
+                isLoggedIn: false,
+                paymentProcess: {
+                    processPaymentNow: false,
+                    inputValid: false
+                }
+
             }
         },
 
@@ -76,7 +81,7 @@
 
             processPayment: function(){
                 if(this.isPaying){
-                    this.makePledge();
+                    this.paymentProcess.processPaymentNow = true;
                 }else{
                     this.isPaying = !this.isPaying;
                     this.buttonText = "Pay";
@@ -95,7 +100,6 @@
             },
 
             makePledge: function(){
-
                 var userId = parseInt(localStorage.getItem('userId'));
 
                 var body = JSON.stringify({
@@ -112,15 +116,15 @@
                 }
 
                 this.$http.post(config.apiUrl + "projects/" + this.projectId + "/pledge", body, header)
-                .then(function(response){
-                    if(response.ok == true){
-                        this.pledgeSuccessful = true;
-                        this.$router.push({ name: 'project', params: { projectId: this.projectId }})
-                    }
-                }, function(error) {
-                    this.error = error;
-                    this.errorFlag = true;
-                });
+                    .then(function(response){
+                        if(response.ok == true){
+                            this.pledgeSuccessful = true;
+                            this.$router.push({ name: 'project', params: { projectId: this.projectId }})
+                        }
+                    }, function(error) {
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
             },
 
             getReward: function(){
@@ -141,6 +145,12 @@
 
             '$route.params.rewardId'() {
                 this.getReward();
+            },
+
+            'paymentProcess.inputValid': function(){
+                if(this.paymentProcess.inputValid === true){
+                    this.makePledge();
+                }
             }
         },
 

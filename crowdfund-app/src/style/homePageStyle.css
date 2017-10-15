@@ -1,0 +1,46 @@
+.all-projects{
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+#staff-picks-wrapper{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+
+    width: 90%;
+}
+
+#picks-projects-wrapper{
+    margin-right: 2rem;
+}
+
+#staff-picks-title{
+    margin-top: 6rem;
+    margin-left: 2rem;
+
+}
+
+#backed-projects-title{
+    margin-left: 2rem;
+}
+
+.staff-project-wrapper{
+    display: flex;
+    width: 90%;
+    flex-wrap: wrap; /* optional. only if you want the items to wrap */
+    justify-content: center; /* for horizontal alignment */
+    align-items: flex-start;
+
+    background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #fbfbfb);
+    box-shadow: 0px 6px 15px -3px #bdbdbd;
+    border-radius: 15px;
+    padding: 1rem 1rem 1rem 1rem;
+
+}
+
+#wrap-wrap{
+    display: flex;
+    flex-wrap: wrap; /* optional. only if you want the items to wrap */
+    justify-content: center; /* for horizontal alignment */
+}

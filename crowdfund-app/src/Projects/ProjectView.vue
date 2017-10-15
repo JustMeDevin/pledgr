@@ -11,9 +11,9 @@
 
 
             <div id="back-wrapper">
-                <router-link :to="{name: 'projects'}" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
+                <button v-on:click="goBack" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
                     <img src="/src/img/exitCross.png" alt="cross" style="width:25px;height:25px;">
-                </router-link>
+                </button>
             </div>
 
             <div id="pane-wrapper">
@@ -162,6 +162,10 @@
                 for(var i = 0 ; i < length ; i++){
                     this.backers.push(knownBackers[(length - 1 )-i]);
                 }
+            },
+
+            goBack: function(){
+                this.$router.go(-1)
             },
 
             getProject: function(){
