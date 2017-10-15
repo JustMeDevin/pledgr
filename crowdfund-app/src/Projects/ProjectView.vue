@@ -8,13 +8,9 @@
 
         <div v-bind:class="[selectedProject ? 'open-project' : 'close-project']" id="details-wrapper">
 
-
-
-            <div id="back-wrapper">
-                <button v-on:click="goBack" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
-                    <img src="/src/img/exitCross.png" alt="cross" style="width:25px;height:25px;">
-                </button>
-            </div>
+            <button v-on:click="goBack" tag="button" id="back-to-projects-button" class="pledgr-button-bold button-float">
+                <img src="/src/img/exitCross.png" alt="cross" style="width:25px;height:25px;">
+            </button>
 
             <div id="pane-wrapper">
                 <div v-if="selectedProject" id="project-details">

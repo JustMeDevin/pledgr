@@ -1,4 +1,5 @@
 #details-wrapper{
+    position: relative;
 }
 
 #pane-wrapper{
@@ -8,18 +9,15 @@
     overflow: hidden;
 }
 
-#back-wrapper{
-    z-index: 10;
-    position: absolute;
-    margin-top: 5.6rem;
-    right: 2.4rem;
-}
-
 #back-to-projects-button{
     border-radius: 300px;
     width: 40px;
     height: 40px;
     outline: none;
+    position: absolute;
+    margin-top: 5.6rem;
+    right: 2.4rem;
+    z-index: 10;
 }
 
 h3{
@@ -85,6 +83,7 @@ h5{
     margin-top: 6.5rem;
     margin-bottom: 2rem;
     width: 90vw;
+    min-width: 650px;
     background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #f9f9f9);
     box-shadow: 0px 5px 17px 0px #bdbdbd;
     border-radius: 15px;

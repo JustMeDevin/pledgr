@@ -3,7 +3,6 @@
         <div v-if="errorFlag" style="color: red;">
             {{ error }}
         </div>
-
         <div v-if="$route.params.projectId">
             <project-view :previousPage="'projects'"> </project-view>
         </div>

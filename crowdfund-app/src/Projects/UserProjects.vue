@@ -10,7 +10,7 @@
                     <h3 id="my-projects-title">My projects</h3>
                     <div class="project-wrapper">
                         <div class="all-projects" v-for="project in myProjects">
-                            <user-project-summary :project="project" class="float-in" ></user-project-summary>
+                            <user-project-summary :project="project"></user-project-summary>
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <h3 id="backed-projects-title">Backed projects</h3>
                     <div class="project-wrapper">
                         <div class="all-projects" v-for="project in backedProjects">
-                            <user-project-summary :project="project" :previousPage="'myProjects'" class="float-in"></user-project-summary>
+                            <user-project-summary :project="project" :previousPage="'myProjects'"></user-project-summary>
                         </div>
                     </div>
                 </div>
