@@ -8,7 +8,7 @@
 
                 <input v-bind:class="[emailInvalid  ? 'invalidInput input' : '', 'input']" id="email" v-model="user.email" type="email" placeholder="Email">
 
-                <input class="input" id="location" v-model="user.location" type="text" placeholder="Location">
+                <input class="input" id="location" v-model="user.location" placeholder="Location">
 
                 <input v-bind:class="[passwordInvalid  ? 'invalidInput input' : '', 'input']" id="password" v-model="user.password" type="password" placeholder="Password">
 
@@ -36,7 +36,7 @@
                 user: {
                     username: null,
                     password: null,
-                    location: null,
+                    location: "",
                     email: null
                 },
                 submitData: null,

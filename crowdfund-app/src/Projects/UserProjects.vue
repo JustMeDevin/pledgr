@@ -1,8 +1,11 @@
 <template>
     <div>
+
         <div v-if="$route.params.projectId">
             <project-view :previousPage="'myProjects'"> </project-view>
         </div>
+
+
 
         <div v-else>
             <div id="user-projects-wrapper">
@@ -10,7 +13,7 @@
                     <h3 id="my-projects-title">My projects</h3>
                     <div class="project-wrapper">
                         <div class="all-projects" v-for="project in myProjects">
-                            <user-project-summary :project="project"></user-project-summary>
+                            <user-project-summary :project="project" :isCreator="true"></user-project-summary>
                         </div>
                     </div>
                 </div>
@@ -19,7 +22,7 @@
                     <h3 id="backed-projects-title">Backed projects</h3>
                     <div class="project-wrapper">
                         <div class="all-projects" v-for="project in backedProjects">
-                            <user-project-summary :project="project" :previousPage="'myProjects'"></user-project-summary>
+                            <user-project-summary :project="project" :previousPage="'myProjects'" :isCreator="false"></user-project-summary>
                         </div>
                     </div>
                 </div>

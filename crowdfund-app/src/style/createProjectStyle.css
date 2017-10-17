@@ -50,6 +50,7 @@
     padding-left: 0.6rem;
     border-radius: 10px;
     width: 40vw;
+    max-width: 500px;
     min-height: 2rem;
     background-color: transparent;
     border-style: none;

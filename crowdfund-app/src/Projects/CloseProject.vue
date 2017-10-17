@@ -1,5 +1,8 @@
 <template>
-    <button v-on:click="toggleButtons" id="project-status-indicator" v-bind:class="[project.open ? 'indicator-open' : 'indicator-closed']">{{ status }}</button>
+    <div id="close-project-wrapper">
+            <button v-on:click="hideButtons" id="cancel-close-project" class="pledgr-button close-project-button">cancel</button>
+            <button v-on:click="closeProject" id="confirm-close-project" class="pledgr-button close-project-button">close</button>
+    </div>
 </template>
 <script>
     import { config } from '../config';
@@ -13,19 +16,9 @@
                 status: null
             }
         },
-        watch: {
-            'closeVisible': function(){
-                this.$emit('input', this.closeVisible);
-            },
-            'project.open': function(){
-                this.calcualteButtonText();
-            }
-        },
-
         components: {
         },
         mounted: function() {
-            this.calcualteButtonText();
         },
         methods: {
             closeProject: function(){
@@ -43,23 +36,17 @@
                 this.$http.put(config.apiUrl + "projects/" + this.project.id, body, header)
                     .then(function(response){
                         if(response.ok == true){
-
+                            this.closeVisible.projectClosed = true;
+                            this.$emit('input', this.closeVisible.projectClosed);
                         }
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
                     });
             },
-            toggleButtons: function(){
-                this.closeVisible.isVisible = !this.closeVisible.isVisible;
-            },
-
-            calcualteButtonText: function(){
-                if(this.project.open){
-                    this.status = 'open';
-                }else{
-                    this.status = 'closed';
-                }
+            hideButtons: function(){
+                this.closeVisible.isVisible = false;
+                this.$emit('input', this.closeVisible.isVisible);
             }
         }
     }
