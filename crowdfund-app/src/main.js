@@ -15,7 +15,7 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: "/",
-        component: Home
+        component: Projects
     },
     {
         path: "/projects",
@@ -50,8 +50,6 @@ const router = new VueRouter({
     mode: 'history',
     saveScrollPosition: true
 });
-
-Vue.http.options.emulateJSON = true;
 
 
 

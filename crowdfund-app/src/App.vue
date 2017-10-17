@@ -10,7 +10,7 @@
     <div v-on:click="hideLoginWindow" v-bind:class="[fadeContent ? 'window-open' : '', 'window-close']" class="fade-window"></div>
 
     <div v-bind:class="[fadeContent  ? 'dark-dropshadow blurred': 'blurred', 'light-dropshadow']" id="header">
-      <router-link :to="{path: '/'}" id="header-title" class="unselectable" tag="h1">Pledgr</router-link>
+      <router-link :to="{path: '/'}" id="header-title" class="unselectable" tag="h1">Pledgr.</router-link>
 
       <div id="header-button-wrapper">
         <button v-on:click='showLoginWindow' v-if="!isLoggedIn" id="log-in">Log in</button>
@@ -67,8 +67,8 @@
             },
             '$route.name': function(){
                 if(this.$route.name == "myProjects" || this.$route.name == "createProject"){
-                    this.springboardVisible = !this.springboardVisible;
-                    this.fadeContent = !this.fadeContent;
+                    this.springboardVisible = false;
+                    this.fadeContent = false;
                 }
 
             }

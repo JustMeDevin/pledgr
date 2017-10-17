@@ -117,7 +117,7 @@ body{
 
 h1{
     margin-top: 8px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: #454545;
     line-height: 1.3rem;
 }
@@ -140,11 +140,12 @@ h2{
     z-index: 200;
     color: white;
     text-align: center;
-    line-height: 2rem;
     font-weight: 500;
     font-size: 0.9rem;
     position: absolute;
     right: 0rem;
+    border: none;
+    cursor: pointer;
 
 }
 

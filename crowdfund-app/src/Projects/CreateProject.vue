@@ -14,6 +14,7 @@
                     <div id="righthand-project-details">
 
                         <div id="img-wrapper-pDetails">
+                            <image-uploader :uploadImage="uploadImage"></image-uploader>
                         </div>
 
                         <div id="creators-wrapper">
@@ -25,7 +26,7 @@
                             </div>
                         </div>
 
-                        <button id="launch-project-button" class="springboard-button pledgr-button button-float" v-on:click="createProject">Launch Project</button>
+                        <button id="launch-project-button" class="springboard-button pledgr-button float" v-on:click="createProject">Launch Project</button>
 
                     </div>
 
@@ -57,6 +58,7 @@
     import { config } from '../config';
     import Reward from '../Rewards/RewardSummary.vue';
     import CreateReward from '../Rewards/CreateReward.vue';
+    import ImageUploader from './ImageUploader.vue';
 
     export default {
         data(){
@@ -89,12 +91,19 @@
                         amount: "",
                         description: ""
                     }
-                ]
+                ],
+                uploadImage: {
+                    send: false,
+                    id: null,
+                    image: null,
+                    type: null
+                }
             }
         },
 
         components: {
-            CreateReward
+            CreateReward,
+            ImageUploader
         },
 
         mounted: function(){
@@ -116,6 +125,9 @@
                 },
                 deep: true
             },
+            image: function(){
+                console.log("got em!");
+            }
 
         },
 
@@ -140,13 +152,36 @@
                     this.$http.post(config.apiUrl + "projects/", body, header)
                         .then(function(response){
                             if(response.ok == true){
-                                this.$router.push({ name: 'myProjects'})
+                                if(this.uploadImage.image != null){
+                                    this.uploadImage.id = response.data.id;
+                                    this.sendImage();
+                                }else{
+                                    this.$router.push({ name: 'myProjects'})
+                                }
                             }
                         }, function(error) {
                             this.error = error;
                             this.errorFlag = true;
                         });
                 }
+            },
+
+            sendImage: function(){
+                var header = {
+                    headers: {
+                        'X-Authorization': localStorage.getItem('userToken'),
+                        'Content-Type': this.uploadImage.type
+                    }
+                }
+
+                this.$http.put(config.apiUrl + "projects/" + this.uploadImage.id + "/image", this.uploadImage.image, header)
+                    .then(function(response){
+                        this.$router.push({ name: 'myProjects'})
+                    }, function(error) {
+                        console.log(error);
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
             },
 
             checkInputs: function(){

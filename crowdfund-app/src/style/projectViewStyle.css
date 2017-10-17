@@ -41,7 +41,7 @@ h4{
 }
 
 h5{
-    margin: 0rem 0rem 0rem 1rem;
+    margin: 0rem 0rem 1rem 1rem;
     font-size: 1.8em;
     color: #5d5d5d;
     opacity: 0;
@@ -84,6 +84,7 @@ h5{
     margin-bottom: 2rem;
     width: 90vw;
     min-width: 650px;
+    max-width: 1300px;
     background: linear-gradient(to bottom, #ffffff, #ffffff, #ffffff, #f9f9f9);
     box-shadow: 0px 5px 17px 0px #bdbdbd;
     border-radius: 15px;

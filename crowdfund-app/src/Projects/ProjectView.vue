@@ -17,8 +17,8 @@
                     <h3>{{ selectedProject.title }}</h3>
                     <h4>{{ selectedProject.subtitle }}</h4>
                     <div id="righthand-project-details">
-
                         <div id="img-wrapper-pDetails">
+                            <image-uploader :uploadImage="uploadImage" v-if="isCreator"> </image-uploader>
                             <img id="project-image" img :src="getImage(selectedProject)" v-bind:alt="selectedProject" onerror="this.style.display='none'">
                         </div>
 
@@ -86,6 +86,7 @@
     import Pledger from '../Pledging/Pledger.vue';
     import TargetProgressBar from './TargetProgressBar.vue';
     import RewardDetails from '../Rewards/RewardDetails.vue';
+    import ImageUploader from './ImageUploader.vue';
 
     export default {
         props: ['previousPage'],
@@ -118,6 +119,14 @@
                     projectId: null,
                     open: null,
                     creators: []
+                },
+                isCreator: false,
+                uploadImage: {
+                    send: false,
+                    id: null,
+                    image: null,
+                    type: null,
+                    currentImage: null
                 }
             }
         },
@@ -125,7 +134,8 @@
             Reward,
             Pledger,
             TargetProgressBar,
-            RewardDetails
+            RewardDetails,
+            ImageUploader
         },
 
         mounted: function() {
@@ -134,6 +144,9 @@
         watch: {
             '$route.params.rewardId': function(){
                 this.getProject();
+            },
+            'uploadImage.image': function(){
+                this.sendImage();
             }
         },
 
@@ -167,7 +180,28 @@
                 }
             },
 
+            sendImage: function(){
+                var header = {
+                    headers: {
+                        'X-Authorization': localStorage.getItem('userToken'),
+                        'Content-Type': this.uploadImage.type
+                    }
+                }
+
+                this.$http.put(config.apiUrl + "projects/" + this.selectedProject.id + "/image", this.uploadImage.image, header)
+                    .then(function(response){
+
+                    }, function(error) {
+                        console.log(error);
+                        this.error = error;
+                        this.errorFlag = true;
+                    });
+            },
+
             goBack: function(){
+                if(this.uploadImage.image != null){
+                    this.sendImage();
+                }
                 this.$router.push({name: this.previousPage});
             },
 
@@ -181,12 +215,22 @@
                         this.rewardProject.projectId = this.selectedProject.id;
                         this.rewardProject.open = this.selectedProject.open;
                         this.rewardProject.creators = this.selectedProject.creators;
+                        this.isUserCreator();
                         console.log(this.selectedProject);
                     }, function(error) {
                         this.error = error;
                         this.errorFlag = true;
                     });
             },
+
+            isUserCreator: function(){
+                for(var i = 0 ; i < this.selectedProject.creators.length; i++){
+                    if(this.selectedProject.creators[i].id == localStorage.getItem('userId')){
+                        this.isCreator = true;
+                    }
+                }
+            },
+
 
             getDate: function(){
 

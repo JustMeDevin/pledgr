@@ -1,6 +1,6 @@
 <template>
     <div id="user-project-summary" class="float">
-        <div id="project-status-indicator" v-bind:class="[project.open ? 'indicator-open' : 'indicator-closed']">{{ status }}</div>
+        <project-status :project="project"></project-status>
         <project-summary :project="project"></project-summary>
     </div>
 
@@ -9,6 +9,7 @@
 <script>
     import { config } from '../config';
     import ProjectSummary from './ProjectSummary.vue';
+    import ProjectStatus from './ProjectStatus.vue';
 
     export default {
         props: ['project'],
@@ -17,18 +18,14 @@
                 search: '',
                 error: "",
                 errorFlag: false,
-                status: null
             }
         },
         components: {
-            ProjectSummary
+            ProjectSummary,
+            ProjectStatus
         },
         mounted: function() {
-            if(this.project.open){
-                this.status = 'open';
-            }else{
-                this.status = 'closed';
-            }
+
         },
         watch: {
 

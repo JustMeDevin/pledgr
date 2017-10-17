@@ -58,6 +58,8 @@
     -webkit-animation: float-element-in 0.6s ease-out forwards;
     -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
     animation-delay: 0.4s;
+
+    font-family: 'Inter UI', sans-serif;
 }
 
 .create-project-input {
@@ -91,14 +93,10 @@
 }
 
 #launch-project-button{
-    opacity: 0;
     width: 10rem;
     float: right;
     margin-bottom: -1rem;
     margin-right: -0.5rem;
-    -webkit-animation: float-element-in 0.6s ease-out forwards;
-    -webkit-animation-delay: 0.1s; /* Safari 4.0 - 8.0 */
-    animation-delay: 0.1s;
 }
 
 #create-reward-price{
@@ -118,6 +116,7 @@
     color: #454545;
     width: 30rem;
     min-height: 2rem;
+    font-family: 'Inter UI', sans-serif;
 
     resize: none;
 }
@@ -167,3 +166,4 @@
     border-color: #ff5351;
     border-style: solid;
 }
+
